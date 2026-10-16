@@ -1,10 +1,12 @@
-# AI Grader · rubric-prompt v1.0
+# AI Grader · rubric-prompt v1.1
 
 > Purpose: feed an evidence bundle to an LLM and grade a project against the
 > TAXONOMY.md rubric.
 > Usage: paste this prompt in full + the evidence-bundle JSON from `grade.py`
 > into an LLM.
 > Grading iron rules (violating any one voids the output) in §4.
+> v1.1 changes: §3b behavioral dimension (process scoring); §5 output gains a
+> Behavioral block.
 
 ---
 
@@ -66,6 +68,26 @@ Evidence-bundle JSON, structure:
 - L2: Independently wrote tools solving real analysis pain points (CLI args, error handling, test coverage); code has a README others can run to reproduce.
 - L3: Production-grade automation (CI, code review, long-term maintenance, multi-person collaboration).
 
+## §3b Behavioral dimension (process scoring)
+
+Score HOW the work was done, separately from technical completion. Evidence
+sources: run records, timestamped notes, inject-response write-ups. When the
+bundle has no process records, mark the dimension "untested" or
+"insufficient evidence" — never infer composure from outcomes.
+
+- **B1 Methodical enumeration** (strong/adequate/weak): systematic coverage
+  before conclusions vs. tool-hopping without a hypothesis.
+- **B2 Composure under injects** (strong/adequate/weak/untested): response to
+  mid-task disruption (priority change, alert interrupt, tool outage). Most lab
+  projects are "untested" — say so honestly.
+- **B3 Reassessment discipline** (strong/adequate/weak): documented pivots with
+  reasons vs. grinding forward silently.
+- **B4 Documentation discipline** (strong/adequate/weak): notes usable by the
+  next analyst (tried / failed / still open) vs. bare conclusions.
+
+Rule: a chaotic solve never outranks a methodical partial — process and
+outcome are graded separately (TAXONOMY iron rule 5, "Not a CTF").
+
 ## §4 Grading iron rules (hard constraints)
 
 1. **Evidence first**: every level must cite specific evidence from the bundle (file path + content point). No evidence → no credit; mark the domain "not covered".
@@ -85,6 +107,16 @@ One line per relevant domain (skip irrelevant domains outright, never pad):
 D<k> | <L1|L1+|L2>[(lab|synthetic|reconstructed)] | evidence: <file path>: <one-line evidence point> | upgrade: <what's missing for the next level, one line>
 ```
 
+Then output a behavioral block (one line per dimension, "untested" allowed):
+
+```
+## Behavioral
+B1 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+B2 <strong|adequate|weak|untested> | evidence: <file path or "no inject records">: <one-line point>
+B3 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+B4 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+```
+
 Then output:
 
 ```
@@ -95,6 +127,7 @@ Then output:
 - [ ] No L3
 - [ ] No OSCP mentioned
 - [ ] Templates/expected results not counted as output evidence
+- [ ] Behavioral scored separately; "untested" used where no inject evidence exists
 ```
 
 ## §6 Counter-examples (don't grade like this)

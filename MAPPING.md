@@ -23,7 +23,7 @@ finding triage) and an incident report template; includes an attack runbook
 |---|---|---|
 | D1 Security monitoring & alert triage | **L2 (lab)** | Ran attacks by hand → saw real findings in GuardDuty → triaged/dispositioned per self-written guide, full chain done independently |
 | D2 Log analysis & detection engineering | L1+ | Reads CloudTrail to answer who/what/where; explains GuardDuty vs CloudTrail coverage blind spots, but never wrote production detection rules |
-| D3 Incident response & reporting | **L2 (lab)** | Containment playbook (isolate EC2, revoke credentials, roll back S3 policy) + escalation criteria all self-written; report template meets the "readable by someone who wasn't there" bar |
+| D3 Incident response & reporting | **L1+** | Containment playbook + escalation criteria self-written, but incident-reports/ holds only a blank template — no filled report yet (grader rule 6: template ≠ output). Restore to L2 (lab) after hand-filling one detonation report. Downgraded 2026-10-16 per v1.0/v1.1 validation |
 | D6 Cloud security (AWS) | **L2 (lab)** | Full IaC stack self-built, multi-region Trail, encrypted log bucket, least-privilege IAM roles — all applied/destroyed by hand |
 | D7 Security automation & scripting | L1 | Used Terraform and off-the-shelf tools; no self-written analysis code (see P2/P4 for code) |
 

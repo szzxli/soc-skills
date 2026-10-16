@@ -10,7 +10,8 @@ the 5 home-lab projects.
 |---|---|
 | `rubric-prompt.md` | Executable grading prompt: 7-domain rubric + 7 grading iron rules + output format + counter-examples. Paste the full text + evidence-bundle JSON into any LLM to grade |
 | `grade.py` | Harness: given a project directory, collects the full README + file inventory (code/test/doc/data/config) + first N lines of key files, outputs a standardized evidence-bundle JSON |
-| `validation.md` | This round's validation report: LLM graded the 5 projects per the prompt vs MAPPING.md human ratings — 14/15 domains matched, 1 deviation (P1-D3) within tolerance |
+| `validation.md` | v1.0 validation report: LLM graded the 5 projects per the prompt vs MAPPING.md human ratings — 14/15 domains matched, 1 deviation (P1-D3) within tolerance |
+| `validation-v1.1.md` | v1.1 round (2026-10-16): re-graded with the behavioral dimension (§3b). Key finding: B2 (composure under injects) is "untested" across all 5 projects — the biggest evidence gap. P1-D3 downgrade to L1+ applied to MAPPING.md |
 
 ## Usage
 

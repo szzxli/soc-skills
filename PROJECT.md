@@ -89,6 +89,30 @@
 闭源。**soc-skills 的生态位**：求职者拥有、可携带的技能护照 + AI 开放式评分 +
 HR 可读 + 开源。NICE 映射是入场券，不是护城河。
 
+### TryHackMe 深拆（2026-10-16 逐点解析）
+- **定位**："Go from wherever you are to the role you want"——岗位导向、
+  新手友好；1000+ lab，800 万+用户。路径含 Cyber Security 101、
+  Pre Security（纯新手入口）、SOC Level 1、Jr Pentester、AI Security
+  （2026 新）、CompTIA Pentest+（考证对标轨）等。
+- **方法论**：Learn by doing + guided learning（手把手渐退）+ gamified
+  labs（ streak/积分留存）。
+- **B2B 第三条腿**：教学 dashboard——老师布置 lab、监控学生进度；
+  客户含 Google、KPMG、Accenture。企业买的第三种东西：**教学交付**。
+
+**从 THM 偷来的三个思路（已排进路线图）**：
+1. **诊断入口**（Phase 2.5）："从你现在的位置到你想要的岗位"——
+   新用户先做一套诊断挑战，自动推荐起始轨道。既是获客钩子，
+   也是画像的第一笔数据。
+2. **Pre-Security 式 L0 入口轨**（Phase 3）：纯新手/转行轨道
+   （她自己就是 MRO 转行样本）——降低漏斗顶端门槛；L0 只给"完成度"，
+   不给等级，避免虚标。
+3. **教育交付腿**（Phase 4 扩展）：同一套挑战引擎的第三个买家——
+   培训机构/大学老师用挑战 + AI 评分当作业系统。三条 B2B 腿至此齐了：
+   招聘筛选（hire）→ 入职基线（onboard，学 HTB）→ 教学交付（teach，学 THM）。
+
+**THM 的短板（同样是生态位）**：平台锁定、无可携带护照、
+无开放式 AI 评分、黑客向界面。结论与 HTB 一致。
+
 ### 定位：中间断了一截
 ```
 HTB / TryHackMe（游戏化，HR 看不懂）

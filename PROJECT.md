@@ -1,215 +1,274 @@
-# PROJECT — "Security LeetCode"：可量化的网安实战技能画像
+# PROJECT — "Security LeetCode": Quantified Hands-On Security Skill Profiles
 
-> 骨架 v1.0 · 2026-10-15 · thesis 修订版（用户 2026-10-15 晚重申）
-> Thesis：**证书 ≠ 真实水平**——初学者哪怕考下 OSCP，证书也无法映射
-> 真实工作能力；"几年经验"同样是无法技术量化的黑箱。本产品要让真正有
-> 实力的网安人**跳过"工作时间轴"**：用可验证的技术实测代替"X 年经验"
-> 的懒惰筛选，并**自动输出到简历**——求职时一键生成 HR 可读的技能证据。
-> 机制：**NICE 框架技能点 × 实战挑战 × AI 评分 × 简历自动生成**。
+> Skeleton v1.0 · 2026-10-15 · thesis revised (reaffirmed by founder, evening of 2026-10-15)
+> Thesis: **certs ≠ real ability** — even an OSCP can't be mapped to real job
+> performance for a beginner; "years of experience" is an equally unquantifiable
+> black box. This product lets genuinely skilled security people **skip the
+> "work timeline"**: verifiable hands-on measurement replaces lazy "X years"
+> screening, and **auto-generates resume content** — one click produces
+> HR-readable skill evidence for job applications.
+> Mechanism: **NICE framework skill points × hands-on challenges × AI grading
+> × resume auto-generation**.
 
-## 1. 愿景
+## 1. Vision
 
-- **问题**：两头不通——零经验转行者拿不到面试（无处证明）；有证者
-  （哪怕 OSCP）的证书也映射不到真实水平；"3 年 SOC 经验"说不清到底会什么。
-  招聘方只能用"年限"做懒惰筛选，真正有实力的人被时间轴卡住。
-- **解法**：标准化实战挑战 → NICE 技能点打分 → 等级画像（L1/L2/L3）→
-  映射证书 domain 与岗位 JD → **一键生成简历技能块**（bullet points / 一页纸画像 / LinkedIn 版）。
-  目标：让雇主敢用"画像等级"替代"年限要求"做初筛。
-- **北极星**：HR 看到画像，知道这个人"能干什么、证据在哪、对标什么"；
-  求职者点一下，简历上就多一段带证据链的技能陈述。
-- **信任机制（"跳过时间轴"的前提）**：等级必须可信，否则雇主不会认。
-  路径：公开 rubric（v1）→ 过程行为评分+防作弊（v2）→ hiring manager 背书/试点合作（v3）。
-  在 v3 之前，不对外宣称"等于 X 年经验"，只陈述证据与等级。
+- **Problem**: broken on both ends — career changers with zero experience can't
+  get interviews (nowhere to prove themselves); certified people (even OSCP)
+  can't map certs to real ability; "3 years SOC experience" says nothing about
+  what someone can actually do. Employers fall back on lazy years-based
+  screening, and genuinely skilled people get stuck behind the timeline.
+- **Solution**: standardized hands-on challenges → NICE skill-point scoring →
+  level profile (L1/L2/L3) → mapping to cert domains and job JDs →
+  **one-click resume skill blocks** (bullet points / one-page profile / LinkedIn
+  version). Goal: let employers replace "years required" with "profile level"
+  in initial screening.
+- **North star**: an HR person looks at the profile and knows "what this person
+  can do, where the evidence is, what it maps to"; the candidate clicks once and
+  the resume gains an evidence-backed skill statement.
+- **Trust mechanism (the precondition for "skipping the timeline")**: levels
+  must be credible or employers won't buy in. Path: public rubric (v1) →
+  behavioral process scoring + anti-cheat (v2) → hiring-manager endorsement /
+  pilot partnerships (v3). Before v3, never claim "equals X years of experience"
+  externally — only state evidence and levels.
 
-## 1.5 双边模式（用户 2026-10-15 晚补充）
+## 1.5 Two-sided model (added by founder, evening of 2026-10-15)
 
-产品有两面，一面是获客，一面是赚钱：
+The product has two faces: one acquires users, one makes money.
 
-- **求职者侧（获客）**：免费。练技能 → 拿画像 → 一键生成简历。
-  解决"有实力但被时间轴卡住"。
-- **雇主侧（变现）**：HR 收到简历写"5 年 SOC 经验"，无法验证真伪——
-  发一个测试链接，候选人做完能力等级测试，平台输出**标准化技能验证报告**
-  （NICE 映射 + 等级 + 证据摘要 + 防作弊声明），HR 拿报告做筛选依据。
-  这就是网安版的 HackerRank/Codility，但按 NICE 框架组织、为安全岗位设计。
+- **Candidate side (acquisition)**: free. Practice skills → earn profile →
+  one-click resume generation. Solves "skilled but stuck behind the timeline".
+- **Employer side (monetization)**: HR receives a resume claiming "5 years SOC
+  experience" with no way to verify — send a test link, the candidate completes
+  a leveled assessment, the platform outputs a **standardized skill verification
+  report** (NICE mapping + level + evidence summary + anti-cheat statement),
+  and HR screens on the report. This is HackerRank/Codility for security, but
+  organized by the NICE framework and designed for security roles.
 
-飞轮：雇主用报告筛人 → 求职者不得不来建画像 → 画像数据越多，雇主越信任 →
-更多雇主用。这**反向解决了 HR 冷启动**：不是等 HR 来认画像，
-而是把验证工具卖给 HR，让市场倒逼求职者进场。
+Flywheel: employers screen with reports → candidates must build profiles →
+more profile data → more employer trust → more employers. This **solves HR
+cold-start in reverse**: instead of waiting for HR to recognize profiles, sell
+employers the verification tool and let the market pull candidates in.
 
-诚实注：
-- 雇主侧是高利害场景，防作弊/监考必须先行（v2 的前置条件），否则报告无价值。
-- 验证"3/5/10 年"需要能区分 senior 水平的题目：架构评审、事件指挥、
-  规模化检测工程——比初级 CTF 式题目难一个量级，这是内容护城河。
-- 美国就业测试有 EEOC 合规要求（测试须与岗位相关、避免 disparate impact），
-  商业化前需法务评估——记为风险，不在 v1 解决。
+Honest notes:
+- The employer side is high-stakes; anti-cheat/proctoring must come first (a
+  v2 precondition), or reports are worthless.
+- Verifying "3/5/10 years" needs senior-differentiating challenges: architecture
+  reviews, incident command, detection engineering at scale — an order of
+  magnitude harder than junior CTF-style questions. That's the content moat.
+- US employment testing has EEOC compliance requirements (tests must be
+  job-related, avoid disparate impact) — flagged as legal risk, not solved in v1.
 
-## 2. 竞品分析（2026-10-15 市场调研）
+## 2. Competitive analysis (market research, 2026-10-15)
 
-### 开源端：基本空白
-- 最接近的两个都没做起来：
-  - `csimpson4/chris-ai`——用 LLM 把职位描述映射到 NICE，博士论文项目，未产品化；
-  - `v-k-tsalikidis/Cyber-Posting-Ledger`（★2）——体量极小。
-- **结论**：开源世界没有"技能量化 + HR 可读"的项目。这个生态位是空的。
+### Open source: largely empty
+- The two closest never took off:
+  - `csimpson4/chris-ai` — LLM maps job descriptions to NICE; PhD thesis
+    project, never productized;
+  - `v-k-tsalikidis/Cyber-Posting-Ledger` (★2) — tiny.
+- **Conclusion**: no open-source project does "skill quantification + HR
+  readability". The niche is empty.
 
-### 商业端：概念已被验证，但不在求职者一侧
-- **Cloud Range**——NIST 官网 success story
-  （https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center/nice-framework-resources/success-12）：
-  把 lab 与测评映射到 NICE KSA，按 work role 跟踪团队能力。
-  但它是 **B2B**：卖给企业做团队战备（readiness），不是给求职者用的。
-- **HireVue** 类厂商：做联邦招聘测评，走企业/HR 采购路线。
-- **结论**：NICE 映射这条路**有人付钱**（企业端已验证），说明概念成立。
+### Commercial: concept validated, but not on the candidate side
+- **Cloud Range** — NIST success story
+  (https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center/nice-framework-resources/success-12):
+  maps labs and assessments to NICE KSAs, tracks team capability by work role.
+  But it's **B2B**: sold to enterprises for team readiness, not for candidates.
+- **HireVue**-style vendors: federal hiring assessments, enterprise/HR
+  procurement route.
+- **Conclusion**: the NICE-mapping road **has paying customers** (validated on
+  the enterprise side) — the concept works.
 
-### HTB Academy 深拆（2026-10-16 逐点解析）
-- **体量**：25+ 学习路径（job role paths + skill paths 双轨）、355+ 模块、
-  1770+ 实操 lab——"路径包装"是被验证过的形态。
-- **NICE 映射**：模块已映射到 NICE Tasks/Knowledge/Skills，平台内有
-  Skill Progress Mapping。**纠正 10-15 的判断**：NICE 映射不是空白，
-  HTB 已经做了——差异化不在"有没有 NICE"，而在下面四点。
-- **零门槛动手**：Pwnbox 浏览器内虚拟机，"no infrastructure or tool
-  requirements"——动手零 setup 是行业标准动作。
-- **报告即门槛**：考证要求 commercial-grade report（商业级报告）才算过——
-  这验证了 D3/事件报告写作在画像里的权重，报告质量就是分水岭。
-- **B2B 第二条腿**：NVISO 等公司用 Academy 给新员工 onboarding（按 track
-  补齐知识）。企业买的不只是招聘筛选，还有**入职后的能力基线**。
-- **Threat-informed**：训练方法论是威胁情报驱动——与 Phase 3 的 CVE 驱动
-  lab 卡同构。
+### HTB Academy deep dive (point-by-point, 2026-10-16)
+- **Scale**: 25+ learning paths (job-role paths + skill paths), 355+ modules,
+  1770+ hands-on labs — "path packaging" is a validated format.
+- **NICE mapping**: modules mapped to NICE Tasks/Knowledge/Skills, with
+  in-platform Skill Progress Mapping. **Corrects the 10-15 assessment**: NICE
+  mapping is not a blank space — HTB does it. Differentiation is in the four
+  points below, not in "having NICE".
+- **Zero-friction hands-on**: in-browser VM (Pwnbox), "no infrastructure or
+  tool requirements" — zero-setup practice is the industry standard.
+- **Report as gate**: certifications require a commercial-grade report to pass —
+  this validates the weight of D3/incident-report writing in the profile; report
+  quality is the watershed.
+- **Second B2B leg**: companies like NVISO use Academy to onboard new hires
+  (fill knowledge gaps by track). Enterprises buy not just hiring filters but
+  **post-hire capability baselines**.
+- **Threat-informed**: training methodology is threat-intel driven — isomorphic
+  with Phase 3's CVE-driven lab cards.
 
-**从 HTB 偷来的四个思路（已排进路线图）**：
-1. **Role-path 包装**（Phase 2.5）：把技能挑战打包成"SOC Analyst Tier 1
-   ready"这类岗位轨道——HTB 证明求职者为"岗位就绪"买单，不为"技能点"买单。
-2. **B2B onboarding 腿**（Phase 4 扩展）：画像的第二用途——雇主给新员工
-   做能力基线扫描，按缺口排 training plan。NVISO 模式的个人版。
-3. **零 setup 铁律**（全 Phase）：任何挑战必须一条命令（或浏览器打开）即跑；
-   pytest 现状已达标，写进 lab 卡的完成标准。
-4. **报告质量门**（Phase 3）：高级 lab 卡的通过标准含"报告达到可交付客户
-   的质量"——直接对标 HTB 的 commercial-grade report 要求。
+**Design inputs adopted from HTB Academy (on the roadmap)**:
+1. **Role-path packaging** (Phase 2.5): bundle challenges into job tracks like
+   "SOC Analyst Tier 1 ready" — HTB proves candidates pay for "job readiness",
+   not "skill points".
+2. **B2B onboarding leg** (Phase 4 extension): second use of the profile —
+   employers scan new hires for capability baselines and auto-generate training
+   plans from gaps. The NVISO model, candidate-side version.
+3. **Zero-setup iron rule** (all phases): every challenge must run with one
+   command (or one browser open); the pytest setup already meets this — write
+   it into lab-card acceptance criteria.
+4. **Report quality gate** (Phase 3): advanced lab cards require "report quality
+   fit for client delivery" — directly benchmarked against HTB's
+   commercial-grade report bar.
 
-**诚实差异化（修正版）**：HTB 是平台锁定的（profile 出不了 HTB）、
-考核是 flag/练习题制（无开放式 AI 评分）、画像是黑客向（HR 30 秒看不懂）、
-闭源。**soc-skills 的生态位**：求职者拥有、可携带的技能护照 + AI 开放式评分 +
-HR 可读 + 开源。NICE 映射是入场券，不是护城河。
+**Honest differentiation (corrected)**: HTB is platform-locked (profiles can't
+leave HTB), assessments are flag/exercise-based (no open-ended AI grading),
+profiles are hacker-facing (HR can't parse them in 30 seconds), closed source.
+**soc-skills' niche**: candidate-owned portable skill passport + open-ended AI
+grading + HR-readable + open source. NICE mapping is table stakes, not a moat.
 
-### TryHackMe 深拆（2026-10-16 逐点解析）
-- **定位**："Go from wherever you are to the role you want"——岗位导向、
-  新手友好；1000+ lab，800 万+用户。路径含 Cyber Security 101、
-  Pre Security（纯新手入口）、SOC Level 1、Jr Pentester、AI Security
-  （2026 新）、CompTIA Pentest+（考证对标轨）等。
-- **方法论**：Learn by doing + guided learning（手把手渐退）+ gamified
-  labs（ streak/积分留存）。
-- **B2B 第三条腿**：教学 dashboard——老师布置 lab、监控学生进度；
-  客户含 Google、KPMG、Accenture。企业买的第三种东西：**教学交付**。
+### TryHackMe deep dive (point-by-point, 2026-10-16)
+- **Positioning**: "Go from wherever you are to the role you want" — role-led,
+  beginner-friendly; 1000+ labs, 8M+ users. Paths include Cyber Security 101,
+  Pre Security (pure-beginner entry), SOC Level 1, Jr Pentester, AI Security
+  (new 2026), CompTIA Pentest+ (cert-alignment track).
+- **Methodology**: learn by doing + guided learning (fading scaffolding) +
+  gamified labs (streak/point retention).
+- **Third B2B leg**: teaching dashboard — instructors assign labs, monitor
+  student progress; customers include Google, KPMG, Accenture. The third thing
+  enterprises buy: **teaching delivery**.
 
-**从 THM 偷来的三个思路（已排进路线图）**：
-1. **诊断入口**（Phase 2.5）："从你现在的位置到你想要的岗位"——
-   新用户先做一套诊断挑战，自动推荐起始轨道。既是获客钩子，
-   也是画像的第一笔数据。
-2. **Pre-Security 式 L0 入口轨**（Phase 3）：纯新手/转行轨道
-   （她自己就是 MRO 转行样本）——降低漏斗顶端门槛；L0 只给"完成度"，
-   不给等级，避免虚标。
-3. **教育交付腿**（Phase 4 扩展）：同一套挑战引擎的第三个买家——
-   培训机构/大学老师用挑战 + AI 评分当作业系统。三条 B2B 腿至此齐了：
-   招聘筛选（hire）→ 入职基线（onboard，学 HTB）→ 教学交付（teach，学 THM）。
+**Design inputs adopted from TryHackMe (on the roadmap)**:
+1. **Diagnostic entry** (Phase 2.5): "from where you are to the role you want" —
+   new users take a diagnostic challenge set, auto-routed to a starting track.
+   Both an acquisition hook and the profile's first data point.
+2. **Pre-Security-style L0 entry track** (Phase 3): a pure-beginner / career-
+   changer track (the founder herself is the MRO-to-cyber sample) — lowers the
+   top-of-funnel barrier; L0 grants "completion" only, no levels, to avoid
+   grade inflation.
+3. **Education delivery leg** (Phase 4 extension): the same challenge engine's
+   third buyer — bootcamps/universities use challenges + AI grading as homework
+   infra. All three B2B legs: hiring filter (hire) → onboarding baseline
+   (onboard, HTB model) → teaching delivery (teach, THM model).
 
-**THM 的短板（同样是生态位）**：平台锁定、无可携带护照、
-无开放式 AI 评分、黑客向界面。结论与 HTB 一致。
+**THM's gaps (same niche)**: platform-locked, no portable passport, no
+open-ended AI grading, hacker-facing UI. Same conclusion as HTB.
 
-### SkillCertPro（CEH 模拟题商）深拆（2026-10-16 逐点解析）
-- **卖法**：1250 题 / 30 套 / $19.99，"100% Pass Guaranteed"、
-  在线模考、终身访问、Master Cheat Sheet（考前 2-3 天浓缩背诵）。
-- **教学机制（合法可偷）**：
-  1. **Readiness gate**：模考连续 85%+ 才建议上真考场——"可报名的量化门槛"。
-  2. **Review wrong AND right**：答对的题也要复盘讲解——抓"蒙对的"。
-  3. **活题库**：按学员反馈的真题回忆每周更新——题库是活的，不是死的。
-- **红线（不碰）**："real exam questions""真题命中"是 braindump 灰区，
-  违反 EC-Council NDA。我们明确立场：**永远不碰真题**——这是信任资产，
-  也是与这类厂商的本质区别：他们卖"考过"，我们卖"会做"。
+### SkillCertPro (CEH practice-test vendor) deep dive (2026-10-16)
+- **How it sells**: 1250 questions / 30 sets / $19.99, "100% Pass Guaranteed",
+  online mock exams, lifetime access, Master Cheat Sheet (cram 2–3 days before
+  the exam).
+- **Teachable mechanisms (legitimate)**:
+  1. **Readiness gate**: score 85%+ on mocks before sitting the real exam — a
+     quantified "ready to book" bar.
+  2. **Review wrong AND right**: review explanations for correct answers too —
+     catches lucky guesses.
+  3. **Living question bank**: weekly updates from student feedback on what
+     appeared on the real exam — the bank is alive, not static.
+- **Red line (never touch)**: "real exam questions" / "appeared on the real
+  exam" is braindump gray area and violates EC-Council NDAs. Our stance:
+  **never touch real exam content** — a trust asset, and the fundamental
+  difference from these vendors: they sell "passing", we sell "being able".
 
-**从 SkillCertPro 偷来的三个机制（已排进路线图）**：
-1. **85% readiness gate**（Phase 2.5）：每域定义"可报名线"——
-   连续两次模拟 ≥85% 才建议约考。顺手也是她自己 GSEC 的备考标尺。
-2. **蒙对检测**（Phase 2）：AI 评分不只判对错，标记"答案对但理由薄弱/
-   过程缺失"的题，强制复盘——对应"review right answers"。
-3. **考前浓缩表**（Phase 4）：考前 3 天按个人弱域自动生成一页纸
-   cheat sheet——把 SkillCertPro 的通用 cheat sheet 做成"个人的"。
+**Mechanisms adopted from SkillCertPro (on the roadmap)**:
+1. **85% readiness gate** (Phase 2.5): a "book-the-exam bar" per domain —
+   recommend booking only after two consecutive mocks ≥85%. Doubles as the
+   founder's own GSEC prep yardstick.
+2. **Guess detection** (Phase 2): AI grading judges more than right/wrong —
+   flags "correct answer, weak reasoning / missing process" for mandatory
+   review — the "review right answers" counterpart.
+3. **Pre-exam cram sheet** (Phase 4): auto-generate a one-page cheat sheet from
+   personal weak domains 3 days before the exam — SkillCertPro's generic cheat
+   sheet, personalized.
 
-**一句话定位**：SkillCertPro 们证明"考证焦虑"是付费意愿最强的场景；
-我们不抢"背题考过"的生意，抢"考过之后真会"的生意——
-前者是流量入口，后者是留存。
+**Positioning in one line**: SkillCertPro proves "cert anxiety" is the
+highest willingness-to-pay scenario; we don't compete for the "cram to pass"
+business — we own "actually skilled after passing". The former is the traffic
+entry; the latter is retention.
 
-### 定位：中间断了一截
+### Positioning: the broken middle
 ```
-HTB / TryHackMe（游戏化，HR 看不懂）
-        ↕ 断层
-Cloud Range / HireVue（企业端 B2B，求职者够不着）
+HTB / TryHackMe (gamified, HR can't read it)
+        ↕ gap
+Cloud Range / HireVue (enterprise B2B, out of candidates' reach)
 ```
-**切入点**：求职者版、开源、HR 可读——三者交集目前无人占据。
-策略：从开源免费的求职者工具切入，用社区内容（CVE 驱动 lab 卡、AI 评分器）
-积累画像数据；企业端认知的 NICE 语言是现成的，不用教育市场。
+**Entry point**: candidate-side, open source, HR-readable — no one occupies
+all three today. Strategy: enter with free open-source candidate tooling,
+accumulate profile data via community content (CVE-driven lab cards, AI
+grader); the NICE language enterprises already know needs no market education.
 
-### 风险诚实注
-1. **定级权威性**："这题 = 2 年经验"谁说了算？初期靠公开 rubric + 社区，长期需 hiring manager 背书。
-2. **防作弊**：writeup 传播、flag 共享。缓解：动态题目、行为过程评分（不只看 flag）。
-3. **HR 冷启动**：画像需 HR 认可才有价值。缓解：先服务求职者（简历外链），用"有人拿到了面试"做传播。
+### Risk honesty notes
+1. **Grading authority**: who decides "this challenge = 2 years experience"?
+   Public rubric + community early; hiring-manager endorsement long-term.
+2. **Anti-cheat**: writeup sharing, flag sharing. Mitigation: dynamic
+   questions, behavioral process scoring (not just flags).
+3. **HR cold start**: profiles need HR recognition to have value. Mitigation:
+   serve candidates first (resume links), spread via "someone got interviews".
 
-### HM 实战反馈（2026-10-16，Reddit，Top 1% 评论者，10 年实证）
-一条"10 年简历挂作品集链接，只有 1 个 recruiter 点开"的数据，改了四个产品假设：
+### Hiring-manager field feedback (2026-10-16, Reddit, Top 1% commenter, 10 years of data)
+One data point — "10 years of portfolio links on my resume, 1 recruiter ever
+clicked" — changed four product assumptions:
 
-1. **分发假设修正**：link-on-resume 是失败模式，不是设计。
-   30 秒摘要必须做成**不点链接也能读**的形态（简历内嵌文本、ATS 可解析），
-   链接只是审计链。主渠道是雇主发起（employer sends the challenge），不是求职者挂链接。
-2. **新增画像视图：multi-hat readiness**：HM 招的是"1 个人干 3-4 个活"，
-   pedigree 看不出第 4 顶帽子。画像新增**广度覆盖视图**（7 域 × 等级矩阵），
-   一眼回答"他能戴几顶帽子"。这是 Phase 4 画像页的核心组件。
-3. **定位诚实化**：产品不创造需求（初级市场紧缩是宏观事实），只降低找信号的成本；
-   且画像**不只服务初级**——senior 的多面手验证同样是刚需。
-4. **雇主侧成本铁律**：预算紧缩下，任何增加 HM 工作的设计都是死刑。
-   雇主侧必须接近零成本：瞟一眼、标准化信号、不开新标签页。
+1. **Distribution assumption corrected**: link-on-resume is the failure mode,
+   not the design. The 30-second summary must be readable **without clicking**
+   (resume-embedded text, ATS-parseable); the link is only the audit trail.
+   Primary channel is employer-initiated (employer sends the challenge), not
+   candidate-posted links.
+2. **New profile view: multi-hat readiness**: HMs hire "1 person to do 3–4
+   jobs"; pedigree can't show the 4th hat. The profile adds a **breadth
+   coverage view** (7 domains × level matrix) answering "how many hats can
+   they wear" at a glance. Core component of the Phase 4 profile page.
+3. **Honest positioning**: the product doesn't create demand (junior-market
+   tightening is macro fact) — it only lowers the cost of finding signal; and
+   profiles serve **seniors too** — multi-hat verification for experienced
+   hires is equally a need.
+4. **Employer-side cost iron rule**: under budget pressure, any design that
+   adds HM work is dead on arrival. The employer side must be near-zero cost:
+   one glance, standardized signal, no new tabs.
 
-## 3. MVP 路线图
+## 3. MVP roadmap
 
-### Phase 1 · 骨架（✅ 已完成，2026-10-15）
-- **输入**：5 个 home-lab 项目 + NICE 框架公开资料。
-- **输出**：本目录 4 个文件——
-  `TAXONOMY.md`（7 技能域 × L1/L2/L3 rubric）、
-  `MAPPING.md`（5 项目打标评级 + 证书对标）、
-  `PROFILE.md`（第一张 HR 可读画像）、
-  `PROJECT.md`（本文件）。
-- **完成标准**：画像敢挂简历；每个 L2 都有证据链；L3 恒空；反虚标清单全过。
+### Phase 1 · Skeleton (✅ done, 2026-10-15)
+- **Input**: 5 home-lab projects + public NICE framework materials.
+- **Output**: 4 files in this directory —
+  `TAXONOMY.md` (7 skill domains × L1/L2/L3 rubric),
+  `MAPPING.md` (5 projects tagged + cert mapping),
+  `PROFILE.md` (first HR-readable profile),
+  `PROJECT.md` (this file).
+- **Acceptance**: profile is resume-ready; every L2 has an evidence chain; L3
+  stays empty; anti-inflation checklist passes.
 
-### Phase 2 · AI 评分器（下一步）
-- **输入**：TAXONOMY rubric + 用户提交的训练报告/代码。
-- **输出**：`grader/`——按 rubric 逐项打分的 prompt/脚本；
-  输出：分项得分 + 证据引用 + 升级建议（"到 L2 还差什么"）。
-- **完成标准**：给自己的 5 个项目打分，与 MAPPING.md 人工评级一致（±1 档内）；
-  评分理由可解释、可复现。
-- ** dogfood**：第一个被评分的是作者自己。
+### Phase 2 · AI grader (next)
+- **Input**: TAXONOMY rubric + user-submitted training reports/code.
+- **Output**: `grader/` — prompts/scripts scoring against the rubric item by
+  item; output: per-item scores + evidence references + upgrade guidance
+  ("what's missing for L2").
+- **Acceptance**: grades the founder's own 5 projects within ±1 band of the
+  MAPPING.md human ratings; scoring rationale explainable and reproducible.
+- **Dogfood**: the first graded subject is the founder herself.
 
-### Phase 3 · CVE 驱动 lab 卡
-- **输入**：每周公开 CVE（CISA KEV 优先）。
-- **输出**：标准化 lab 卡——漏洞原理 → 复现步骤 → 检测规则 → 修复建议 →
-  对应 NICE 技能点与等级；全部在隔离 lab 完成。
-- **完成标准**：每周 1 张卡；每张卡有"可解性验证"（作者亲手走通）；
-  每张卡标注 NICE 映射。
-- **设计输入（2026-10-16，来自社区反馈）**：lab 卡要回答"line cook 测试"——
-  真实工作不是做完一道题，而是在老板定的节奏、 shifting priorities、
-  意外事件中持续输出。因此高级 lab 卡加入 **mid-task injects**（任务中途注入：
-  优先级突变、新的告警插队、工具突然不可用），考察在干扰下的分诊纪律和
-  输出稳定性。定位：画像是 **trial shift（试岗），不是简历**——
-  厨师靠试菜间 hiring，安全分析师也该有这一关。
+### Phase 3 · CVE-driven lab cards
+- **Input**: weekly public CVEs (CISA KEV first).
+- **Output**: standardized lab cards — vuln mechanics → repro steps → detection
+  rules → remediation → mapped NICE skill points and levels; all in isolated lab.
+- **Acceptance**: 1 card/week; each card has a "solvability check" (founder
+  walks it through by hand); each card carries NICE mapping.
+- **Design input (2026-10-16, from community feedback)**: lab cards must answer
+  the "line cook test" — real work isn't finishing one dish, it's sustaining
+  output under a boss-set cadence, shifting priorities, and surprise events.
+  Advanced lab cards add **mid-task injects** (mid-task priority changes, new
+  alerts cutting the queue, tools suddenly unavailable) to test triage
+  discipline and output stability under disruption. Positioning: the profile is
+  a **trial shift, not a resume** — cooks get hired via staging; security
+  analysts deserve the same gate.
 
-### Phase 4 · 公开画像页
-- **输入**：Phase 2 评分器 + 用户授权公开的训练记录。
-- **输出**：静态画像页模板（技能快照表 + 证据链链接 + 证书对标），
-  可一键生成、挂简历/LinkedIn。
-- **核心组件（2026-10-16 HM 反馈加入）**：
-  - **30 秒摘要**：纯文本、可内嵌简历、ATS 可解析——不依赖点击链接；
-  - **multi-hat readiness 矩阵**：7 域 × 等级，一眼看广度（"能戴几顶帽子"）；
-  - 证据链：折叠在摘要之下，供想深挖的人审计。
-- **完成标准**：作者画像页上线；3 个外部用户试用并给出反馈；
-  页面被至少 1 个真实面试官点开查看（作者求职时统计）。
+### Phase 4 · Public profile page
+- **Input**: Phase 2 grader + user-authorized public training records.
+- **Output**: static profile page template (skill snapshot table + evidence
+  chain links + cert mapping), one-click generated, resume/LinkedIn-ready.
+- **Core components (added from 2026-10-16 HM feedback)**:
+  - **30-second summary**: plain text, resume-embeddable, ATS-parseable — no
+    link-click required;
+  - **multi-hat readiness matrix**: 7 domains × levels, breadth at a glance
+    ("how many hats");
+  - evidence chain: folded under the summary, for whoever wants to audit.
+- **Acceptance**: founder's profile page live; 3 external users trial it and
+  give feedback; viewed by at least 1 real interviewer (counted during the
+  founder's job search).
 
-## 4. 不做清单（v1）
-- 不做在线判题系统（没资源，先做人工+AI 评分）。
-- 不碰官方证书题库原文（版权风险；只做自研 lab 与公开资料映射）。
-- 不承诺"保过面试"/"对标 X 年经验"的营销话术——画像只陈述证据与等级；
-  "跳过时间轴"是靠雇主信任机制逐步实现的（§1），不是一句口号。
+## 4. Not-doing list (v1)
+- No online judge system (no resources; human + AI grading first).
+- Never touch official cert question banks verbatim (copyright risk; only
+  original labs and public-material mappings).
+- No "guaranteed interviews" / "equals X years experience" marketing — the
+  profile states evidence and levels only; "skipping the timeline" is earned
+  through employer trust mechanisms (§1), not a slogan.

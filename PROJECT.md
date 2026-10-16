@@ -14,6 +14,9 @@
 > HR-readable skill evidence for job applications.
 > Mechanism: **NICE framework skill points × hands-on challenges × AI grading
 > × resume auto-generation**.
+> The certification catch-22: incumbent certs themselves recommend ~2 years of
+> IT security experience before attempting — the ladder demands the very tenure
+> newcomers don't have. The people who most need a credential can't start one.
 
 ## 1. Vision
 
@@ -257,6 +260,12 @@ clicked" — changed four product assumptions:
 - **Acceptance**: grades the founder's own 5 projects within ±1 band of the
   MAPPING.md human ratings; scoring rationale explainable and reproducible.
 - **Dogfood**: the first graded subject is the founder herself.
+- **Cost model: bring-your-own-key (decided 2026-10-16)**: AI grading runs
+  against the user's own LLM API key — local grader via env var, web app via
+  browser-stored key (never leaves the user's machine, never stored
+  server-side). Typical grading cost <$1 per profile; zero server-side
+  inference cost. Precedent: incumbent cert vendors already require learners
+  to supply their own API credits for AI-assisted labs.
 
 ### Phase 3 · CVE-driven lab cards
 - **Input**: weekly public CVEs (CISA KEV first).

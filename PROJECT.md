@@ -20,6 +20,9 @@
 > Skills decay: even the most respected hands-on certs now expire — the industry
 > itself admits a point-in-time badge says nothing about current ability.
 > Badges expire; the profile is re-verifiable on demand.
+> Industry convergence: exam vendors now ship hands-on lab questions inside
+> their exams — "prove, don't claim" is becoming the industry consensus, not a
+> challenger slogan.
 
 ## 1. Vision
 
@@ -299,7 +302,8 @@ clicked" — changed four product assumptions:
   - **30-second summary**: plain text, resume-embeddable, ATS-parseable — no
     link-click required;
   - **multi-hat readiness matrix**: 7 domains × levels, breadth at a glance
-    ("how many hats");
+    ("how many hats") — a portfolio of proven skills, not a portfolio of
+    badges;
   - evidence chain: folded under the summary, for whoever wants to audit.
 - **Funnel model** (2026-10-16): the profile is layered by hiring-funnel stage —
   6-second scan (one-liner) → 30-second read (summary) → interview shortlist

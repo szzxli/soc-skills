@@ -129,6 +129,7 @@ footer a{color:var(--teal)}
   </div>
   <div style="text-align:center;margin-top:20px">
     <button class="btn primary" id="gen-btn" style="font-size:16px">Generate my profile</button>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Scoring: Yes = 1 pt, Partially = 0.5 pts per question — partial progress counts, even before you level up.</p>
   </div>
 
   <div id="results">
@@ -144,6 +145,7 @@ footer a{color:var(--teal)}
       <h3 style="margin-bottom:4px">30-second summary</h3>
       <div class="summary-box" id="summary"></div>
       <button class="copybtn" id="copy-btn">Copy summary</button>
+      <p style="font-size:13.5px;margin-top:10px">What next? → <a href="#labs">Run a CVE lab card</a> · <a href="#grade">Grade your evidence with AI</a> · <a href="#progress">Track your velocity</a></p>
     </div>
   </div>
 </div></section>
@@ -175,7 +177,7 @@ footer a{color:var(--teal)}
       <input type="text" id="api-base" placeholder="https://your-endpoint/v1" style="display:none;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;min-width:220px">
       <input type="text" id="api-model" value="openai/gpt-4o-mini" title="Model name" style="width:180px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
     </div>
-    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (set a spend limit, revoke anytime). Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (free signup; free models available, or set a spend limit for paid ones — revoke anytime). Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
   </div>
   <div class="card">
     <h3 style="margin-bottom:10px">2 · Your evidence</h3>
@@ -197,13 +199,15 @@ footer a{color:var(--teal)}
   <h2>CVE lab cards <span class="pill-new">NEW</span></h2>
   <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
   <div class="dgrid" id="lab-grid"></div>
-  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:18px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
+  <p style="text-align:center;font-size:13.5px;margin-top:14px">Worked a card? <a href="#grade"><b>Grade your evidence with AI</b></a> — the grader only credits what you can show.</p>
+  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:8px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
 </div></section>
 
 <section id="domains"><div class="wrap">
   <h2>Browse by domain</h2>
   <p class="lead">Seven domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
   <div class="dgrid" id="domain-grid"></div>
+  <p style="font-size:12.5px;color:var(--soft);margin-top:10px"><b>Legend:</b> <span class="tag lab">LAB-READY</span> home-lab project mapped · <span class="tag core">CORE</span> assessed in every profile · <span class="tag new">NEW</span> added this month · matrix <b>L1+</b> = partial evidence (counts 0.5 pts) · <b>L1+*</b> = L2 claimed without the evidence pledge.</p>
 </div></section>
 
 <section id="resources" class="alt"><div class="wrap">
@@ -295,9 +299,9 @@ DOMAINS.forEach((d,i)=>{
   div.className = 'domain-q';
   div.innerHTML = `<h3><span class="did">${d.id}</span>${d.name}</h3>
     <div class="q"><span class="lv lv1">L1</span>${d.q1}</div><div class="opts" data-d="${i}" data-q="l1">
-      <button data-v="1">Yes</button><button data-v="0.5">Partially</button><button data-v="0">No</button></div>
+      <button data-v="1" aria-pressed="false">Yes</button><button data-v="0.5" aria-pressed="false">Partially</button><button data-v="0" aria-pressed="false">No</button></div>
     <div class="q"><span class="lv lv2">L2</span>${d.q2}</div><div class="opts" data-d="${i}" data-q="l2">
-      <button data-v="1">Yes</button><button data-v="0.5">Partially</button><button data-v="0">No</button></div>`;
+      <button data-v="1" aria-pressed="false">Yes</button><button data-v="0.5" aria-pressed="false">Partially</button><button data-v="0" aria-pressed="false">No</button></div>`;
   quiz.appendChild(div);
 });
 quiz.addEventListener('click', e=>{
@@ -305,8 +309,9 @@ quiz.addEventListener('click', e=>{
   const box = b.parentElement;
   const i = +box.dataset.d, q = box.dataset.q;
   state[i][q] = parseFloat(b.dataset.v);
-  box.querySelectorAll('button').forEach(x=>x.className='');
+  box.querySelectorAll('button').forEach(x=>{x.className='';x.setAttribute('aria-pressed','false');});
   b.className = b.dataset.v==='1'?'sel-yes':b.dataset.v==='0.5'?'sel-part':'sel-no';
+  b.setAttribute('aria-pressed','true');
 });
 
 // Build domain cards (GIAC focus-area pattern)
@@ -325,7 +330,9 @@ function levelOf(s, pledged){
   if(s.l1===null||s.l2===null) return null;
   if(s.l1===0) return '—';
   let lv;
-  if(s.l2===1) lv='L2'; else if(s.l2===0.5) lv='L1+'; else lv='L1';
+  if(s.l2===1) lv='L2';
+  else if(s.l2===0.5||s.l1===0.5) lv='L1+';  // partial evidence below L2 — progress, not yet a level
+  else lv='L1';
   if(lv==='L2' && !pledged) lv='L1+*';  // honesty downgrade
   return lv;
 }
@@ -335,13 +342,18 @@ document.getElementById('gen-btn').addEventListener('click', ()=>{
   if(levels.some(l=>l===null)){ alert('Please answer all 14 questions first.'); return; }
   const l2count = levels.filter(l=>l==='L2').length;
   const l1count = levels.filter(l=>l.startsWith('L1')).length;
+  const answers = state.map(s=>[s.l1,s.l2]).flat();
   const top = DOMAINS.map((d,i)=>({d,lv:levels[i]}))
     .filter(x=>x.lv==='L2').map(x=>x.d.id).join(', ') || 'foundations';
 
-  document.getElementById('one-liner').textContent =
-    `${l2count>0?'Independent':'Developing'} security practitioner · ` +
-    `${l2count>0?`L2 in ${l2count}/7 domains`:l1count>0?`L1 foundations in ${l1count}/7 domains`:'assessing foundations'} · ` +
-    `evidence-pledged self-assessment`;
+  let one;
+  if(l2count===0)
+    one = `Developing security practitioner · ${l1count>0?`L1 foundations in ${l1count}/7 domains`:'assessing foundations'} · evidence-pledged self-assessment`;
+  else if(l2count===1)
+    one = `Developing security practitioner · first L2 domain (1/7) · evidence-pledged self-assessment`;
+  else
+    one = `${l2count>=5?'Advanced':'Independent'} security practitioner · L2 in ${l2count}/7 domains · evidence-pledged self-assessment`;
+  document.getElementById('one-liner').textContent = one;
 
   // Matrix
   const cols = ['—','L1','L1+','L1+*','L2'];
@@ -368,7 +380,7 @@ Note: self-assessed. L3 never self-awarded; verify in interview.`;
 
   // Save to history (device-only)
   const hist = loadHist();
-  hist.push({ts: Date.now(), levels, pledged});
+  hist.push({ts: Date.now(), levels, pledged, a: answers});
   saveHist(hist);
   renderHistory();
   if(!pledged) alert('Evidence pledge unchecked: all L2 answers were downgraded to L1+*. Check the pledge if every "Yes" has real evidence.');
@@ -383,7 +395,10 @@ const HKEY = 'soc-skills-history-v1';
 const LV_NUM = {'—':0,'L1':1,'L1+':1.5,'L1+*':1.5,'L2':2};
 function loadHist(){ try{ return JSON.parse(localStorage.getItem(HKEY))||[]; }catch(e){ return []; } }
 function saveHist(h){ try{ localStorage.setItem(HKEY, JSON.stringify(h)); }catch(e){} }
-function scoreOf(levels){ return levels.reduce((a,l)=>a+(LV_NUM[l]||0),0); }
+function scoreOf(h){
+  if(h.a) return h.a.reduce((x,y)=>x+y,0);          // answer-level: Yes=1, Partially=0.5
+  return h.levels.reduce((a,l)=>a+(LV_NUM[l]||0),0); // legacy entries
+}
 function fmtDate(ts){ return new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric'}) +
   ' ' + new Date(ts).toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'}); }
 
@@ -397,7 +412,7 @@ function renderHistory(){
     chart.innerHTML=''; list.innerHTML='';
     return;
   }
-  const scores = hist.map(h=>scoreOf(h.levels));
+  const scores = hist.map(scoreOf);
   const first = scores[0], last = scores[scores.length-1];
   const delta = (last-first).toFixed(1);
   const days = Math.max(1, Math.round((hist[hist.length-1].ts - hist[0].ts)/86400000));
@@ -427,10 +442,18 @@ function renderHistory(){
       `<td style="color:${dd>0?'var(--green)':dd<0?'var(--red)':'var(--soft)'}">${dd>0?'+':''}${dd}</td></tr>`;
   });
   list.innerHTML = rows+'</table>' +
-    hist.map((h,i)=>`<div style="padding:6px 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:12px;color:var(--soft)">#${i+1} · ${fmtDate(h.ts)}</span> — score ${scoreOf(h.levels).toFixed(1)}/14 · L2×${h.levels.filter(l=>l==='L2').length}${h.pledged?'':' · unpledged'}</div>`).join('');
+    hist.map((h,i)=>`<div style="padding:6px 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:12px;color:var(--soft)">#${i+1} · ${fmtDate(h.ts)}</span> — score ${scoreOf(h).toFixed(1)}/14 · L2×${h.levels.filter(l=>l==='L2').length}${h.pledged?'':' · unpledged'}</div>`).join('');
 }
+let clearArmed=false;
 document.getElementById('clear-hist').addEventListener('click', ()=>{
-  if(confirm('Clear all saved assessments on this device?')){ saveHist([]); renderHistory(); }
+  const btn = document.getElementById('clear-hist');
+  if(!clearArmed){
+    clearArmed=true; btn.textContent='Click again to confirm'; btn.style.background='#dc2626';
+    setTimeout(()=>{clearArmed=false;btn.textContent='Clear history';btn.style.background='#94a3b8';},4000);
+    return;
+  }
+  saveHist([]); renderHistory();
+  clearArmed=false; btn.textContent='Clear history'; btn.style.background='#94a3b8';
 });
 renderHistory();
 

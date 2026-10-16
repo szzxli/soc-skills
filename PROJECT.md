@@ -17,6 +17,9 @@
 > The certification catch-22: incumbent certs themselves recommend ~2 years of
 > IT security experience before attempting — the ladder demands the very tenure
 > newcomers don't have. The people who most need a credential can't start one.
+> Skills decay: even the most respected hands-on certs now expire — the industry
+> itself admits a point-in-time badge says nothing about current ability.
+> Badges expire; the profile is re-verifiable on demand.
 
 ## 1. Vision
 

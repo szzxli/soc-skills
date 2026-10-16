@@ -52,6 +52,24 @@ handled real incidents; mentored people or shipped production detections.
 > Project v1 rule: the L3 column stays permanently empty. This is the honesty
 > line — a zero-experience career changer's profile must never show L3.
 
+## Behavioral dimension (process scoring)
+
+Technical completion is half the grade. Every assessed task is also scored on
+*how* the work was done — because employers don't buy flags, they buy analysts
+who hold up under real conditions. This is what separates the profile from a
+CTF scoreboard.
+
+| Dimension | What "good" looks like |
+|---|---|
+| Methodical enumeration | Systematic coverage before conclusions; no tool-hopping or rabbit holes without hypothesis |
+| Composure under injects | Mid-task disruption (priority change, alert interrupt, tool outage) handled without abandoning method — pause, re-triage, continue |
+| Reassessment discipline | Knows when to step back and re-scope vs. grind forward; documents the pivot and why |
+| Documentation discipline | Notes usable by the next analyst: what was tried, what failed, what's still open |
+
+**Grading note**: a solved lab with chaotic methodology scores *below* a
+methodical partial solve. Process evidence comes from run records, timestamped
+notes, and inject-response write-ups — not self-assessment.
+
 ## Seven skill domains × three-tier rubric
 
 ### D1 · Security monitoring & alert triage
@@ -129,3 +147,6 @@ handled real incidents; mentored people or shipped production detections.
    a CLI tool" as (synthetic) is a semantic mismatch.
 3. **L3 stays empty**: in v1, nobody (including the project author) self-rates L3.
 4. **Downgrade on ambiguity**: when evidence is fuzzy, take the lower grade.
+5. **Not a CTF**: flags don't earn levels — method does. Outcome and process
+   are graded separately per the Behavioral dimension; a chaotic solve never
+   outranks a methodical partial.

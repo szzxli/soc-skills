@@ -190,6 +190,16 @@ grader); the NICE language enterprises already know needs no market education.
    questions, behavioral process scoring (not just flags).
 3. **HR cold start**: profiles need HR recognition to have value. Mitigation:
    serve candidates first (resume links), spread via "someone got interviews".
+   **Deeper (2026-10-16)**: recognition can't be bought — only earned through
+   **predictive validity**. GPA is trusted not because universities market it,
+   but because decades of data show it predicts academic performance. HR will
+   ultimately recognize only one thing: do L2-rated hires actually outperform
+   "3 years experience" resume hires on the job? The product therefore needs
+   an **outcome tracking loop**: profile → interview → hire → 6-month
+   performance, proving the profile predicts job performance with real data.
+   Sequencing: don't chase HR logo walls or endorsements. Chase the **first
+   documented hire** — one complete "profile → interview → offer → passed
+   probation" case beats 100 HR nods.
 
 ### Hiring-manager field feedback (2026-10-16, Reddit, Top 1% commenter, 10 years of data)
 One data point — "10 years of portfolio links on my resume, 1 recruiter ever

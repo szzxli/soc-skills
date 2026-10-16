@@ -102,7 +102,7 @@ footer a{color:var(--teal)}
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#assess">Assess</a><a href="#progress">Progress<span class="pill-new">NEW</span></a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
+  <nav><a href="#assess">Assess</a><a href="#progress">Progress<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
 </div></header>
 
 <div class="hero"><div class="wrap">
@@ -158,6 +158,45 @@ footer a{color:var(--teal)}
     <div style="margin-top:12px"><button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
     <span style="font-size:12px;color:var(--soft);margin-left:10px">Stored only in this browser. Nothing leaves your device.</span></div>
   </div>
+</div></section>
+
+<section id="grade"><div class="wrap">
+  <h2>AI grading <span class="pill-new">NEW</span></h2>
+  <p class="lead">Self-assessment is a claim. Grading is the check. Paste your evidence, bring your own API key — the rubric grades it, right here in your browser. Your key never leaves this device except to the API provider you choose.</p>
+  <div class="card">
+    <h3 style="margin-bottom:10px">1 · Your API key <span style="font-size:12px;color:var(--soft);font-weight:400">(bring your own — typical cost &lt;$0.10 per grading)</span></h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <input type="password" id="api-key" placeholder="sk-..." style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <select id="api-provider" style="padding:10px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px">
+        <option value="https://api.openai.com/v1">OpenAI</option>
+        <option value="custom">Custom endpoint…</option>
+      </select>
+      <input type="text" id="api-base" placeholder="https://your-endpoint/v1" style="display:none;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;min-width:220px">
+      <input type="text" id="api-model" value="gpt-4o-mini" title="Model name" style="width:150px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+    </div>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:10px">2 · Your evidence</h3>
+    <p style="font-size:13.5px;color:var(--soft);margin-bottom:10px">Paste a project README, an evidence bundle, or a plain description of what you built and ran. Be specific: file names, what you ran by hand, test counts. The grader only credits observable evidence.</p>
+    <textarea id="evidence" rows="10" placeholder="Example:&#10;# My CloudTrail analyzer&#10;- ioc_analyzer.py (587 lines): CLI with argparse, error handling&#10;- tests/test_analyzer.py: 9 tests, all passing&#10;- Ran by hand against 200 synthetic CloudTrail events&#10;- 3 heuristic detectors: unusual-region login, brute-force burst, high-risk API calls&#10;- README has reproduce steps" style="width:100%;padding:14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:13px;line-height:1.6"></textarea>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn primary" id="grade-btn" style="font-size:16px">Grade my evidence</button>
+    </div>
+  </div>
+  <div class="card" id="grade-result-card" style="display:none">
+    <h3 style="margin-bottom:10px">Grading report</h3>
+    <div id="grade-status" style="font-size:13.5px;color:var(--soft);margin-bottom:10px"></div>
+    <div class="summary-box" id="grade-result" style="font-size:13px"></div>
+    <p style="font-size:12.5px;color:var(--soft)">Advisory output. The rubric decides, your evidence constrains. Disagree with a grade? The <a href="https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md">prompt</a> is public — inspect it.</p>
+  </div>
+</div></section>
+
+<section id="labs" class="alt"><div class="wrap">
+  <h2>CVE lab cards <span class="pill-new">NEW</span></h2>
+  <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
+  <div class="dgrid" id="lab-grid"></div>
+  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:18px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
 </div></section>
 
 <section id="domains"><div class="wrap">
@@ -393,6 +432,253 @@ document.getElementById('clear-hist').addEventListener('click', ()=>{
   if(confirm('Clear all saved assessments on this device?')){ saveHist([]); renderHistory(); }
 });
 renderHistory();
+
+// ---- AI grading (BYOK) ----
+const GRADER_PROMPT = `# AI Grader · rubric-prompt v1.1
+
+> Purpose: feed an evidence bundle to an LLM and grade a project against the
+> TAXONOMY.md rubric.
+> Usage: paste this prompt in full + the evidence-bundle JSON from \`grade.py\`
+> into an LLM.
+> Grading iron rules (violating any one voids the output) in §4.
+> v1.1 changes: §3b behavioral dimension (process scoring); §5 output gains a
+> Behavioral block.
+
+---
+
+## §1 Who you are
+
+You are the grader for the soc-skills project. Your task: **grade the
+candidate's project across the 7 skill domains (D1–D7) using only the
+observable evidence in the evidence bundle**. You are not here to encourage
+the candidate — you are protecting this grading system's credibility.
+**Inflated scores destroy the entire product's foundation.**
+
+## §2 Input
+
+Evidence-bundle JSON, structure:
+\`\`\`json
+{
+  "project": "<project directory name>",
+  "readme": "<full README>",
+  "files": [{"path": "...", "kind": "code|test|doc|data|config", "lines": 123}],
+  "excerpts": [{"path": "...", "head": "<first N lines of file>"}],
+  "notes": "<harness notes>"
+}
+\`\`\`
+
+## §3 Domain rubric (matches TAXONOMY.md v1.0)
+
+### D1 · Security monitoring & alert triage (NICE PR-CDA-001)
+- L1: Describes the triage flow (receive → prioritize → assess → contain/escalate); uses a severity model (low/medium/high/critical); works sample alerts from a triage guide.
+- L2: Independently built a monitoring environment with real detection sources (SIEM/cloud-native detection); completed the full "alert → logs → severity → contain/escalate" chain alone; wrote triage playbooks.
+- L3: Worked a real alert queue in a production SOC; joined on-call rotations.
+
+### D2 · Log analysis & detection engineering (NICE PR-CDA-001)
+- L1: Reads common audit-log fields (who/what/when/where); does basic retrieval with grep/jq/consoles.
+- L2: Wrote runnable detection logic against audit logs (heuristic rules/scripts); logic has tunable thresholds and test cases; explains sensor coverage blind spots.
+- L3: Wrote/tuned detection rules in production; traded off false-positive rates against coverage.
+
+### D3 · Incident response & reporting (NICE PR-CIR-001)
+- L1: Describes the IR lifecycle; fills report templates.
+- L2: Independently completed a "simulated attack → forensics → containment → retrospective" loop **and produced a structured incident report** (timeline, evidence, root cause, improvements); report meets the "readable by someone who wasn't there" bar.
+- L3: Participated in real incident response (containment-decision pressure, cross-team coordination).
+
+### D4 · Phishing email analysis (NICE PR-CDA-001)
+- L1: Reads key email-header fields; explains SPF/DKIM/DMARC; walks an analysis flow from a cheatsheet.
+- L2: Independently completed full phishing analysis (headers → auth → URL decoding → attachment IOCs → severity → handling recommendation) with evidence-weighted, confidence-scored verdicts; ran compliant self-phishing tests (own mailbox only).
+- L3: Triaged real phishing mail at production volume; ran phishing simulations or user education.
+
+### D5 · Binary / malware triage (NICE PR-CDA-001)
+- L1: Explains static vs dynamic analysis; knows common suspicious indicators (packing, high entropy, sensitive APIs).
+- L2: Wrote a runnable static triage tool (with scoring/grading logic and tests); holds the "triage signals ≠ conviction" methodology; explains heuristic false-positive boundaries.
+- L3: Analyzed real malware samples (sandbox dynamic analysis, family attribution).
+
+### D6 · Cloud security (AWS) hands-on (NICE PR-CDA-001)
+- L1: Explains what CloudTrail / GuardDuty / Security Hub each do.
+- L2: Built an audited, threat-detected cloud environment from IaC independently; ran attack simulations by hand and saw real detections; configured least privilege.
+- L3: Production cloud security operations (multi-account, real threats, cost and compliance constraints).
+
+### D7 · Security automation & scripting (cross-role)
+- L1: Writes basic Python scripts for text/JSON; knows what requests/pytest do.
+- L2: Independently wrote tools solving real analysis pain points (CLI args, error handling, test coverage); code has a README others can run to reproduce.
+- L3: Production-grade automation (CI, code review, long-term maintenance, multi-person collaboration).
+
+## §3b Behavioral dimension (process scoring)
+
+Score HOW the work was done, separately from technical completion. Evidence
+sources: run records, timestamped notes, inject-response write-ups. When the
+bundle has no process records, mark the dimension "untested" or
+"insufficient evidence" — never infer composure from outcomes.
+
+- **B1 Methodical enumeration** (strong/adequate/weak): systematic coverage
+  before conclusions vs. tool-hopping without a hypothesis.
+- **B2 Composure under injects** (strong/adequate/weak/untested): response to
+  mid-task disruption (priority change, alert interrupt, tool outage). Most lab
+  projects are "untested" — say so honestly.
+- **B3 Reassessment discipline** (strong/adequate/weak): documented pivots with
+  reasons vs. grinding forward silently.
+- **B4 Documentation discipline** (strong/adequate/weak): notes usable by the
+  next analyst (tried / failed / still open) vs. bare conclusions.
+
+Rule: a chaotic solve never outranks a methodical partial — process and
+outcome are graded separately (TAXONOMY iron rule 5, "Not a CTF").
+
+## §4 Grading iron rules (hard constraints)
+
+1. **Evidence first**: every level must cite specific evidence from the bundle (file path + content point). No evidence → no credit; mark the domain "not covered".
+2. **Downgrade on ambiguity**: when evidence sits between two levels, take the lower. \`L1+\` is allowed for "beyond L1 but short of L2".
+3. **Scope suffix**: L2 must carry one of \`(lab)\` / \`(synthetic)\` / \`(reconstructed)\` based on the evidence's data/environment properties, never omitted.
+   - Exception: D7 (scripting) grades code craft, not data environments — bare L2 is fine (see validation.md).
+4. **L3 stays empty**: in v1, nobody self-rates L3. If evidence looks production-grade, output \`L2+ (needs human verification of production evidence)\` and explain.
+5. **OSCP exclusion zone**: defensive projects get no OSCP mapping; attack-simulation content counts at most as "attacker-perspective primer", never as pentest ability.
+6. **Template ≠ output**: blank report templates and cheatsheets are **not** evidence of "having completed analysis/response"; only **filled reports, run records, written code** count.
+7. **"Expected" ≠ "observed"**: docs saying "expected findings" don't equal having run it by hand; only run records, screenshots, and filled reports count as observed evidence.
+
+## §5 Output format (strict)
+
+One line per relevant domain (skip irrelevant domains outright, never pad):
+
+\`\`\`
+D<k> | <L1|L1+|L2>[(lab|synthetic|reconstructed)] | evidence: <file path>: <one-line evidence point> | upgrade: <what's missing for the next level, one line>
+\`\`\`
+
+Then output a behavioral block (one line per dimension, "untested" allowed):
+
+\`\`\`
+## Behavioral
+B1 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+B2 <strong|adequate|weak|untested> | evidence: <file path or "no inject records">: <one-line point>
+B3 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+B4 <strong|adequate|weak> | evidence: <file path>: <one-line point>
+\`\`\`
+
+Then output:
+
+\`\`\`
+## Overall
+<one line: overall level, biggest gap>
+## Honesty check
+- [ ] Every L2 cites evidence
+- [ ] No L3
+- [ ] No OSCP mentioned
+- [ ] Templates/expected results not counted as output evidence
+- [ ] Behavioral scored separately; "untested" used where no inject evidence exists
+\`\`\`
+
+## §6 Counter-examples (don't grade like this)
+
+- ❌ "README describes the triage flow → D1 L2" (describing a flow ≠ walking it independently; missing run evidence)
+- ❌ "Has a blank incident report template → D3 L2" (template ≠ filled report; violates rule 6)
+- ❌ "attack-runbook lists expected findings → ran attacks by hand" (expected ≠ observed; violates rule 7)
+- ❌ "Project mentions OSCP-related topics → pentest ability L1" (violates rule 5)
+- ✅ "self-written triage-guide.md + attack-runbook with ATT&CK mapping + README states 3 attack simulations run by hand → D1 L2 (lab)"
+`;
+
+const KKEY = 'soc-skills-apikey-v1';
+const PKEY = 'soc-skills-apiprovider-v1';
+const BKEY = 'soc-skills-apibase-v1';
+const MKEY = 'soc-skills-apimodel-v1';
+function lsGet(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+const keyInput = document.getElementById('api-key');
+const provSel = document.getElementById('api-provider');
+const baseInput = document.getElementById('api-base');
+const modelInput = document.getElementById('api-model');
+keyInput.value = lsGet(KKEY);
+modelInput.value = lsGet(MKEY) || 'gpt-4o-mini';
+(function(){
+  const p = lsGet(PKEY);
+  if(p === 'custom'){ provSel.value='custom'; baseInput.style.display=''; baseInput.value = lsGet(BKEY); }
+  else if(p){ provSel.value = p; }
+})();
+keyInput.addEventListener('change', ()=>lsSet(KKEY, keyInput.value.trim()));
+provSel.addEventListener('change', ()=>{
+  const custom = provSel.value==='custom';
+  baseInput.style.display = custom ? '' : 'none';
+  lsSet(PKEY, custom ? 'custom' : provSel.value);
+});
+baseInput.addEventListener('change', ()=>lsSet(BKEY, baseInput.value.trim()));
+modelInput.addEventListener('change', ()=>lsSet(MKEY, modelInput.value.trim()));
+document.getElementById('forget-key').addEventListener('click', (e)=>{
+  e.preventDefault();
+  lsDel(KKEY); keyInput.value='';
+  document.getElementById('grade-status').textContent = 'Key forgotten on this device.';
+});
+
+document.getElementById('grade-btn').addEventListener('click', async ()=>{
+  const key = keyInput.value.trim();
+  const evidence = document.getElementById('evidence').value.trim();
+  const status = document.getElementById('grade-status');
+  const out = document.getElementById('grade-result');
+  const card = document.getElementById('grade-result-card');
+  if(!key){ status.textContent = 'Enter your API key first.'; card.style.display=''; return; }
+  if(!evidence){ status.textContent = 'Paste your evidence first.'; card.style.display=''; return; }
+  const base = (provSel.value==='custom' ? baseInput.value.trim() : provSel.value).replace(/\/$/,'');
+  const model = modelInput.value.trim() || 'gpt-4o-mini';
+  if(!base){ status.textContent = 'Enter a custom endpoint URL.'; card.style.display=''; return; }
+  card.style.display = '';
+  status.textContent = 'Grading… (rubric v1.1, ' + model + ')';
+  out.textContent = '';
+  document.getElementById('grade-btn').disabled = true;
+  try{
+    const resp = await fetch(base + '/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer ' + key },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role:'system', content: GRADER_PROMPT },
+          { role:'user', content: 'Evidence bundle (plain text):\n\n' + evidence }
+        ],
+        temperature: 0.2
+      })
+    });
+    if(!resp.ok){
+      const t = await resp.text();
+      throw new Error('HTTP ' + resp.status + ': ' + t.slice(0,300));
+    }
+    const data = await resp.json();
+    const text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '(empty response)';
+    out.textContent = text;
+    status.textContent = 'Done. Advisory output — verify against the public rubric.';
+  }catch(err){
+    status.textContent = 'Grading failed: ' + err.message;
+    out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. The key never left this device except to the endpoint above.';
+  }
+  document.getElementById('grade-btn').disabled = false;
+});
+
+// ---- Lab cards ----
+const LABS = [
+ { id:'CVE-2026-21589', title:'Atlassian Data Center path traversal via ::',
+   status:'DRAFT — hands-on pending', tag:'KEV', sev:'Critical',
+   domains:['D1','D2'],
+   body: [
+    ['Mechanics','Path traversal → unauthenticated sensitive file read. The :: (double-colon) sequence is treated as a path separator, smuggling traversal past naive normalization that only looks for slashes and dots. Affects Confluence / Jira / Bitbucket Data Center.'],
+    ['In the wild','Public technical details → first honeypot-caught exploitation within ~2 hours. CISA KEV-listed with a federal remediation deadline.'],
+    ['Repro (isolated lab only)','[founder hands-on pending] Stand up a vulnerable Data Center product (Docker, host-only, no outbound). Baseline normal file serving. Craft ::-based traversal requests; record sanitized request/response. Confirm patch blocks them.'],
+    ['Detection','Heuristic: flag :: sequences in URL paths hitting Atlassian DC endpoints (WAF / reverse-proxy logs). Threshold per source IP. Tune: exclude benign :: uses (careful with IPv6 literals). [validation pending]'],
+    ['Remediation','1) Patch to fixed Data Center version. 2) WAF virtual-patch: block :: in URL paths (defense in depth, not a substitute). 3) Hunt historical logs pre-patch — assume compromised on hits, rotate secrets.'],
+    ['NICE mapping','D2 Log analysis & detection engineering → L2 (lab): working ::-traversal detection with tunable threshold + TP/FP notes. D1 Monitoring & triage → L2 (lab): severity call + escalation path for active-exploitation hits. Anti-inflation: reading this card = L1 at most.']
+   ] }
+];
+const labGrid = document.getElementById('lab-grid');
+LABS.forEach(lab=>{
+  const c = document.createElement('div');
+  c.className = 'dcard';
+  const draft = lab.status.indexOf('DRAFT')===0;
+  c.innerHTML = `<div class="chead"><span class="did">${lab.id}</span><h3>${lab.title}</h3>`+
+    `<span class="tag ${draft?'new':'lab'}">${draft?'DRAFT':'READY'}</span></div>`+
+    `<div style="font-size:13px;color:var(--soft);margin-bottom:8px"><b style="color:var(--red)">${lab.sev}</b> · ${lab.tag} · ${lab.domains.join(' + ')}</div>`+
+    `<div style="font-size:13px;color:var(--amber)">${lab.status}</div>`+
+    `<div class="lv-detail">` + lab.body.map(([h,b])=>`<p style="margin:8px 0"><b style="color:var(--ink)">${h}.</b> ${b}</p>`).join('') + `</div>`;
+  c.addEventListener('click', ()=>c.classList.toggle('open'));
+  labGrid.appendChild(c);
+});
+
 </script>
 </body>
 </html>

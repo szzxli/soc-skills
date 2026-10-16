@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 """
-grade.py — soc-skills 评分器 harness（证据包收集器）
+grade.py — soc-skills grader harness (evidence-pack collector)
 
-给定一个项目目录，自动收集：
-  - README 全文
-  - 文件清单（按 kind 分类：code / test / doc / data / config）
-  - 关键文件的前 N 行（excerpts）
+Given a project directory, automatically collects:
+  - full README
+  - file inventory (classified by kind: code / test / doc / data / config)
+  - first N lines of key files (excerpts)
 
-输出标准化的"证据包"JSON，可直接喂给 rubric-prompt.md。
+Outputs a standardized "evidence pack" JSON, ready to feed into rubric-prompt.md.
 
-不做评分本身（评分由使用者用 rubric-prompt 跑 LLM 完成），
-harness 只负责把输入标准化、可复现。
+Does not grade (grading is done by the user running rubric-prompt through an LLM);
+the harness only standardizes and reproduces the input.
 
-用法：
+Usage:
     python grade.py <project_dir> [--head-lines 60] [--output evidence.json]
     python grade.py ~/workspace/soc-home-lab/02-python-ioc-analyzer --output /tmp/p2.json
 
-退出码：0 成功；1 目录不存在；2 无 README。
+Exit codes: 0 success; 1 directory missing; 2 no README.
 """
 
 import argparse
@@ -24,12 +24,12 @@ import json
 import os
 import sys
 
-# 不进证据包的目录/文件（依赖、缓存、版本控制）
+# Directories/files excluded from the evidence pack (deps, caches, VCS)
 SKIP_DIRS = {".venv", "venv", "__pycache__", ".pytest_cache", "node_modules",
              ".git", ".hg", "dist", "build", ".tox", ".mypy_cache"}
 SKIP_FILES = {".DS_Store"}
 
-# 按扩展名 + 路径关键词分类
+# Classify by extension + path keywords
 def classify(path: str) -> str:
     p = path.lower()
     base = os.path.basename(p)
@@ -62,7 +62,7 @@ def collect(project_dir: str, head_lines: int) -> dict:
         readme = f.read()
 
     files, excerpts = [], []
-    # 关键文件优先进 excerpts：主代码、测试、runbook、walkthrough、report
+    # Priority files go into excerpts first: main code, tests, runbooks, walkthroughs, reports
     priority_keywords = ("main.", "triage", "ioc_analyzer.py", "test_",
                          "runbook", "walkthrough", "report", "incident",
                          "skill.md", "cheatsheet", "architecture")
@@ -92,7 +92,7 @@ def collect(project_dir: str, head_lines: int) -> dict:
                     head = ""
                 excerpts.append({"path": rel, "head": head})
 
-    # excerpts 按优先级关键词出现顺序 + 路径排序，保证稳定输出
+    # Sort excerpts by priority-keyword match order + path for stable output
     excerpts.sort(key=lambda e: e["path"])
 
     n_code = sum(1 for f in files if f["kind"] == "code")
@@ -110,12 +110,12 @@ def collect(project_dir: str, head_lines: int) -> dict:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="收集项目证据包 JSON")
-    ap.add_argument("project_dir", help="项目目录")
+    ap = argparse.ArgumentParser(description="Collect a project evidence-pack JSON")
+    ap.add_argument("project_dir", help="project directory")
     ap.add_argument("--head-lines", type=int, default=60,
-                    help="excerpts 截取行数（默认 60）")
+                    help="excerpt line count (default 60)")
     ap.add_argument("--output", "-o", default="-",
-                    help="输出路径，- 表示 stdout（默认）")
+                    help="output path, - means stdout (default)")
     args = ap.parse_args()
 
     pack = collect(args.project_dir, args.head_lines)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""每周漏洞情报抓取：CISA KEV 新增 + NVD 高危/Critical CVE。
-输出: intel/snapshots/YYYY-MM-DD.json
-只读公开源，无需 key。"""
+"""Weekly vulnerability intel fetch: new CISA KEV entries + NVD Critical/High CVEs.
+Output: intel/snapshots/YYYY-MM-DD.json
+Reads public sources only, no key needed."""
 import json, ssl, sys, urllib.request
 from datetime import date, timedelta
 from pathlib import Path
@@ -20,7 +20,7 @@ today = date.today()
 week_ago = today - timedelta(days=7)
 out = {"date": today.isoformat(), "window_start": week_ago.isoformat(), "kev_new": [], "nvd_critical": [], "nvd_high": []}
 
-# 1. CISA KEV：取 dateAdded 落在窗口内的
+# 1. CISA KEV: entries with dateAdded inside the window
 try:
     kev = get("https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json")
     for v in kev.get("vulnerabilities", []):
@@ -35,7 +35,7 @@ try:
 except Exception as e:
     out["kev_error"] = str(e)
 
-# 2. NVD：近 7 天发布的 Critical / High
+# 2. NVD: Critical / High published in the last 7 days
 fmt = lambda d: d.strftime("%Y-%m-%dT00:00:00.000Z")
 for sev, key in (("CRITICAL", "nvd_critical"), ("HIGH", "nvd_high")):
     try:

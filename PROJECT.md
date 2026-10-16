@@ -211,6 +211,16 @@ clicked" — changed four product assumptions:
 4. **Employer-side cost iron rule**: under budget pressure, any design that
    adds HM work is dead on arrival. The employer side must be near-zero cost:
    one glance, standardized signal, no new tabs.
+5. **Framework invisibility principle** (2026-10-16, from the "another framework"
+   objection): the hiring manager never learns NICE, never opens the rubric,
+   never "goes through steps". All framework complexity is candidate-side work —
+   the candidate maps to the framework; the HM only ever reads outputs.
+   Layered disclosure: 6-second one-liner → 30-second summary → matrix →
+   evidence chain, each layer opt-in.
+6. **North star: become the GPA of hands-on security skill** (2026-10-16): a
+   hiring manager reads "GPA 3.8" without understanding how the university
+   grades. The profile's one-liner must reach that status — a score everyone
+   reads, no one needs to understand the machinery behind.
 
 ## 3. MVP roadmap
 

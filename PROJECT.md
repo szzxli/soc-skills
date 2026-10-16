@@ -272,6 +272,11 @@ clicked" — changed four product assumptions:
   server-side). Typical grading cost <$1 per profile; zero server-side
   inference cost. Precedent: incumbent cert vendors already require learners
   to supply their own API credits for AI-assisted labs.
+- **Provider note (2026-10-16, from browser testing)**: OpenAI's API blocks
+  direct browser calls (CORS) — the web grader defaults to OpenRouter
+  (`openrouter.ai/api/v1`, CORS-open, OpenAI-compatible), where users can set
+  spend limits and revoke keys. OpenAI remains selectable for custom
+  CORS-enabled setups.
 
 ### Phase 3 · CVE-driven lab cards
 - **Input**: weekly public CVEs (CISA KEV first).

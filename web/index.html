@@ -166,15 +166,16 @@ footer a{color:var(--teal)}
   <div class="card">
     <h3 style="margin-bottom:10px">1 · Your API key <span style="font-size:12px;color:var(--soft);font-weight:400">(bring your own — typical cost &lt;$0.10 per grading)</span></h3>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <input type="password" id="api-key" placeholder="sk-..." style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <input type="password" id="api-key" placeholder="sk-or-..." style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
       <select id="api-provider" style="padding:10px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px">
-        <option value="https://api.openai.com/v1">OpenAI</option>
+        <option value="https://openrouter.ai/api/v1">OpenRouter (recommended)</option>
+        <option value="https://api.openai.com/v1">OpenAI (blocked by CORS in browsers)</option>
         <option value="custom">Custom endpoint…</option>
       </select>
       <input type="text" id="api-base" placeholder="https://your-endpoint/v1" style="display:none;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;min-width:220px">
-      <input type="text" id="api-model" value="gpt-4o-mini" title="Model name" style="width:150px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <input type="text" id="api-model" value="openai/gpt-4o-mini" title="Model name" style="width:180px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
     </div>
-    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (set a spend limit, revoke anytime). Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
   </div>
   <div class="card">
     <h3 style="margin-bottom:10px">2 · Your evidence</h3>
@@ -588,7 +589,7 @@ const provSel = document.getElementById('api-provider');
 const baseInput = document.getElementById('api-base');
 const modelInput = document.getElementById('api-model');
 keyInput.value = lsGet(KKEY);
-modelInput.value = lsGet(MKEY) || 'gpt-4o-mini';
+modelInput.value = lsGet(MKEY) || 'openai/gpt-4o-mini';
 (function(){
   const p = lsGet(PKEY);
   if(p === 'custom'){ provSel.value='custom'; baseInput.style.display=''; baseInput.value = lsGet(BKEY); }
@@ -617,16 +618,24 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   if(!key){ status.textContent = 'Enter your API key first.'; card.style.display=''; return; }
   if(!evidence){ status.textContent = 'Paste your evidence first.'; card.style.display=''; return; }
   const base = (provSel.value==='custom' ? baseInput.value.trim() : provSel.value).replace(/\/$/,'');
-  const model = modelInput.value.trim() || 'gpt-4o-mini';
+  const model = modelInput.value.trim() || 'openai/gpt-4o-mini';
   if(!base){ status.textContent = 'Enter a custom endpoint URL.'; card.style.display=''; return; }
+  if(provSel.value==='https://api.openai.com/v1'){
+    status.textContent = 'Note: OpenAI blocks direct browser calls (CORS) — this will likely fail with "Failed to fetch". Use OpenRouter or a custom CORS-enabled endpoint.';
+  }
   card.style.display = '';
   status.textContent = 'Grading… (rubric v1.1, ' + model + ')';
   out.textContent = '';
   document.getElementById('grade-btn').disabled = true;
   try{
+    const headers = { 'Content-Type':'application/json', 'Authorization':'Bearer ' + key };
+    if(base.indexOf('openrouter.ai') !== -1){
+      headers['HTTP-Referer'] = 'https://szzxli.github.io/soc-skills/web/';
+      headers['X-Title'] = 'soc-skills';
+    }
     const resp = await fetch(base + '/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer ' + key },
+      headers,
       body: JSON.stringify({
         model,
         messages: [
@@ -646,7 +655,7 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
     status.textContent = 'Done. Advisory output — verify against the public rubric.';
   }catch(err){
     status.textContent = 'Grading failed: ' + err.message;
-    out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. The key never left this device except to the endpoint above.';
+    out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. OpenAI blocks browser calls (CORS) — use OpenRouter. The key never left this device except to the endpoint above.';
   }
   document.getElementById('grade-btn').disabled = false;
 });

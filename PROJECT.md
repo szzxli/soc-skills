@@ -41,8 +41,9 @@ The product has two faces: one acquires users, one makes money.
   experience" with no way to verify — send a test link, the candidate completes
   a leveled assessment, the platform outputs a **standardized skill verification
   report** (NICE mapping + level + evidence summary + anti-cheat statement),
-  and HR screens on the report. This is HackerRank/Codility for security, but
-  organized by the NICE framework and designed for security roles.
+  and HR screens on the report. This applies the standardized-assessment model
+  to security hiring: assessments organized by the NICE framework and designed
+  for security roles.
 
 Flywheel: employers screen with reports → candidates must build profiles →
 more profile data → more employer trust → more employers. This **solves HR
@@ -69,54 +70,53 @@ Honest notes:
   readability". The niche is empty.
 
 ### Commercial: concept validated, but not on the candidate side
-- **Cloud Range** — NIST success story
-  (https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center/nice-framework-resources/success-12):
-  maps labs and assessments to NICE KSAs, tracks team capability by work role.
-  But it's **B2B**: sold to enterprises for team readiness, not for candidates.
-- **HireVue**-style vendors: federal hiring assessments, enterprise/HR
+- **Enterprise readiness platforms** — NIST-published success stories document
+  vendors mapping labs and assessments to NICE KSAs and tracking team
+  capability by work role. But they are **B2B**: sold to enterprises for team
+  readiness, not for candidates.
+- **Hiring-assessment vendors**: federal hiring assessments, enterprise/HR
   procurement route.
 - **Conclusion**: the NICE-mapping road **has paying customers** (validated on
   the enterprise side) — the concept works.
 
-### HTB Academy deep dive (point-by-point, 2026-10-16)
+### Gamified lab platforms — market notes (2026-10-16)
 - **Scale**: 25+ learning paths (job-role paths + skill paths), 355+ modules,
   1770+ hands-on labs — "path packaging" is a validated format.
 - **NICE mapping**: modules mapped to NICE Tasks/Knowledge/Skills, with
   in-platform Skill Progress Mapping. **Corrects the 10-15 assessment**: NICE
-  mapping is not a blank space — HTB does it. Differentiation is in the four
-  points below, not in "having NICE".
-- **Zero-friction hands-on**: in-browser VM (Pwnbox), "no infrastructure or
-  tool requirements" — zero-setup practice is the industry standard.
+  mapping is not a blank space — differentiation is in the four points below,
+  not in "having NICE".
+- **Zero-friction hands-on**: in-browser VM, "no infrastructure or tool
+  requirements" — zero-setup practice is the industry standard.
 - **Report as gate**: certifications require a commercial-grade report to pass —
   this validates the weight of D3/incident-report writing in the profile; report
   quality is the watershed.
-- **Second B2B leg**: companies like NVISO use Academy to onboard new hires
-  (fill knowledge gaps by track). Enterprises buy not just hiring filters but
-  **post-hire capability baselines**.
+- **Second B2B leg**: enterprises use academy-style platforms to onboard new
+  hires (fill knowledge gaps by track). Enterprises buy not just hiring filters
+  but **post-hire capability baselines**.
 - **Threat-informed**: training methodology is threat-intel driven — isomorphic
   with Phase 3's CVE-driven lab cards.
 
-**Design inputs adopted from HTB Academy (on the roadmap)**:
+**Product decisions derived from market observation**:
 1. **Role-path packaging** (Phase 2.5): bundle challenges into job tracks like
-   "SOC Analyst Tier 1 ready" — HTB proves candidates pay for "job readiness",
-   not "skill points".
+   "SOC Analyst Tier 1 ready" — candidates pay for "job readiness", not
+   "skill points".
 2. **B2B onboarding leg** (Phase 4 extension): second use of the profile —
    employers scan new hires for capability baselines and auto-generate training
-   plans from gaps. The NVISO model, candidate-side version.
+   plans from gaps.
 3. **Zero-setup iron rule** (all phases): every challenge must run with one
    command (or one browser open); the pytest setup already meets this — write
    it into lab-card acceptance criteria.
 4. **Report quality gate** (Phase 3): advanced lab cards require "report quality
-   fit for client delivery" — directly benchmarked against HTB's
-   commercial-grade report bar.
+   fit for client delivery".
 
-**Honest differentiation (corrected)**: HTB is platform-locked (profiles can't
-leave HTB), assessments are flag/exercise-based (no open-ended AI grading),
-profiles are hacker-facing (HR can't parse them in 30 seconds), closed source.
-**soc-skills' niche**: candidate-owned portable skill passport + open-ended AI
-grading + HR-readable + open source. NICE mapping is table stakes, not a moat.
+**Honest differentiation**: platform-locked profiles, flag/exercise-based
+assessment (no open-ended AI grading), hacker-facing profiles (HR can't parse
+them in 30 seconds), closed source. **soc-skills' niche**: candidate-owned
+portable skill passport + open-ended AI grading + HR-readable + open source.
+NICE mapping is table stakes, not a moat.
 
-### TryHackMe deep dive (point-by-point, 2026-10-16)
+### Beginner-friendly lab platforms — market notes (2026-10-16)
 - **Positioning**: "Go from wherever you are to the role you want" — role-led,
   beginner-friendly; 1000+ labs, 8M+ users. Paths include Cyber Security 101,
   Pre Security (pure-beginner entry), SOC Level 1, Jr Pentester, AI Security
@@ -124,26 +124,24 @@ grading + HR-readable + open source. NICE mapping is table stakes, not a moat.
 - **Methodology**: learn by doing + guided learning (fading scaffolding) +
   gamified labs (streak/point retention).
 - **Third B2B leg**: teaching dashboard — instructors assign labs, monitor
-  student progress; customers include Google, KPMG, Accenture. The third thing
-  enterprises buy: **teaching delivery**.
+  student progress. The third thing enterprises buy: **teaching delivery**.
 
-**Design inputs adopted from TryHackMe (on the roadmap)**:
+**Product decisions derived from market observation**:
 1. **Diagnostic entry** (Phase 2.5): "from where you are to the role you want" —
    new users take a diagnostic challenge set, auto-routed to a starting track.
    Both an acquisition hook and the profile's first data point.
 2. **Pre-Security-style L0 entry track** (Phase 3): a pure-beginner / career-
-   changer track (the founder herself is the MRO-to-cyber sample) — lowers the
-   top-of-funnel barrier; L0 grants "completion" only, no levels, to avoid
-   grade inflation.
+   changer track — lowers the top-of-funnel barrier; L0 grants "completion"
+   only, no levels, to avoid grade inflation.
 3. **Education delivery leg** (Phase 4 extension): the same challenge engine's
    third buyer — bootcamps/universities use challenges + AI grading as homework
    infra. All three B2B legs: hiring filter (hire) → onboarding baseline
-   (onboard, HTB model) → teaching delivery (teach, THM model).
+   (onboard) → teaching delivery (teach).
 
-**THM's gaps (same niche)**: platform-locked, no portable passport, no
-open-ended AI grading, hacker-facing UI. Same conclusion as HTB.
+**Market gaps (same niche)**: platform-locked, no portable passport, no
+open-ended AI grading, hacker-facing UI.
 
-### SkillCertPro (CEH practice-test vendor) deep dive (2026-10-16)
+### Practice-test vendor market notes (2026-10-16)
 - **How it sells**: 1250 questions / 30 sets / $19.99, "100% Pass Guaranteed",
   online mock exams, lifetime access, Master Cheat Sheet (cram 2–3 days before
   the exam).
@@ -152,34 +150,33 @@ open-ended AI grading, hacker-facing UI. Same conclusion as HTB.
      quantified "ready to book" bar.
   2. **Review wrong AND right**: review explanations for correct answers too —
      catches lucky guesses.
-  3. **Living question bank**: weekly updates from student feedback on what
-     appeared on the real exam — the bank is alive, not static.
+  3. **Living question bank**: weekly updates from learner feedback — the bank
+     is alive, not static.
 - **Red line (never touch)**: "real exam questions" / "appeared on the real
-  exam" is braindump gray area and violates EC-Council NDAs. Our stance:
+  exam" is braindump gray area and violates exam NDAs. Our stance:
   **never touch real exam content** — a trust asset, and the fundamental
   difference from these vendors: they sell "passing", we sell "being able".
 
-**Mechanisms adopted from SkillCertPro (on the roadmap)**:
+**Mechanisms in our roadmap**:
 1. **85% readiness gate** (Phase 2.5): a "book-the-exam bar" per domain —
-   recommend booking only after two consecutive mocks ≥85%. Doubles as the
-   founder's own GSEC prep yardstick.
+   recommend booking only after two consecutive mocks ≥85%.
 2. **Guess detection** (Phase 2): AI grading judges more than right/wrong —
    flags "correct answer, weak reasoning / missing process" for mandatory
    review — the "review right answers" counterpart.
 3. **Pre-exam cram sheet** (Phase 4): auto-generate a one-page cheat sheet from
-   personal weak domains 3 days before the exam — SkillCertPro's generic cheat
-   sheet, personalized.
+   personal weak domains 3 days before the exam — a generic cheat sheet,
+   personalized.
 
-**Positioning in one line**: SkillCertPro proves "cert anxiety" is the
+**Positioning in one line**: practice-test vendors prove "cert anxiety" is the
 highest willingness-to-pay scenario; we don't compete for the "cram to pass"
 business — we own "actually skilled after passing". The former is the traffic
 entry; the latter is retention.
 
 ### Positioning: the broken middle
 ```
-HTB / TryHackMe (gamified, HR can't read it)
+Gamified lab platforms (HR can't read them)
         ↕ gap
-Cloud Range / HireVue (enterprise B2B, out of candidates' reach)
+Enterprise B2B assessment vendors (out of candidates' reach)
 ```
 **Entry point**: candidate-side, open source, HR-readable — no one occupies
 all three today. Strategy: enter with free open-source candidate tooling,

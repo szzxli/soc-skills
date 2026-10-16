@@ -1,89 +1,131 @@
-# SOC 技能分类法（TAXONOMY）
+# SOC Skill Taxonomy (TAXONOMY)
 
-> 骨架 v1.0 · 2026-10-15
-> 依据：NIST NICE Cybersecurity Workforce Framework（美国商务部 NIST 发布，最新 v2.0.0）。
-> NICE 用统一语言描述网络安全工作：Work Role Category（工作类别）→ Work Role（工作角色）→
-> Task / Knowledge / Skill（TKS，陈述句）。本分类法取其中与 **SOC 分析师 / 检测与响应**
-> 求职直接相关的子集，重写为可观测、可打分的实操维度。NICE 原文引用处均标注来源，
-> 其余为本项目的求职导向改写。
+> Skeleton v1.0 · 2026-10-15
+> Basis: NIST NICE Cybersecurity Workforce Framework (published by the U.S.
+> Department of Commerce, NIST; current v2.0.0). NICE describes cybersecurity
+> work in a common language: Work Role Category → Work Role → Task / Knowledge
+> / Skill (TKS statements). This taxonomy takes the subset directly relevant to
+> **SOC analyst / detection & response** job-seeking and rewrites it as
+> observable, gradable hands-on dimensions. Direct NICE quotations are marked;
+> the rest is this project's job-seeker-oriented rewrite.
 
-## NICE 锚点
+## NICE anchors
 
-| 本分类 | NICE Work Role（ID） | NICE 类别 |
+| This taxonomy | NICE Work Role (ID) | NICE category |
 |---|---|---|
-| D1 安全监控与告警分诊 | Cyber Defense Analyst（PR-CDA-001） | Protect and Defend |
-| D2 日志分析与检测工程 | Cyber Defense Analyst（PR-CDA-001） | Protect and Defend |
-| D3 事件响应与报告 | Cyber Defense Incident Responder（PR-CIR-001） | Protect and Defend |
-| D4 钓鱼邮件分析 | Cyber Defense Analyst（PR-CDA-001） | Protect and Defend |
-| D5 二进制/恶意软件初筛 | Cyber Defense Analyst（PR-CDA-001） | Protect and Defend |
-| D6 云安全（AWS）实操 | Cyber Defense Analyst（PR-CDA-001） | Protect and Defend |
-| D7 安全自动化与脚本 | 跨角色通用能力（NICE 多个角色含编程/脚本 KSA） | — |
+| D1 Security monitoring & alert triage | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
+| D2 Log analysis & detection engineering | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
+| D3 Incident response & reporting | Cyber Defense Incident Responder (PR-CIR-001) | Protect and Defend |
+| D4 Phishing email analysis | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
+| D5 Binary / malware triage | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
+| D6 Cloud security (AWS) hands-on | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
+| D7 Security automation & scripting | Cross-role capability (programming/scripting KSAs across NICE roles) | — |
 
-来源：NICE Framework v2.0.0 工作角色清单（niccs.cisa.gov / nist.gov NICE 页面）；
-PR-CDA-001 / PR-CIR-001 角色定义见 NICE 官方 work role 描述。
+Source: NICE Framework v2.0.0 work role listing (niccs.cisa.gov / NIST NICE
+pages); PR-CDA-001 / PR-CIR-001 definitions per official NICE work role
+descriptions.
 
-## 水平定义（三级）
+## Level definitions (three tiers)
 
-### L1 · 基础认知（Foundational）
-能讲清概念、照 runbook 走完流程、在指导下完成实验。
-**可观测证据**：实验笔记、cheatsheet、跟随式 walkthrough、课程/培训完成记录。
-**一句话判据**："给她一份 playbook，她能走完。"
+### L1 · Foundational
+Can explain concepts, follow a runbook end to end, complete labs with guidance.
+**Observable evidence**: lab notes, cheatsheets, guided walkthroughs,
+course/training completion records.
+**One-line test**: "Hand her a playbook and she can walk through it."
 
-### L2 · 独立实操（Independent）
-无指导下独立走完端到端流程；能处理没见过的新数据/新样本；输出达到分析师可读标准；
-能写带测试的代码工具。**范围必须注明**：lab（自建实验环境）/ synthetic（合成数据）/
-reconstructed（复现样本）——与 production（生产环境真实告警/事件）严格区分。
-**可观测证据**：原创工具（含测试）、独立完成的分析报告、自建实验环境 + 运行记录。
-**一句话判据**："给她一个新样本，她能独立出报告。"
+### L2 · Independent
+Completes end-to-end workflows with no guidance; handles unseen data/samples;
+output meets analyst-readable bar; writes tested code tools. **Scope must be
+labeled**: lab (self-built environment) / synthetic (generated data) /
+reconstructed (reproduced samples) — strictly distinguished from production
+(real alerts/incidents).
+**Observable evidence**: original tools (with tests), independently completed
+analysis reports, self-built lab environments + run records.
+**One-line test**: "Hand her a new sample and she produces a report alone."
 
-### L3 · 生产级（Production）
-在真实生产环境承担过 on-call / SLA / 真实告警量；处理过真实事件；带过人或写过生产级检测。
-**可观测证据**：雇佣记录、真实事件复盘（脱敏）、生产检测规则上线记录。
-**一句话判据**："她在真实 SOC 里值过班。"
-> 本项目 v1 阶段：L3 栏恒为空。这是诚实线——零经验转行者的画像不许出现 L3。
+### L3 · Production
+Has carried on-call / SLA / real alert volume in a production environment;
+handled real incidents; mentored people or shipped production detections.
+**Observable evidence**: employment records, real incident retrospectives
+(sanitized), production detection rules shipped.
+**One-line test**: "She has pulled shifts in a real SOC."
+> Project v1 rule: the L3 column stays permanently empty. This is the honesty
+> line — a zero-experience career changer's profile must never show L3.
 
-## 七个技能域 × 三级 rubric
+## Seven skill domains × three-tier rubric
 
-### D1 · 安全监控与告警分诊
-- **L1**：说得出告警分诊流程（接收→定级→研判→处置/升级）；会用严重度模型（低/中/高/危）；能照 triage guide 处理示例告警。
-- **L2**：独立搭建过带真实检测源的监控环境（SIEM/云原生检测）；独立完成过"告警→查日志→定级→处置/升级"全链路；写过分诊 playbook。
-- **L3**：在生产 SOC 处理过真实告警队列（含误报、告警疲劳）；参与过 on-call 值班。
+### D1 · Security monitoring & alert triage
+- **L1**: Can describe the triage flow (receive → prioritize → assess →
+  contain/escalate); uses a severity model (low/medium/high/critical); can work
+  sample alerts from a triage guide.
+- **L2**: Has built a monitoring environment with real detection sources
+  (SIEM/cloud-native detection) independently; completed the full
+  "alert → logs → severity → contain/escalate" chain alone; written triage
+  playbooks.
+- **L3**: Worked a real alert queue in a production SOC (including false
+  positives and alert fatigue); participated in on-call rotations.
 
-### D2 · 日志分析与检测工程
-- **L1**：读得懂常见审计日志字段（who / what / when / where）；会用 grep / jq / 控制台做基础检索。
-- **L2**：针对审计日志写过可运行的检测逻辑（启发式规则/脚本）；检测逻辑带可调阈值与测试用例；能讲清"传感器覆盖盲区"（什么攻击当前检测抓不到）。
-- **L3**：生产环境编写/调优过检测规则；处理过规则误报率与覆盖率的权衡。
+### D2 · Log analysis & detection engineering
+- **L1**: Reads common audit-log fields (who / what / when / where); does basic
+  retrieval with grep / jq / consoles.
+- **L2**: Has written runnable detection logic against audit logs (heuristic
+  rules/scripts); logic has tunable thresholds and test cases; can explain
+  sensor coverage blind spots (what attacks current detections miss).
+- **L3**: Wrote/tuned detection rules in production; traded off rule false-
+  positive rates against coverage.
 
-### D3 · 事件响应与报告
-- **L1**：说得出 IR 生命周期；会用报告模板填空。
-- **L2**：独立完成过"模拟攻击→取证→遏制→复盘"闭环并输出结构化事件报告（含时间线、证据、根因、改进项）；报告达到"没在场的人能看懂"标准。
-- **L3**：参与过真实事件响应（含遏制决策压力、跨团队协作）。
+### D3 · Incident response & reporting
+- **L1**: Can describe the IR lifecycle; fills report templates.
+- **L2**: Independently completed a "simulated attack → forensics →
+  containment → retrospective" loop with a structured incident report
+  (timeline, evidence, root cause, improvements); report meets the "readable by
+  someone who wasn't there" bar.
+- **L3**: Participated in real incident response (containment-decision pressure,
+  cross-team coordination).
 
-### D4 · 钓鱼邮件分析
-- **L1**：会读邮件头关键字段；说得出 SPF / DKIM / DMARC 含义；能照 cheatsheet 走完分析流程。
-- **L2**：独立完成过完整钓鱼分析（头→认证→URL 解码→附件 IOC→定级→处置建议），输出带证据权重与置信度的 verdict；用合规方式做过自我钓鱼测试（仅自己邮箱）。
-- **L3**：生产环境批量分诊过真实钓鱼邮件；参与过钓鱼演练运营或用户教育。
+### D4 · Phishing email analysis
+- **L1**: Reads key email-header fields; explains SPF / DKIM / DMARC; walks an
+  analysis flow from a cheatsheet.
+- **L2**: Independently completed full phishing analysis (headers →
+  authentication → URL decoding → attachment IOCs → severity → handling
+  recommendation) with evidence-weighted, confidence-scored verdicts; ran
+  self-phishing tests compliantly (own mailbox only).
+- **L3**: Triaged real phishing mail at production volume; ran phishing
+  simulations or user education.
 
-### D5 · 二进制/恶意软件初筛
-- **L1**：说得出静态分析 vs 动态分析；知道常见可疑指标（加壳、高熵、敏感 API）。
-- **L2**：写过可运行的静态初筛工具（带评分/分级逻辑与测试）；坚持"初筛信号≠定罪"的方法论；能讲清启发式的误报边界。
-- **L3**：分析过真实恶意样本（含沙箱动态分析、家族归因）。
+### D5 · Binary / malware triage
+- **L1**: Explains static vs dynamic analysis; knows common suspicious
+  indicators (packing, high entropy, sensitive APIs).
+- **L2**: Has written a runnable static triage tool (with scoring/grading logic
+  and tests); holds the "triage signals ≠ conviction" methodology; can explain
+  heuristic false-positive boundaries.
+- **L3**: Analyzed real malware samples (sandbox dynamic analysis, family
+  attribution).
 
-### D6 · 云安全（AWS）实操
-- **L1**：说得出 CloudTrail / GuardDuty / Security Hub 各自是干什么的。
-- **L2**：用 IaC 独立搭过带审计日志+威胁检测的云环境；亲手跑过攻击模拟并看到真实检测；做过最小权限配置。
-- **L3**：生产云环境安全运营（多账号、真实威胁、成本与合规约束）。
+### D6 · Cloud security (AWS) hands-on
+- **L1**: Explains what CloudTrail / GuardDuty / Security Hub each do.
+- **L2**: Built an audited, threat-detected cloud environment from IaC
+  independently; ran attack simulations by hand and saw real detections;
+  configured least privilege.
+- **L3**: Production cloud security operations (multi-account, real threats,
+  cost and compliance constraints).
 
-### D7 · 安全自动化与脚本
-- **L1**：会写基础 Python 脚本处理文本/JSON；知道 requests / pytest 是干什么的。
-- **L2**：独立写过解决真实分析痛点的工具（CLI 参数、错误处理、测试覆盖）；代码有 README，他人可运行复现。
-- **L3**：生产级自动化（CI、代码评审、长期维护、多人协作）。
+### D7 · Security automation & scripting
+- **L1**: Writes basic Python scripts for text/JSON; knows what requests /
+  pytest do.
+- **L2**: Independently wrote tools solving real analysis pain points (CLI
+  args, error handling, test coverage); code has a README others can run to
+  reproduce.
+- **L3**: Production-grade automation (CI, code review, long-term maintenance,
+  multi-person collaboration).
 
-## 评分铁律
+## Grading iron rules
 
-1. **证据先行**：每个等级必须有可观测证据，无证据不给分。
-2. **范围后缀**：L2 必须标注 `(lab)` / `(synthetic)` / `(reconstructed)`，不许省略。
-   **例外（v1.1）**：D7（安全自动化与脚本）评的是代码工艺而非数据/环境属性，
-   裸 L2 即可，不加后缀——给"写了个 CLI 工具"标 (synthetic) 是语义错配。
-3. **L3 恒空**：v1 阶段任何人（包括项目作者）不得自评 L3。
-4. **降级优先**：证据模糊时取低不取高。
+1. **Evidence first**: every level needs observable evidence; no evidence, no
+   credit.
+2. **Scope suffix**: L2 must carry `(lab)` / `(synthetic)` / `(reconstructed)`,
+   never omitted. **Exception (v1.1)**: D7 (automation & scripting) grades code
+   craft, not data/environment properties — bare L2, no suffix. Tagging "wrote
+   a CLI tool" as (synthetic) is a semantic mismatch.
+3. **L3 stays empty**: in v1, nobody (including the project author) self-rates L3.
+4. **Downgrade on ambiguity**: when evidence is fuzzy, take the lower grade.

@@ -59,6 +59,36 @@
 - **HireVue** 类厂商：做联邦招聘测评，走企业/HR 采购路线。
 - **结论**：NICE 映射这条路**有人付钱**（企业端已验证），说明概念成立。
 
+### HTB Academy 深拆（2026-10-16 逐点解析）
+- **体量**：25+ 学习路径（job role paths + skill paths 双轨）、355+ 模块、
+  1770+ 实操 lab——"路径包装"是被验证过的形态。
+- **NICE 映射**：模块已映射到 NICE Tasks/Knowledge/Skills，平台内有
+  Skill Progress Mapping。**纠正 10-15 的判断**：NICE 映射不是空白，
+  HTB 已经做了——差异化不在"有没有 NICE"，而在下面四点。
+- **零门槛动手**：Pwnbox 浏览器内虚拟机，"no infrastructure or tool
+  requirements"——动手零 setup 是行业标准动作。
+- **报告即门槛**：考证要求 commercial-grade report（商业级报告）才算过——
+  这验证了 D3/事件报告写作在画像里的权重，报告质量就是分水岭。
+- **B2B 第二条腿**：NVISO 等公司用 Academy 给新员工 onboarding（按 track
+  补齐知识）。企业买的不只是招聘筛选，还有**入职后的能力基线**。
+- **Threat-informed**：训练方法论是威胁情报驱动——与 Phase 3 的 CVE 驱动
+  lab 卡同构。
+
+**从 HTB 偷来的四个思路（已排进路线图）**：
+1. **Role-path 包装**（Phase 2.5）：把技能挑战打包成"SOC Analyst Tier 1
+   ready"这类岗位轨道——HTB 证明求职者为"岗位就绪"买单，不为"技能点"买单。
+2. **B2B onboarding 腿**（Phase 4 扩展）：画像的第二用途——雇主给新员工
+   做能力基线扫描，按缺口排 training plan。NVISO 模式的个人版。
+3. **零 setup 铁律**（全 Phase）：任何挑战必须一条命令（或浏览器打开）即跑；
+   pytest 现状已达标，写进 lab 卡的完成标准。
+4. **报告质量门**（Phase 3）：高级 lab 卡的通过标准含"报告达到可交付客户
+   的质量"——直接对标 HTB 的 commercial-grade report 要求。
+
+**诚实差异化（修正版）**：HTB 是平台锁定的（profile 出不了 HTB）、
+考核是 flag/练习题制（无开放式 AI 评分）、画像是黑客向（HR 30 秒看不懂）、
+闭源。**soc-skills 的生态位**：求职者拥有、可携带的技能护照 + AI 开放式评分 +
+HR 可读 + 开源。NICE 映射是入场券，不是护城河。
+
 ### 定位：中间断了一截
 ```
 HTB / TryHackMe（游戏化，HR 看不懂）

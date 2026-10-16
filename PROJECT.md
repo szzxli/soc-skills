@@ -3,7 +3,12 @@
 > Skeleton v1.0 · 2026-10-15 · thesis revised (reaffirmed by founder, evening of 2026-10-15)
 > Thesis: **certs ≠ real ability** — even an OSCP can't be mapped to real job
 > performance for a beginner; "years of experience" is an equally unquantifiable
-> black box. This product lets genuinely skilled security people **skip the
+> black box. Ten years of routine shifts is often one year repeated ten times,
+> while months of daily deliberate hands-on practice can surpass it in
+> problem-finding and problem-solving ability. What employers are actually
+> buying is **future performance** — and its best predictors are demonstrated
+> capability plus **learning velocity**, both measurable, neither requiring a
+> timeline. This product lets genuinely skilled people **skip the
 > "work timeline"**: verifiable hands-on measurement replaces lazy "X years"
 > screening, and **auto-generates resume content** — one click produces
 > HR-readable skill evidence for job applications.
@@ -293,6 +298,10 @@ clicked" — changed four product assumptions:
 - **Acceptance**: founder's profile page live; 3 external users trial it and
   give feedback; viewed by at least 1 real interviewer (counted during the
   founder's job search).
+- **Learning velocity tracking (future)**: re-assessment over time produces a
+  growth curve — D1 L1 → L2 in 6 weeks, etc. Tenure measures the past (poorly);
+  the curve measures trajectory. Employers buy future performance; the curve
+  is the closest thing to a direct measurement of it.
 
 ## 4. Not-doing list (v1)
 - No online judge system (no resources; human + AI grading first).

@@ -10,35 +10,71 @@
 <style>
 :root{
   --bg:#f4f6f8; --card:#ffffff; --ink:#1c2733; --soft:#5b6b7b;
-  --navy:#0f2027; --teal:#14b8a6; --green:#16a34a; --amber:#d97706;
-  --red:#dc2626; --line:#e2e8f0; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --navy:#0f2027; --navy2:#1a3440; --teal:#14b8a6; --teal-d:#0f766e;
+  --green:#16a34a; --amber:#d97706; --red:#dc2626; --line:#e2e8f0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.6}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header.top{position:sticky;top:0;z-index:50;background:rgba(15,32,39,.96);backdrop-filter:blur(8px)}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(15,32,39,.97);backdrop-filter:blur(8px)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
 .brand{font-family:var(--mono);font-size:18px;color:#fff;text-decoration:none;font-weight:700}
 .brand span{color:var(--teal)}
-nav a{margin-left:16px;color:#9fb3c4;text-decoration:none;font-size:13.5px}
+nav a{margin-left:14px;color:#9fb3c4;text-decoration:none;font-size:13px}
 nav a:hover{color:#fff}
-.hero{background:linear-gradient(135deg,#0f2027 0%,#203a43 60%,#2c5364 100%);color:#fff;padding:70px 0 56px;text-align:center}
+.pill-new{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;background:var(--teal);color:#04211d;border-radius:20px;padding:2px 9px;margin-left:6px;vertical-align:middle}
+/* Hero — GIAC-style institutional */
+.hero{background:linear-gradient(135deg,#0f2027 0%,#1a3440 55%,#234e5f 100%);color:#fff;padding:76px 0 0;text-align:center}
 .hero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.25em;color:var(--teal)}
-.hero h1{font-size:clamp(30px,5.5vw,50px);margin:14px 0;line-height:1.25}
-.hero p.sub{color:#c3d2de;max-width:620px;margin:0 auto;font-size:17px}
-.hero .cta{margin-top:26px}
+.hero h1{font-size:clamp(30px,5.5vw,52px);margin:14px 0;line-height:1.22}
+.hero p.sub{color:#c3d2de;max-width:640px;margin:0 auto;font-size:17px}
+.hero .cta{margin-top:26px;margin-bottom:8px}
 .btn{display:inline-block;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:600;font-size:15px;margin:6px;cursor:pointer;border:none}
 .btn.primary{background:var(--teal);color:#04211d}
 .btn.primary:hover{background:#2dd4bf}
 .btn.ghost{border:1.5px solid #5b7a8c;color:#dbe7ef;background:transparent}
-section{padding:52px 0}
-section h2{font-size:26px;text-align:center;margin-bottom:6px}
-section p.lead{text-align:center;color:var(--soft);max-width:640px;margin:0 auto 30px}
+/* Stats strip — GIAC pattern, honest numbers only */
+.stats{background:rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.12);margin-top:44px}
+.stats .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:0}
+.stat{padding:20px 30px;text-align:center;min-width:150px}
+.stat+.stat{border-left:1px solid rgba(255,255,255,.12)}
+.stat b{display:block;font-size:26px;font-family:var(--mono);color:#fff}
+.stat span{font-size:12px;color:#9fb3c4;letter-spacing:.04em}
+.stat small{display:block;font-size:10.5px;color:#6b8296;margin-top:2px}
+section{padding:56px 0}
+section.alt{background:#eef2f5}
+section h2{font-size:27px;text-align:center;margin-bottom:6px}
+section p.lead{text-align:center;color:var(--soft);max-width:660px;margin:0 auto 32px}
+/* Domain cards — GIAC focus-area card pattern */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;transition:box-shadow .15s}
+.dcard:hover{box-shadow:0 6px 22px rgba(15,32,39,.10)}
+.dcard .chead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.did{font-family:var(--mono);font-size:12px;background:var(--navy);color:var(--teal);border-radius:6px;padding:3px 9px;font-weight:700}
+.dcard h3{font-size:15.5px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.06em;border-radius:20px;padding:2px 9px;margin-left:auto;white-space:nowrap}
+.tag.lab{background:#e0f2f1;color:var(--teal-d)}
+.tag.new{background:#fef3c7;color:#92400e}
+.tag.core{background:#ede9fe;color:#6d28d9}
+.dcard .lv-line{font-size:13px;color:var(--soft);margin:7px 0;padding-left:12px;border-left:3px solid var(--line)}
+.dcard .lv-line b{color:var(--ink);font-family:var(--mono);font-size:12px}
+.dcard .lv-line.l2{border-color:var(--green)}
+.dcard .lv-detail{display:none;font-size:13px;color:var(--soft);margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.dcard.open .lv-detail{display:block}
+/* Resource cards */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.rcard{background:var(--navy);color:#dbe7ef;border-radius:14px;padding:22px;text-decoration:none;display:block;transition:transform .15s}
+.rcard:hover{transform:translateY(-3px)}
+.rcard b{color:#fff;font-size:16px;display:block;margin-bottom:6px}
+.rcard p{font-size:13.5px;color:#9fb3c4}
+.rcard .go{color:var(--teal);font-family:var(--mono);font-size:13px;margin-top:10px;display:block}
+/* Quiz (kept) */
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
 .domain-q{border-bottom:1px dashed var(--line);padding:18px 0}
 .domain-q:last-child{border-bottom:none}
 .domain-q h3{font-size:16.5px;margin-bottom:2px}
-.domain-q h3 .did{font-family:var(--mono);font-size:12px;background:var(--navy);color:var(--teal);border-radius:5px;padding:2px 8px;margin-right:8px}
+.domain-q h3 .did{margin-right:8px}
 .domain-q .q{margin:10px 0 4px;font-size:14.5px}
 .domain-q .q .lv{font-size:11px;font-weight:700;border-radius:5px;padding:1px 7px;margin-right:6px}
 .lv1{background:#e0f2f1;color:#0f766e}.lv2{background:#dcfce7;color:var(--green)}
@@ -58,28 +94,30 @@ section p.lead{text-align:center;color:var(--soft);max-width:640px;margin:0 auto
 .matrix td.hit{background:#d1fae5;font-weight:700;color:#065f46}
 .summary-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:14.5px;white-space:pre-wrap;margin:12px 0}
 .copybtn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:14px;font-weight:600}
-.rubric details{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--card)}
-.rubric summary{padding:15px 18px;cursor:pointer;font-weight:600;font-size:15px}
-.rubric summary .did{font-family:var(--mono);font-size:12px;background:var(--navy);color:var(--teal);border-radius:5px;padding:2px 8px;margin-right:8px}
-.rubric .body{padding:0 18px 16px;font-size:14px;color:var(--soft)}
-.rubric .body b{color:var(--ink)}
 footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
 footer a{color:var(--teal)}
-@media(max-width:640px){.hero{padding:48px 0 40px}nav a{margin-left:10px;font-size:12px}}
+@media(max-width:640px){.hero{padding:52px 0 0}nav a{margin-left:9px;font-size:11.5px}.stat{padding:14px 16px;min-width:120px}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#assess">Assess</a><a href="#progress">Progress</a><a href="#rubric">Rubric</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
+  <nav><a href="#assess">Assess</a><a href="#progress">Progress<span class="pill-new">NEW</span></a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
 </div></header>
 
 <div class="hero"><div class="wrap">
-  <div class="kicker">OPEN SOURCE · MIT</div>
+  <div class="kicker">OPEN SOURCE · MIT · CANDIDATE-OWNED</div>
   <h1>Certs don't prove ability.<br>Evidence does.</h1>
   <p class="sub">"Years of experience" is a lazy filter. Answer 14 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
   <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
+</div>
+<div class="stats"><div class="wrap">
+  <div class="stat"><b>7</b><span>SKILL DOMAINS</span><small>NICE-mapped rubric</small></div>
+  <div class="stat"><b>3</b><span>LEVELS</span><small>L1 · L2 · L3 (never self-awarded)</small></div>
+  <div class="stat"><b>5</b><span>GRADED PROJECTS</span><small>AI grader v1.1, public report</small></div>
+  <div class="stat"><b>0</b><span>BLACK BOXES</span><small>rubric 100% public</small></div>
 </div></div>
+</div>
 
 <section id="assess"><div class="wrap">
   <h2>Self-assessment</h2>
@@ -99,7 +137,7 @@ footer a{color:var(--teal)}
     <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER · COPY TO RESUME HEADER</span><span id="one-liner"></span></div>
     <div class="card">
       <h3 style="margin-bottom:4px">Multi-hat readiness matrix</h3>
-      <p style="font-size:13px;color:var(--soft)">How many hats can you wear — at a glance.</p>
+      <p style="font-size:13px;color:var(--soft)">A portfolio of proven skills, not a portfolio of badges. How many hats can you wear — at a glance.</p>
       <table class="matrix" id="matrix"></table>
     </div>
     <div class="card">
@@ -110,8 +148,8 @@ footer a{color:var(--teal)}
   </div>
 </div></section>
 
-<section id="progress" style="background:#eef2f5"><div class="wrap">
-  <h2>Progress &amp; learning velocity</h2>
+<section id="progress" class="alt"><div class="wrap">
+  <h2>Progress &amp; learning velocity <span class="pill-new">NEW</span></h2>
   <p class="lead">Every assessment is saved on this device. Re-assess over time — the curve measures trajectory. Employers buy future performance; this is the closest thing to measuring it.</p>
   <div class="card" id="history-card">
     <div id="velocity-line" style="font-family:var(--mono);font-size:15px;margin-bottom:12px"></div>
@@ -122,16 +160,27 @@ footer a{color:var(--teal)}
   </div>
 </div></section>
 
-<section id="rubric" style="background:#eef2f5"><div class="wrap">
-  <h2>The rubric</h2>
-  <p class="lead">7 domains × 3 levels. Public, versioned, no black boxes.</p>
-  <div class="rubric" id="rubric-list"></div>
+<section id="domains"><div class="wrap">
+  <h2>Browse by domain</h2>
+  <p class="lead">Seven domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
+  <div class="dgrid" id="domain-grid"></div>
+</div></section>
+
+<section id="resources" class="alt"><div class="wrap">
+  <h2>Go deeper</h2>
+  <p class="lead">The profile is the surface. Underneath: graded evidence, original lab work, and a public rubric.</p>
+  <div class="rgrid">
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.1</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/labs"><b>CVE lab cards</b><p>Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation.</p><span class="go">labs/ →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/blob/main/FEEDBACK.md"><b>Feedback → product</b><p>Every principle earned from someone pushing back. The debate log.</p><span class="go">FEEDBACK.md →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-home-lab"><b>Home lab</b><p>The 5 working projects behind the sample profile. Real code, real runs.</p><span class="go">soc-home-lab →</span></a>
+  </div>
 </div></section>
 
 <section id="sample"><div class="wrap">
   <h2>Sample profile</h2>
-  <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, graded against the rubric.</p>
-  <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 4/7 domains (lab) · 9 tested tools &amp; reports as evidence</span></div>
+  <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, AI-graded against the rubric (v1.1 report in <span style="font-family:var(--mono)">grader/</span>).</p>
+  <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 5/7 domains (lab) · 5 projects AI-graded against a public rubric</span></div>
   <div class="card"><table class="matrix">
     <tr><th>Domain</th><th>—</th><th>L1</th><th>L1+</th><th>L2</th></tr>
     <tr><td style="text-align:left">D1 Monitoring &amp; triage</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
@@ -142,7 +191,7 @@ footer a{color:var(--teal)}
     <tr><td style="text-align:left">D6 Cloud (AWS)</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
     <tr><td style="text-align:left">D7 Automation &amp; scripting</td><td></td><td></td><td></td><td class="hit">L2</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. L3 column intentionally empty — no production experience claimed.</p></div>
+  <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. D3 downgraded to L1+ on 2026-10-16 (blank template ≠ filled report — the rubric working as intended). L3 column intentionally empty.</p></div>
 </div></section>
 
 <footer><div class="wrap">
@@ -154,43 +203,43 @@ footer a{color:var(--teal)}
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 
 const DOMAINS = [
- {id:'D1', name:'Security monitoring & alert triage',
+ {id:'D1', name:'Security monitoring & alert triage', tag:['lab','LAB-READY'],
   q1:'Can you walk through the alert triage flow (receive → prioritize → assess → contain/escalate) and apply a severity model?',
   q2:'Have you independently built a monitoring setup and completed full alert→disposition chains, with your own triage notes or playbook as evidence?',
   r:['L1: describes triage flow, uses severity model, works sample alerts from a guide.',
      'L2: built monitoring with real detection sources, completed full chains alone, wrote playbooks.',
      'L3: worked a real alert queue in a production SOC (not self-awarded).']},
- {id:'D2', name:'Log analysis & detection engineering',
+ {id:'D2', name:'Log analysis & detection engineering', tag:['lab','LAB-READY'],
   q1:'Can you read common audit-log fields (who/what/when/where) and do basic searches with grep, jq, or consoles?',
   q2:'Have you written your own detection logic with tunable thresholds and test cases — and can you explain what it cannot catch?',
   r:['L1: reads audit logs, basic retrieval.',
      'L2: self-written detection logic, tunable thresholds, test cases, knows blind spots.',
      'L3: wrote/tuned detections in production (not self-awarded).']},
- {id:'D3', name:'Incident response & reporting',
+ {id:'D3', name:'Incident response & reporting', tag:['lab','LAB-READY'],
   q1:'Can you describe the IR lifecycle and fill out an incident report template?',
   q2:'Have you independently run a simulated attack→forensics→containment loop AND written a structured incident report (timeline, evidence, root cause)?',
   r:['L1: knows IR lifecycle, fills templates.',
      'L2: completed the loop independently + produced a report readable by someone who wasn\'t there.',
      'L3: handled real incidents under pressure (not self-awarded).']},
- {id:'D4', name:'Phishing email analysis',
+ {id:'D4', name:'Phishing email analysis', tag:['core','CORE'],
   q1:'Can you read email headers and explain SPF, DKIM, and DMARC?',
   q2:'Have you independently completed a full phishing analysis (headers→auth→URL decoding→IOCs→verdict) with a written, evidence-weighted report?',
   r:['L1: reads headers, explains auth protocols, follows a cheatsheet.',
      'L2: full analysis independently, evidence-weighted verdict, written report.',
      'L3: triaged real phish at production volume (not self-awarded).']},
- {id:'D5', name:'Binary / malware triage',
+ {id:'D5', name:'Binary / malware triage', tag:['lab','LAB-READY'],
   q1:'Can you explain static vs dynamic analysis and name common suspicious indicators (packing, entropy, sensitive APIs)?',
   q2:'Have you written a working static triage tool with scoring logic and tests — holding "triage signals ≠ conviction"?',
   r:['L1: explains concepts, knows indicators.',
      'L2: working tool with scoring + tests, honest about heuristic limits.',
      'L3: analyzed real malware incl. dynamic analysis (not self-awarded).']},
- {id:'D6', name:'Cloud security (AWS) hands-on',
+ {id:'D6', name:'Cloud security (AWS) hands-on', tag:['lab','LAB-READY'],
   q1:'Can you explain what CloudTrail, GuardDuty, and Security Hub each do?',
   q2:'Have you built an audited cloud environment from IaC, run attack simulations yourself, and seen real detections fire?',
   r:['L1: explains the services.',
      'L2: IaC-built environment, hand-run attacks, real detections observed.',
      'L3: production cloud security operations (not self-awarded).']},
- {id:'D7', name:'Security automation & scripting',
+ {id:'D7', name:'Security automation & scripting', tag:['core','CORE'],
   q1:'Can you write basic Python scripts for text/JSON processing?',
   q2:'Have you independently written a tool with CLI args, error handling, and tests that someone else can run and reproduce?',
   r:['L1: basic scripting.',
@@ -220,13 +269,16 @@ quiz.addEventListener('click', e=>{
   b.className = b.dataset.v==='1'?'sel-yes':b.dataset.v==='0.5'?'sel-part':'sel-no';
 });
 
-// Build rubric reference
-const rl = document.getElementById('rubric-list');
+// Build domain cards (GIAC focus-area pattern)
+const dg = document.getElementById('domain-grid');
 DOMAINS.forEach(d=>{
-  const det = document.createElement('details');
-  det.innerHTML = `<summary><span class="did">${d.id}</span>${d.name}</summary>
-    <div class="body">${d.r.map(x=>`<p>• ${x}</p>`).join('')}</div>`;
-  rl.appendChild(det);
+  const c = document.createElement('div');
+  c.className = 'dcard';
+  c.innerHTML = `<div class="chead"><span class="did">${d.id}</span><h3>${d.name}</h3><span class="tag ${d.tag[0]}">${d.tag[1]}</span></div>` +
+    d.r.map((x,xi)=>`<div class="lv-line${xi===1?' l2':''}"><b>${['L1','L2','L3'][xi]}</b> — ${x.replace(/^[A-Z0-9]+:\s*/, '')}</div>`).join('') +
+    `<div class="lv-detail">Q1: ${d.q1}<br>Q2: ${d.q2}</div>`;
+  c.addEventListener('click', ()=>c.classList.toggle('open'));
+  dg.appendChild(c);
 });
 
 function levelOf(s, pledged){
@@ -259,7 +311,6 @@ document.getElementById('gen-btn').addEventListener('click', ()=>{
       cols.map(c=>`<td class="${levels[i]===c?'hit':''}">${levels[i]===c?c:''}</td>`).join('')+'</tr>';
   });
   document.getElementById('matrix').innerHTML = mh;
-  if(!pledged) mh += '';
 
   // 30-second summary
   const lines = DOMAINS.map((d,i)=>`${d.id} ${d.name}: ${levels[i]}`).join('\n');
@@ -270,10 +321,16 @@ ${document.getElementById('one-liner').textContent}
 ${lines}
 
 Strongest: ${top}
-Method: soc-skills rubric v1.0 (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
+Method: soc-skills rubric v1.1 (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
 Note: self-assessed. L3 never self-awarded; verify in interview.`;
   document.getElementById('results').style.display = 'block';
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  // Save to history (device-only)
+  const hist = loadHist();
+  hist.push({ts: Date.now(), levels, pledged});
+  saveHist(hist);
+  renderHistory();
   if(!pledged) alert('Evidence pledge unchecked: all L2 answers were downgraded to L1+*. Check the pledge if every "Yes" has real evidence.');
 });
 document.getElementById('copy-btn').addEventListener('click', ()=>{
@@ -304,7 +361,7 @@ function renderHistory(){
   const first = scores[0], last = scores[scores.length-1];
   const delta = (last-first).toFixed(1);
   const days = Math.max(1, Math.round((hist[hist.length-1].ts - hist[0].ts)/86400000));
-  const sign = delta>0?'+':''; 
+  const sign = delta>0?'+':'';
   line.innerHTML = `Learning velocity: <b style="color:${delta>=0?'var(--green)':'var(--red)'}">${sign}${delta} levels</b>` +
     ` over ${days} day${days>1?'s':''} · ${hist.length} assessment${hist.length>1?'s':''} · current score <b>${last.toFixed(1)}/14</b>` +
     (hist.length<2 ? ' <span style="color:var(--soft)">— re-assess later to grow the curve.</span>':'');
@@ -314,7 +371,7 @@ function renderHistory(){
   const min=Math.min(...scores,0), max=Math.max(...scores,2);
   const X=i=>hist.length===1?W/2:P+i*(W-2*P)/(hist.length-1);
   const Y=s=>H-P-((s-min)/(max-min||1))*(H-2*P);
-  let pts = scores.map((s,i)=>`${X(i).toFixed(1)},${Y(s).toFixed(1)}`).join(' ');
+  const pts = scores.map((s,i)=>`${X(i).toFixed(1)},${Y(s).toFixed(1)}`).join(' ');
   chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:640px;display:block;margin:0 auto">`+
     `<polyline points="${pts}" fill="none" stroke="#14b8a6" stroke-width="2.5"/>`+
     scores.map((s,i)=>`<circle cx="${X(i)}" cy="${Y(s)}" r="4.5" fill="#0f2027"><title>${fmtDate(hist[i].ts)}: ${s.toFixed(1)}</title></circle>`).join('')+

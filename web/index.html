@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>soc-skills — prove what you can do</title>
+<meta name="description" content="Quantified hands-on cybersecurity skill profiles. Certs don't prove ability — evidence does.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2027">
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1c2733; --soft:#5b6b7b;
+  --navy:#0f2027; --teal:#14b8a6; --green:#16a34a; --amber:#d97706;
+  --red:#dc2626; --line:#e2e8f0; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(15,32,39,.96);backdrop-filter:blur(8px)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-family:var(--mono);font-size:18px;color:#fff;text-decoration:none;font-weight:700}
+.brand span{color:var(--teal)}
+nav a{margin-left:16px;color:#9fb3c4;text-decoration:none;font-size:13.5px}
+nav a:hover{color:#fff}
+.hero{background:linear-gradient(135deg,#0f2027 0%,#203a43 60%,#2c5364 100%);color:#fff;padding:70px 0 56px;text-align:center}
+.hero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.25em;color:var(--teal)}
+.hero h1{font-size:clamp(30px,5.5vw,50px);margin:14px 0;line-height:1.25}
+.hero p.sub{color:#c3d2de;max-width:620px;margin:0 auto;font-size:17px}
+.hero .cta{margin-top:26px}
+.btn{display:inline-block;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:600;font-size:15px;margin:6px;cursor:pointer;border:none}
+.btn.primary{background:var(--teal);color:#04211d}
+.btn.primary:hover{background:#2dd4bf}
+.btn.ghost{border:1.5px solid #5b7a8c;color:#dbe7ef;background:transparent}
+section{padding:52px 0}
+section h2{font-size:26px;text-align:center;margin-bottom:6px}
+section p.lead{text-align:center;color:var(--soft);max-width:640px;margin:0 auto 30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+.domain-q{border-bottom:1px dashed var(--line);padding:18px 0}
+.domain-q:last-child{border-bottom:none}
+.domain-q h3{font-size:16.5px;margin-bottom:2px}
+.domain-q h3 .did{font-family:var(--mono);font-size:12px;background:var(--navy);color:var(--teal);border-radius:5px;padding:2px 8px;margin-right:8px}
+.domain-q .q{margin:10px 0 4px;font-size:14.5px}
+.domain-q .q .lv{font-size:11px;font-weight:700;border-radius:5px;padding:1px 7px;margin-right:6px}
+.lv1{background:#e0f2f1;color:#0f766e}.lv2{background:#dcfce7;color:var(--green)}
+.opts{display:flex;gap:8px;margin-top:6px}
+.opts button{padding:7px 18px;border:1.5px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;font-size:13.5px}
+.opts button.sel-yes{border-color:var(--green);background:#f0fdf4;color:var(--green);font-weight:700}
+.opts button.sel-part{border-color:var(--amber);background:#fffbeb;color:var(--amber);font-weight:700}
+.opts button.sel-no{border-color:var(--red);background:#fef2f2;color:var(--red);font-weight:700}
+.honesty{margin-top:18px;padding:16px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;font-size:14px}
+.honesty label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+#results{display:none}
+.oneliner{background:var(--navy);color:#fff;border-radius:12px;padding:22px;font-family:var(--mono);font-size:16px;text-align:center;margin-bottom:16px}
+.oneliner .lbl{font-size:11px;letter-spacing:.2em;color:var(--teal);display:block;margin-bottom:8px;font-family:-apple-system,sans-serif}
+.matrix{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+.matrix th,.matrix td{border:1px solid var(--line);padding:9px 6px;text-align:center}
+.matrix th{background:#f8fafc;font-size:12px;color:var(--soft)}
+.matrix td.hit{background:#d1fae5;font-weight:700;color:#065f46}
+.summary-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:14.5px;white-space:pre-wrap;margin:12px 0}
+.copybtn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:14px;font-weight:600}
+.rubric details{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--card)}
+.rubric summary{padding:15px 18px;cursor:pointer;font-weight:600;font-size:15px}
+.rubric summary .did{font-family:var(--mono);font-size:12px;background:var(--navy);color:var(--teal);border-radius:5px;padding:2px 8px;margin-right:8px}
+.rubric .body{padding:0 18px 16px;font-size:14px;color:var(--soft)}
+.rubric .body b{color:var(--ink)}
+footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
+footer a{color:var(--teal)}
+@media(max-width:640px){.hero{padding:48px 0 40px}nav a{margin-left:10px;font-size:12px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#">soc<span>-skills</span></a>
+  <nav><a href="#assess">Assess</a><a href="#rubric">Rubric</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="kicker">OPEN SOURCE · MIT</div>
+  <h1>Certs don't prove ability.<br>Evidence does.</h1>
+  <p class="sub">"Years of experience" is a lazy filter. Answer 14 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
+  <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
+</div></div>
+
+<section id="assess"><div class="wrap">
+  <h2>Self-assessment</h2>
+  <p class="lead">Two questions per domain. Answer honestly — the honesty check at the end downgrades anything you can't evidence.</p>
+  <div class="card" id="quiz"></div>
+  <div class="honesty">
+    <label><input type="checkbox" id="evidence-check" style="margin-top:4px">
+    <span><b>Evidence pledge:</b> every "Yes" above is backed by observable evidence — code, a filled report, or run records. Blank templates and "I read about it" don't count.</span></label>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <button class="btn primary" id="gen-btn" style="font-size:16px">Generate my profile</button>
+  </div>
+
+  <div id="results">
+    <h2 style="margin-top:40px">Your profile</h2>
+    <p class="lead">The 6-second one-liner goes at the top of your resume. The 30-second summary is ATS-parseable plain text.</p>
+    <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER · COPY TO RESUME HEADER</span><span id="one-liner"></span></div>
+    <div class="card">
+      <h3 style="margin-bottom:4px">Multi-hat readiness matrix</h3>
+      <p style="font-size:13px;color:var(--soft)">How many hats can you wear — at a glance.</p>
+      <table class="matrix" id="matrix"></table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:4px">30-second summary</h3>
+      <div class="summary-box" id="summary"></div>
+      <button class="copybtn" id="copy-btn">Copy summary</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="rubric" style="background:#eef2f5"><div class="wrap">
+  <h2>The rubric</h2>
+  <p class="lead">7 domains × 3 levels. Public, versioned, no black boxes.</p>
+  <div class="rubric" id="rubric-list"></div>
+</div></section>
+
+<section id="sample"><div class="wrap">
+  <h2>Sample profile</h2>
+  <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, graded against the rubric.</p>
+  <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 4/7 domains (lab) · 9 tested tools &amp; reports as evidence</span></div>
+  <div class="card"><table class="matrix">
+    <tr><th>Domain</th><th>—</th><th>L1</th><th>L1+</th><th>L2</th></tr>
+    <tr><td style="text-align:left">D1 Monitoring &amp; triage</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
+    <tr><td style="text-align:left">D2 Log analysis &amp; detection</td><td></td><td></td><td class="hit">L1+</td><td></td></tr>
+    <tr><td style="text-align:left">D3 Incident response</td><td></td><td></td><td class="hit">L1+</td><td></td></tr>
+    <tr><td style="text-align:left">D4 Phishing analysis</td><td></td><td></td><td></td><td class="hit">L2 (rec.)</td></tr>
+    <tr><td style="text-align:left">D5 Binary triage</td><td></td><td></td><td></td><td class="hit">L2 (syn.)</td></tr>
+    <tr><td style="text-align:left">D6 Cloud (AWS)</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
+    <tr><td style="text-align:left">D7 Automation &amp; scripting</td><td></td><td></td><td></td><td class="hit">L2</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. L3 column intentionally empty — no production experience claimed.</p></div>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
+  <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · Evidence over pedigree.</p>
+</div></footer>
+
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
+const DOMAINS = [
+ {id:'D1', name:'Security monitoring & alert triage',
+  q1:'Can you walk through the alert triage flow (receive → prioritize → assess → contain/escalate) and apply a severity model?',
+  q2:'Have you independently built a monitoring setup and completed full alert→disposition chains, with your own triage notes or playbook as evidence?',
+  r:['L1: describes triage flow, uses severity model, works sample alerts from a guide.',
+     'L2: built monitoring with real detection sources, completed full chains alone, wrote playbooks.',
+     'L3: worked a real alert queue in a production SOC (not self-awarded).']},
+ {id:'D2', name:'Log analysis & detection engineering',
+  q1:'Can you read common audit-log fields (who/what/when/where) and do basic searches with grep, jq, or consoles?',
+  q2:'Have you written your own detection logic with tunable thresholds and test cases — and can you explain what it cannot catch?',
+  r:['L1: reads audit logs, basic retrieval.',
+     'L2: self-written detection logic, tunable thresholds, test cases, knows blind spots.',
+     'L3: wrote/tuned detections in production (not self-awarded).']},
+ {id:'D3', name:'Incident response & reporting',
+  q1:'Can you describe the IR lifecycle and fill out an incident report template?',
+  q2:'Have you independently run a simulated attack→forensics→containment loop AND written a structured incident report (timeline, evidence, root cause)?',
+  r:['L1: knows IR lifecycle, fills templates.',
+     'L2: completed the loop independently + produced a report readable by someone who wasn\'t there.',
+     'L3: handled real incidents under pressure (not self-awarded).']},
+ {id:'D4', name:'Phishing email analysis',
+  q1:'Can you read email headers and explain SPF, DKIM, and DMARC?',
+  q2:'Have you independently completed a full phishing analysis (headers→auth→URL decoding→IOCs→verdict) with a written, evidence-weighted report?',
+  r:['L1: reads headers, explains auth protocols, follows a cheatsheet.',
+     'L2: full analysis independently, evidence-weighted verdict, written report.',
+     'L3: triaged real phish at production volume (not self-awarded).']},
+ {id:'D5', name:'Binary / malware triage',
+  q1:'Can you explain static vs dynamic analysis and name common suspicious indicators (packing, entropy, sensitive APIs)?',
+  q2:'Have you written a working static triage tool with scoring logic and tests — holding "triage signals ≠ conviction"?',
+  r:['L1: explains concepts, knows indicators.',
+     'L2: working tool with scoring + tests, honest about heuristic limits.',
+     'L3: analyzed real malware incl. dynamic analysis (not self-awarded).']},
+ {id:'D6', name:'Cloud security (AWS) hands-on',
+  q1:'Can you explain what CloudTrail, GuardDuty, and Security Hub each do?',
+  q2:'Have you built an audited cloud environment from IaC, run attack simulations yourself, and seen real detections fire?',
+  r:['L1: explains the services.',
+     'L2: IaC-built environment, hand-run attacks, real detections observed.',
+     'L3: production cloud security operations (not self-awarded).']},
+ {id:'D7', name:'Security automation & scripting',
+  q1:'Can you write basic Python scripts for text/JSON processing?',
+  q2:'Have you independently written a tool with CLI args, error handling, and tests that someone else can run and reproduce?',
+  r:['L1: basic scripting.',
+     'L2: usable tool, documented, tested, reproducible by others.',
+     'L3: production-grade automation with CI and review (not self-awarded).']},
+];
+const state = DOMAINS.map(()=>({l1:null,l2:null}));
+
+// Build quiz
+const quiz = document.getElementById('quiz');
+DOMAINS.forEach((d,i)=>{
+  const div = document.createElement('div');
+  div.className = 'domain-q';
+  div.innerHTML = `<h3><span class="did">${d.id}</span>${d.name}</h3>
+    <div class="q"><span class="lv lv1">L1</span>${d.q1}</div><div class="opts" data-d="${i}" data-q="l1">
+      <button data-v="1">Yes</button><button data-v="0.5">Partially</button><button data-v="0">No</button></div>
+    <div class="q"><span class="lv lv2">L2</span>${d.q2}</div><div class="opts" data-d="${i}" data-q="l2">
+      <button data-v="1">Yes</button><button data-v="0.5">Partially</button><button data-v="0">No</button></div>`;
+  quiz.appendChild(div);
+});
+quiz.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  const box = b.parentElement;
+  const i = +box.dataset.d, q = box.dataset.q;
+  state[i][q] = parseFloat(b.dataset.v);
+  box.querySelectorAll('button').forEach(x=>x.className='');
+  b.className = b.dataset.v==='1'?'sel-yes':b.dataset.v==='0.5'?'sel-part':'sel-no';
+});
+
+// Build rubric reference
+const rl = document.getElementById('rubric-list');
+DOMAINS.forEach(d=>{
+  const det = document.createElement('details');
+  det.innerHTML = `<summary><span class="did">${d.id}</span>${d.name}</summary>
+    <div class="body">${d.r.map(x=>`<p>• ${x}</p>`).join('')}</div>`;
+  rl.appendChild(det);
+});
+
+function levelOf(s, pledged){
+  if(s.l1===null||s.l2===null) return null;
+  if(s.l1===0) return '—';
+  let lv;
+  if(s.l2===1) lv='L2'; else if(s.l2===0.5) lv='L1+'; else lv='L1';
+  if(lv==='L2' && !pledged) lv='L1+*';  // honesty downgrade
+  return lv;
+}
+document.getElementById('gen-btn').addEventListener('click', ()=>{
+  const pledged = document.getElementById('evidence-check').checked;
+  const levels = state.map(s=>levelOf(s, pledged));
+  if(levels.some(l=>l===null)){ alert('Please answer all 14 questions first.'); return; }
+  const l2count = levels.filter(l=>l==='L2').length;
+  const l1count = levels.filter(l=>l.startsWith('L1')).length;
+  const top = DOMAINS.map((d,i)=>({d,lv:levels[i]}))
+    .filter(x=>x.lv==='L2').map(x=>x.d.id).join(', ') || 'foundations';
+
+  document.getElementById('one-liner').textContent =
+    `${l2count>0?'Independent':'Developing'} security practitioner · ` +
+    `${l2count>0?`L2 in ${l2count}/7 domains`:l1count>0?`L1 foundations in ${l1count}/7 domains`:'assessing foundations'} · ` +
+    `evidence-pledged self-assessment`;
+
+  // Matrix
+  const cols = ['—','L1','L1+','L1+*','L2'];
+  let mh = '<tr><th>Domain</th>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+  DOMAINS.forEach((d,i)=>{
+    mh += `<tr><td style="text-align:left">${d.id} ${d.name.split(' &')[0]}</td>` +
+      cols.map(c=>`<td class="${levels[i]===c?'hit':''}">${levels[i]===c?c:''}</td>`).join('')+'</tr>';
+  });
+  document.getElementById('matrix').innerHTML = mh;
+  if(!pledged) mh += '';
+
+  // 30-second summary
+  const lines = DOMAINS.map((d,i)=>`${d.id} ${d.name}: ${levels[i]}`).join('\n');
+  document.getElementById('summary').textContent =
+`SECURITY SKILLS SELF-ASSESSMENT (evidence-pledged: ${pledged?'yes':'NO — L2s downgraded'})
+${document.getElementById('one-liner').textContent}
+
+${lines}
+
+Strongest: ${top}
+Method: soc-skills rubric v1.0 (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
+Note: self-assessed. L3 never self-awarded; verify in interview.`;
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  if(!pledged) alert('Evidence pledge unchecked: all L2 answers were downgraded to L1+*. Check the pledge if every "Yes" has real evidence.');
+});
+document.getElementById('copy-btn').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(document.getElementById('summary').textContent)
+    .then(()=>{document.getElementById('copy-btn').textContent='Copied!';setTimeout(()=>document.getElementById('copy-btn').textContent='Copy summary',1500);});
+});
+</script>
+</body>
+</html>

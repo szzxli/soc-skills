@@ -253,11 +253,23 @@ clicked" — changed four product assumptions:
 - **Output**: static profile page template (skill snapshot table + evidence
   chain links + cert mapping), one-click generated, resume/LinkedIn-ready.
 - **Core components (added from 2026-10-16 HM feedback)**:
+  - **6-second one-liner** (added 2026-10-16, from the "appsec at Meta" debate):
+    the top layer, designed to survive the resume scan. One line that does what
+    pedigree does — instant domain + level signal. Format:
+    `[level] · [breadth] · [evidence count]`, e.g.
+    "Independent SOC analyst · L2 in 4/7 domains · 9 tested tools/reports".
+    This is the pedigree equivalent for candidates without pedigree.
   - **30-second summary**: plain text, resume-embeddable, ATS-parseable — no
     link-click required;
   - **multi-hat readiness matrix**: 7 domains × levels, breadth at a glance
     ("how many hats");
   - evidence chain: folded under the summary, for whoever wants to audit.
+- **Funnel model** (2026-10-16): the profile is layered by hiring-funnel stage —
+  6-second scan (one-liner) → 30-second read (summary) → interview shortlist
+  (matrix) → deep dive (evidence chain). Pedigree wins the 6-second scan;
+  the profile converts "probably can do X" into "provably can do X" at the
+  middle of the funnel. Positioning line: *pedigree says "probably", we say
+  "provably".*
 - **Acceptance**: founder's profile page live; 3 external users trial it and
   give feedback; viewed by at least 1 real interviewer (counted during the
   founder's job search).

@@ -204,7 +204,7 @@ footer a{color:var(--teal)}
         <option value="custom">Custom endpoint…</option>
       </select>
       <input type="text" id="api-base" placeholder="https://your-endpoint/v1" style="display:none;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;min-width:220px">
-      <input type="text" id="api-model" value="meta-llama/llama-3.3-70b-instruct:free" title="Model name — :free models cost $0" style="width:280px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <input type="text" id="api-model" value="google/gemma-4-31b-it:free" title="Model name — :free models cost $0" style="width:280px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
     </div>
     <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (no credit card). The default model is free — any model ending in <span style="font-family:var(--mono)">:free</span> costs $0 on OpenRouter. Paid models work too if you set a spend limit. Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
   </div>
@@ -650,7 +650,7 @@ const provSel = document.getElementById('api-provider');
 const baseInput = document.getElementById('api-base');
 const modelInput = document.getElementById('api-model');
 keyInput.value = lsGet(KKEY);
-modelInput.value = lsGet(MKEY) || 'meta-llama/llama-3.3-70b-instruct:free';
+modelInput.value = lsGet(MKEY) || 'google/gemma-4-31b-it:free';
 (function(){
   const p = lsGet(PKEY);
   if(p === 'custom'){ provSel.value='custom'; baseInput.style.display=''; baseInput.value = lsGet(BKEY); }
@@ -679,7 +679,7 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   if(!key){ status.textContent = 'Enter your API key first.'; card.style.display=''; return; }
   if(!evidence){ status.textContent = 'Paste your evidence first.'; card.style.display=''; return; }
   const base = (provSel.value==='custom' ? baseInput.value.trim() : provSel.value).replace(/\/$/,'');
-  const model = modelInput.value.trim() || 'meta-llama/llama-3.3-70b-instruct:free';
+  const model = modelInput.value.trim() || 'google/gemma-4-31b-it:free';
   if(!base){ status.textContent = 'Enter a custom endpoint URL.'; card.style.display=''; return; }
   if(provSel.value==='https://api.openai.com/v1'){
     status.textContent = 'Note: OpenAI blocks direct browser calls (CORS) — this will likely fail with "Failed to fetch". Use OpenRouter or a custom CORS-enabled endpoint.';

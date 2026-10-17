@@ -230,8 +230,14 @@ footer a{color:var(--teal)}
     <div id="velocity-line" style="font-family:var(--mono);font-size:15px;margin-bottom:12px"></div>
     <div id="velocity-chart"></div>
     <div id="history-list" style="margin-top:14px;font-size:14px"></div>
-    <div style="margin-top:12px"><button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
-    <span style="font-size:12px;color:var(--soft);margin-left:10px">Stored only in this browser. Nothing leaves your device.</span></div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <button class="copybtn" id="export-hist" style="background:#0f766e">Export history</button>
+    <button class="copybtn" id="import-hist-btn" style="background:#0f766e">Import history</button>
+    <input type="file" id="import-hist" accept=".json,application/json" style="display:none">
+    <button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
+    <span id="hist-io-status" style="font-size:12px;color:var(--soft)"></span>
+    </div>
+    <div style="margin-top:6px"><span style="font-size:12px;color:var(--soft)">Stored only in this browser. Export the JSON to move it to another device — nothing is uploaded anywhere.</span></div>
   </div>
 </div></section><section id="domains"><div class="wrap">
   <div class="skicker">05 · DOMAINS</div>
@@ -492,6 +498,45 @@ document.getElementById('clear-hist').addEventListener('click', ()=>{
   }
   saveHist([]); renderHistory();
   clearArmed=false; btn.textContent='Clear history'; btn.style.background='#94a3b8';
+});
+
+// ---- Export / import history (cross-device) ----
+document.getElementById('export-hist').addEventListener('click', ()=>{
+  const payload = {app:'soc-skills', version:1, exported:new Date().toISOString(), history:loadHist()};
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'soc-skills-history.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+});
+document.getElementById('import-hist-btn').addEventListener('click', ()=>document.getElementById('import-hist').click());
+document.getElementById('import-hist').addEventListener('change', (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  const st = document.getElementById('hist-io-status');
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const d = JSON.parse(r.result);
+      const arr = Array.isArray(d) ? d : d.history;
+      if(!Array.isArray(arr)) throw new Error('bad format');
+      const valid = arr.filter(h=>h && typeof h.ts==='number' && Array.isArray(h.levels));
+      if(valid.length===0) throw new Error('no valid entries');
+      const cur = loadHist();
+      const seen = new Set(cur.map(h=>h.ts));
+      let added = 0;
+      valid.forEach(h=>{ if(!seen.has(h.ts)){ cur.push(h); seen.add(h.ts); added++; } });
+      cur.sort((a,b)=>a.ts-b.ts);
+      saveHist(cur); renderHistory();
+      st.textContent = `Imported ${added} assessment${added===1?'':'s'}${valid.length-added?` (${valid.length-added} duplicate${valid.length-added===1?'':'s'} skipped)`:''}.`;
+      st.style.color = 'var(--green)';
+    }catch(err){
+      st.textContent = 'Import failed: not a valid soc-skills history file.';
+      st.style.color = 'var(--red)';
+    }
+    e.target.value = '';
+  };
+  r.readAsText(f);
 });
 renderHistory();
 

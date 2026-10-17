@@ -195,7 +195,7 @@ footer a{color:var(--teal)}
   <h2>AI grading <span class="pill-new">BETA</span></h2>
   <p class="lead">Self-assessment is a claim. Grading is the check. Paste your evidence, bring your own API key — the rubric grades it, right here in your browser. Your key never leaves this device except to the API provider you choose.</p>
   <div class="card">
-    <h3 style="margin-bottom:10px">1 · Your API key <span style="font-size:12px;color:var(--soft);font-weight:400">(bring your own — typical cost &lt;$0.10 per grading)</span></h3>
+    <h3 style="margin-bottom:10px">1 · Your API key <span style="font-size:12px;color:var(--soft);font-weight:400">(free signup · free models — grading costs $0)</span></h3>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <input type="password" id="api-key" placeholder="sk-or-..." style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
       <select id="api-provider" style="padding:10px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px">
@@ -204,9 +204,9 @@ footer a{color:var(--teal)}
         <option value="custom">Custom endpoint…</option>
       </select>
       <input type="text" id="api-base" placeholder="https://your-endpoint/v1" style="display:none;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;min-width:220px">
-      <input type="text" id="api-model" value="openai/gpt-4o-mini" title="Model name" style="width:180px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <input type="text" id="api-model" value="meta-llama/llama-3.3-70b-instruct:free" title="Model name — :free models cost $0" style="width:280px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
     </div>
-    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (free signup; free models available, or set a spend limit for paid ones — revoke anytime). Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (no credit card). The default model is free — any model ending in <span style="font-family:var(--mono)">:free</span> costs $0 on OpenRouter. Paid models work too if you set a spend limit. Stored only in this browser's localStorage. Sent directly to your chosen provider — never to our servers (there are none). OpenAI's own API blocks browser calls (CORS); OpenRouter allows them. <a href="#" id="forget-key" style="color:var(--red)">Forget my key</a></p>
   </div>
   <div class="card">
     <h3 style="margin-bottom:10px">2 · Your evidence</h3>
@@ -650,7 +650,7 @@ const provSel = document.getElementById('api-provider');
 const baseInput = document.getElementById('api-base');
 const modelInput = document.getElementById('api-model');
 keyInput.value = lsGet(KKEY);
-modelInput.value = lsGet(MKEY) || 'openai/gpt-4o-mini';
+modelInput.value = lsGet(MKEY) || 'meta-llama/llama-3.3-70b-instruct:free';
 (function(){
   const p = lsGet(PKEY);
   if(p === 'custom'){ provSel.value='custom'; baseInput.style.display=''; baseInput.value = lsGet(BKEY); }
@@ -679,7 +679,7 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   if(!key){ status.textContent = 'Enter your API key first.'; card.style.display=''; return; }
   if(!evidence){ status.textContent = 'Paste your evidence first.'; card.style.display=''; return; }
   const base = (provSel.value==='custom' ? baseInput.value.trim() : provSel.value).replace(/\/$/,'');
-  const model = modelInput.value.trim() || 'openai/gpt-4o-mini';
+  const model = modelInput.value.trim() || 'meta-llama/llama-3.3-70b-instruct:free';
   if(!base){ status.textContent = 'Enter a custom endpoint URL.'; card.style.display=''; return; }
   if(provSel.value==='https://api.openai.com/v1'){
     status.textContent = 'Note: OpenAI blocks direct browser calls (CORS) — this will likely fail with "Failed to fetch". Use OpenRouter or a custom CORS-enabled endpoint.';

@@ -24,12 +24,30 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 nav a{margin-left:14px;color:#9fb3c4;text-decoration:none;font-size:13px}
 nav a:hover{color:#fff}
 .pill-new{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;background:var(--teal);color:#04211d;border-radius:20px;padding:2px 9px;margin-left:6px;vertical-align:middle}
-/* Hero — GIAC-style institutional */
-.hero{background:linear-gradient(135deg,#0f2027 0%,#1a3440 55%,#234e5f 100%);color:#fff;padding:76px 0 0;text-align:center}
+/* Hero — two-column: copy + video card */
+.hero{background:linear-gradient(135deg,#0f2027 0%,#1a3440 55%,#234e5f 100%);color:#fff;padding:64px 0 0}
+.hero-grid{display:flex;gap:40px;align-items:center;text-align:left;max-width:1020px;margin:0 auto;padding:0 20px}
+.hero-copy{flex:1.15}
 .hero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.25em;color:var(--teal)}
-.hero h1{font-size:clamp(30px,5.5vw,52px);margin:14px 0;line-height:1.22}
-.hero p.sub{color:#c3d2de;max-width:640px;margin:0 auto;font-size:17px}
-.hero .cta{margin-top:26px;margin-bottom:8px}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:14px 0;line-height:1.22}
+.hero p.sub{color:#c3d2de;max-width:560px;font-size:16.5px}
+.hero .cta{margin-top:24px;margin-bottom:8px}
+.video-card{flex:1;position:relative;border-radius:14px;overflow:hidden;display:block;text-decoration:none;box-shadow:0 14px 44px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.16);transition:transform .15s;min-width:0}
+.video-card:hover{transform:translateY(-3px)}
+.video-card img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.video-card .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.video-card .play i{width:66px;height:66px;border-radius:50%;background:rgba(20,184,166,.95);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:22px;color:#04211d;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.video-card .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-size:13px}
+/* Section kickers — hierarchy labels */
+.skicker{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--teal-d);text-align:center;margin-bottom:10px;font-weight:700}
+/* How-it-works steps — TryHackMe path pattern */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;position:relative}
+.step .snum{width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--teal);font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:16px}
+.step h3{font-size:17px;margin-bottom:6px}
+.step p{font-size:13.5px;color:var(--soft);margin-bottom:10px}
+.step a{font-size:13.5px;color:var(--teal-d);font-weight:600;text-decoration:none}
+@media(max-width:760px){.hero-grid{flex-direction:column}.steps{grid-template-columns:1fr}}
 .btn{display:inline-block;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:600;font-size:15px;margin:6px;cursor:pointer;border:none}
 .btn.primary{background:var(--teal);color:#04211d}
 .btn.primary:hover{background:#2dd4bf}
@@ -102,14 +120,21 @@ footer a{color:var(--teal)}
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#assess">Assess</a><a href="#progress">Progress<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
+  <nav><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="https://github.com/szzxli/soc-skills">GitHub</a></nav>
 </div></header>
 
-<div class="hero"><div class="wrap">
+<div class="hero"><div class="hero-grid">
+  <div class="hero-copy">
   <div class="kicker">OPEN SOURCE · MIT · CANDIDATE-OWNED</div>
   <h1>Certs don't prove ability.<br>Evidence does.</h1>
   <p class="sub">"Years of experience" is a lazy filter. Answer 14 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
   <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
+  </div>
+  <a class="video-card" href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">
+    <img src="https://i.ytimg.com/vi/_WxnwmmL0co/hqdefault.jpg" alt="soc-skills intro — 60 seconds">
+    <span class="play"><i>▶</i></span>
+    <span class="cap">Watch: 60 seconds — why evidence beats pedigree</span>
+  </a>
 </div>
 <div class="stats"><div class="wrap">
   <div class="stat"><b>7</b><span>SKILL DOMAINS</span><small>NICE-mapped rubric</small></div>
@@ -119,7 +144,17 @@ footer a{color:var(--teal)}
 </div></div>
 </div>
 
-<section id="assess"><div class="wrap">
+<section id="how"><div class="wrap">
+  <div class="skicker">HOW IT WORKS</div>
+  <h2>Three steps to a profile employers can verify</h2>
+  <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
+  <div class="steps">
+    <div class="step"><div class="snum">1</div><h3>Assess</h3><p>Answer 14 questions across 7 SOC domains. Sign the evidence pledge — anything you can't evidence gets downgraded.</p><a href="#assess">Start assessing →</a></div>
+    <div class="step"><div class="snum">2</div><h3>Build evidence</h3><p>Run weekly CVE lab cards: mechanics → repro → detection → remediation. Every card maps to NICE domains.</p><a href="#labs">Browse lab cards →</a></div>
+    <div class="step"><div class="snum">3</div><h3>Get graded</h3><p>Paste your evidence, bring your own API key. The AI grades it against the public rubric — in your browser, key never leaves your device.</p><a href="#grade">Grade evidence →</a></div>
+  </div>
+</div></section><section id="assess"><div class="wrap">
+  <div class="skicker">01 · ASSESS</div>
   <h2>Self-assessment</h2>
   <p class="lead">Two questions per domain. Answer honestly — the honesty check at the end downgrades anything you can't evidence.</p>
   <div class="card" id="quiz"></div>
@@ -148,21 +183,15 @@ footer a{color:var(--teal)}
       <p style="font-size:13.5px;margin-top:10px">What next? → <a href="#labs">Run a CVE lab card</a> · <a href="#grade">Grade your evidence with AI</a> · <a href="#progress">Track your velocity</a></p>
     </div>
   </div>
-</div></section>
-
-<section id="progress" class="alt"><div class="wrap">
-  <h2>Progress &amp; learning velocity <span class="pill-new">NEW</span></h2>
-  <p class="lead">Every assessment is saved on this device. Re-assess over time — the curve measures trajectory. Employers buy future performance; this is the closest thing to measuring it.</p>
-  <div class="card" id="history-card">
-    <div id="velocity-line" style="font-family:var(--mono);font-size:15px;margin-bottom:12px"></div>
-    <div id="velocity-chart"></div>
-    <div id="history-list" style="margin-top:14px;font-size:14px"></div>
-    <div style="margin-top:12px"><button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
-    <span style="font-size:12px;color:var(--soft);margin-left:10px">Stored only in this browser. Nothing leaves your device.</span></div>
-  </div>
-</div></section>
-
-<section id="grade"><div class="wrap">
+</div></section><section id="labs" class="alt"><div class="wrap">
+  <div class="skicker">02 · LAB CARDS</div>
+  <h2>CVE lab cards <span class="pill-new">NEW</span></h2>
+  <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
+  <div class="dgrid" id="lab-grid"></div>
+  <p style="text-align:center;font-size:13.5px;margin-top:14px">Worked a card? <a href="#grade"><b>Grade your evidence with AI</b></a> — the grader only credits what you can show.</p>
+  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:8px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
+</div></section><section id="grade"><div class="wrap">
+  <div class="skicker">03 · AI GRADING</div>
   <h2>AI grading <span class="pill-new">BETA</span></h2>
   <p class="lead">Self-assessment is a claim. Grading is the check. Paste your evidence, bring your own API key — the rubric grades it, right here in your browser. Your key never leaves this device except to the API provider you choose.</p>
   <div class="card">
@@ -193,35 +222,25 @@ footer a{color:var(--teal)}
     <div class="summary-box" id="grade-result" style="font-size:13px"></div>
     <p style="font-size:12.5px;color:var(--soft)">Advisory output. The rubric decides, your evidence constrains. Disagree with a grade? The <a href="https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md">prompt</a> is public — inspect it.</p>
   </div>
-</div></section>
-
-<section id="labs" class="alt"><div class="wrap">
-  <h2>CVE lab cards <span class="pill-new">NEW</span></h2>
-  <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
-  <div class="dgrid" id="lab-grid"></div>
-  <p style="text-align:center;font-size:13.5px;margin-top:14px">Worked a card? <a href="#grade"><b>Grade your evidence with AI</b></a> — the grader only credits what you can show.</p>
-  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:8px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
-</div></section>
-
-<section id="domains"><div class="wrap">
+</div></section><section id="progress" class="alt"><div class="wrap">
+  <div class="skicker">04 · PROGRESS</div>
+  <h2>Progress &amp; learning velocity <span class="pill-new">NEW</span></h2>
+  <p class="lead">Every assessment is saved on this device. Re-assess over time — the curve measures trajectory. Employers buy future performance; this is the closest thing to measuring it.</p>
+  <div class="card" id="history-card">
+    <div id="velocity-line" style="font-family:var(--mono);font-size:15px;margin-bottom:12px"></div>
+    <div id="velocity-chart"></div>
+    <div id="history-list" style="margin-top:14px;font-size:14px"></div>
+    <div style="margin-top:12px"><button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
+    <span style="font-size:12px;color:var(--soft);margin-left:10px">Stored only in this browser. Nothing leaves your device.</span></div>
+  </div>
+</div></section><section id="domains"><div class="wrap">
+  <div class="skicker">05 · DOMAINS</div>
   <h2>Browse by domain</h2>
   <p class="lead">Seven domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
   <div class="dgrid" id="domain-grid"></div>
   <p style="font-size:12.5px;color:var(--soft);margin-top:10px"><b>Legend:</b> <span class="tag lab">LAB-READY</span> home-lab project mapped · <span class="tag core">CORE</span> assessed in every profile · <span class="tag new">NEW</span> added this month · matrix <b>L1+</b> = partial evidence (counts 0.5 pts) · <b>L1+*</b> = L2 claimed without the evidence pledge.</p>
-</div></section>
-
-<section id="resources" class="alt"><div class="wrap">
-  <h2>Go deeper</h2>
-  <p class="lead">The profile is the surface. Underneath: graded evidence, original lab work, and a public rubric.</p>
-  <div class="rgrid">
-    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.1</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
-    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/labs"><b>CVE lab cards</b><p>Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation.</p><span class="go">labs/ →</span></a>
-    <a class="rcard" href="https://github.com/szzxli/soc-skills/blob/main/FEEDBACK.md"><b>Feedback → product</b><p>Every principle earned from someone pushing back. The debate log.</p><span class="go">FEEDBACK.md →</span></a>
-    <a class="rcard" href="https://github.com/szzxli/soc-home-lab"><b>Home lab</b><p>The 5 working projects behind the sample profile. Real code, real runs.</p><span class="go">soc-home-lab →</span></a>
-  </div>
-</div></section>
-
-<section id="sample"><div class="wrap">
+</div></section><section id="sample"><div class="wrap">
+  <div class="skicker">06 · SAMPLE</div>
   <h2>Sample profile</h2>
   <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, AI-graded against the rubric (v1.1 report in <span style="font-family:var(--mono)">grader/</span>).</p>
   <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 5/7 domains (lab) · 5 projects AI-graded against a public rubric</span></div>
@@ -236,9 +255,17 @@ footer a{color:var(--teal)}
     <tr><td style="text-align:left">D7 Automation &amp; scripting</td><td></td><td></td><td></td><td class="hit">L2</td></tr>
   </table>
   <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. D3 downgraded to L1+ on 2026-10-16 (blank template ≠ filled report — the rubric working as intended). L3 column intentionally empty.</p></div>
-</div></section>
-
-<footer><div class="wrap">
+</div></section><section id="resources" class="alt"><div class="wrap">
+  <div class="skicker">07 · GO DEEPER</div>
+  <h2>Go deeper</h2>
+  <p class="lead">The profile is the surface. Underneath: graded evidence, original lab work, and a public rubric.</p>
+  <div class="rgrid">
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.1</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/labs"><b>CVE lab cards</b><p>Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation.</p><span class="go">labs/ →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/blob/main/FEEDBACK.md"><b>Feedback → product</b><p>Every principle earned from someone pushing back. The debate log.</p><span class="go">FEEDBACK.md →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-home-lab"><b>Home lab</b><p>The 5 working projects behind the sample profile. Real code, real runs.</p><span class="go">soc-home-lab →</span></a>
+  </div>
+</div></section><footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · Evidence over pedigree.</p>
 </div></footer>
@@ -685,6 +712,17 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
 
 // ---- Lab cards ----
 const LABS = [
+ { id:'CVE-2026-102764', title:'BeyondTrust Remote Support / PRA auth bypass (CWE-290)',
+   status:'INTEL — hunting guidance, not detection-validated (no public PoC as of 2026-10-17)', tag:'KEV', sev:'Critical · CVSS 9.3',
+   domains:['D1','D2'],
+   body: [
+    ['Verified facts','BeyondTrust advisory BT26-05 (2026-10-15); CISA KEV 2026-10-16 (federal due 2026-10-19). RS/PRA self-hosted ≤ 26.2.3; fixed in 26.2.4; patches for 24.3.1+. Cloud mitigated upstream. Unauthenticated origin-validation flaw (CWE-290) → file operations on the appliance.'],
+    ['In the wild','Mandiant/GTIG: suspected PRC-nexus ARMORY CASTLE (ex-UNC5221) exploited as zero-day from late Aug 2026. Chain: SAWFLY PHP web shell → root SUID shell → secrets-vault dump → passwordless sudo via boot script → BARECLAW SOCKS5-over-WebSocket via HAProxy → Jump Item role escalation → log deletion.'],
+    ['Mechanics','Internal message bus accepts messages without origin validation. Trigger details withheld by vendor — no public PoC. Defensive consequence: hunt post-exploitation artifacts, not request signatures.'],
+    ['Detection — hunting guidance (INTEL)','7 artifact heuristics + correlator: ≥2 distinct artifact types on one host within 24h → incident. Reference: labs/cve-2026-102764-detect.py (synthetic corpus: 7/7 chain artifacts hit, 0 false incidents). Tune allowlists: scheduled haproxy reloads, svc-bt vault reads, scheduled log rotation.'],
+    ['Remediation','1) Patch to 26.2.4 now (emergency change). 2) Assume breach if exposed & unpatched Aug 29 → Oct 8: hunt historical logs, rotate all vault secrets, rebuild from known-good, review Jump Item roles. 3) Cloud tenants: no action.'],
+    ['NICE mapping','D2 → L2 (lab): multi-artifact hunt correlator with documented synthetic TP/FP + explicit INTEL caveat. D1 → L2 (lab): P1 severity call (CVSS 9.3 + KEV + state-actor zero-day) + escalation path. Anti-inflation: reading = L1 at most.']
+   ] },
  { id:'CVE-2026-21589', title:'Atlassian Data Center path traversal via ::',
    status:'READY — detection validated 2026-10-16', tag:'KEV', sev:'Critical · CVSS 9.3',
    domains:['D1','D2'],
@@ -702,9 +740,9 @@ const labGrid = document.getElementById('lab-grid');
 LABS.forEach(lab=>{
   const c = document.createElement('div');
   c.className = 'dcard';
-  const draft = lab.status.indexOf('DRAFT')===0;
+  const st = lab.status.indexOf('DRAFT')===0 ? ['new','DRAFT'] : lab.status.indexOf('INTEL')===0 ? ['new','INTEL'] : ['lab','READY'];
   c.innerHTML = `<div class="chead"><span class="did">${lab.id}</span><h3>${lab.title}</h3>`+
-    `<span class="tag ${draft?'new':'lab'}">${draft?'DRAFT':'READY'}</span></div>`+
+    `<span class="tag ${st[0]}">${st[1]}</span></div>`+
     `<div style="font-size:13px;color:var(--soft);margin-bottom:8px"><b style="color:var(--red)">${lab.sev}</b> · ${lab.tag} · ${lab.domains.join(' + ')}</div>`+
     `<div style="font-size:13px;color:var(--amber)">${lab.status}</div>`+
     `<div class="lv-detail">` + lab.body.map(([h,b])=>`<p style="margin:8px 0"><b style="color:var(--ink)">${h}.</b> ${b}</p>`).join('') + `</div>`;

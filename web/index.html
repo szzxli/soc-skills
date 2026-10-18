@@ -219,6 +219,7 @@ footer a{color:var(--teal)}
   <div class="card" id="grade-result-card" style="display:none">
     <h3 style="margin-bottom:10px">Grading report</h3>
     <div id="grade-status" style="font-size:13.5px;color:var(--soft);margin-bottom:10px"></div>
+    <div id="grade-prescription" style="display:none;margin-bottom:14px"></div>
     <div class="summary-box" id="grade-result" style="font-size:13px"></div>
     <p style="font-size:12.5px;color:var(--soft)">Advisory output. The rubric decides, your evidence constrains. Disagree with a grade? The <a href="https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md">prompt</a> is public — inspect it.</p>
   </div>
@@ -729,6 +730,36 @@ document.getElementById('forget-key').addEventListener('click', (e)=>{
   document.getElementById('grade-status').textContent = 'Key forgotten on this device.';
 });
 
+// ---- Gap Analysis: lift the rubric's per-domain `upgrade:` lines into a
+// first-class prescription. The report buries them; this makes them the action.
+function escRx(s){ return String(s||'').replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+function renderPrescription(text){
+  const box = document.getElementById('grade-prescription');
+  box.style.display = 'none'; box.innerHTML = '';
+  const items = [];
+  const re = /^D(\d)\s*\|\s*([^|]+?)\s*\|.*?upgrade:\s*(.+?)\s*$/gim;
+  let m;
+  while((m = re.exec(text))){
+    const up = m[3].trim();
+    if(!up || /^(none|n\/a|-)$/i.test(up)) continue;
+    const dom = (typeof DOMAINS !== 'undefined' && DOMAINS[+m[1]-1]) || null;
+    items.push({ d:'D'+m[1], name: dom ? dom.name : '', level: m[2].trim(), upgrade: up });
+  }
+  if(!items.length) return;
+  box.innerHTML =
+    '<div style="border:1.5px solid var(--teal);border-radius:10px;padding:14px 16px;background:#f0fdfa">' +
+    '<div style="font-weight:700;font-size:14.5px;margin-bottom:4px">Your next moves <span style="font-weight:400;color:var(--soft);font-size:12.5px">— do one, then re-run grading</span></div>' +
+    '<div style="font-size:12.5px;color:var(--soft);margin-bottom:10px">Straight from the rubric: what each domain needs for the next level.</div>' +
+    items.map((it,i)=>
+      '<div style="margin-bottom:' + (i < items.length-1 ? '10px' : '2px') + ';padding-bottom:' + (i < items.length-1 ? '10px' : '0') + ';border-bottom:' + (i < items.length-1 ? '1px solid #d7e8e4' : 'none') + '">' +
+      '<div style="font-size:13px"><b>' + escRx(it.d) + (it.name ? ' · ' + escRx(it.name) : '') + '</b> ' +
+      '<span class="tag" style="font-size:11px">now ' + escRx(it.level) + '</span></div>' +
+      '<div style="font-size:13.5px;margin-top:4px">' + escRx(it.upgrade) + '</div>' +
+      '</div>').join('') +
+    '</div>';
+  box.style.display = '';
+}
+
 document.getElementById('grade-btn').addEventListener('click', async ()=>{
   const key = keyInput.value.trim();
   const evidence = document.getElementById('evidence').value.trim();
@@ -772,9 +803,11 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
     const data = await resp.json();
     const text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '(empty response)';
     out.textContent = text;
+    renderPrescription(text);
     status.textContent = 'Done. Advisory output — verify against the public rubric.';
   }catch(err){
     status.textContent = 'Grading failed: ' + err.message;
+    renderPrescription('');
     out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. OpenAI blocks browser calls (CORS) — use OpenRouter. The key never left this device except to the endpoint above.';
   }
   document.getElementById('grade-btn').disabled = false;

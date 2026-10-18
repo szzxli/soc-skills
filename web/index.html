@@ -280,8 +280,31 @@ footer a{color:var(--teal)}
     <p style="font-size:12px;letter-spacing:.2em;color:var(--soft);margin-bottom:6px">EMAIL</p>
     <p style="font-size:21px;font-family:var(--mono);margin-bottom:10px"><a href="mailto:szzxli163@gmail.com" style="color:var(--teal-d)">szzxli163@gmail.com</a></p>
     <p style="font-size:13px;color:var(--soft)">Bug reports: browser + device, what you clicked, what happened vs what you expected.<br>Feature ideas and CVE lab requests welcome.</p>
+    <p style="margin-top:12px"><a href="#" id="buglink" style="display:inline-block;padding:10px 22px;border:1.5px solid var(--teal-d);border-radius:999px;color:var(--teal-d);text-decoration:none;font-weight:700">🐞 Report a bug (auto-fills your environment)</a></p>
   </div>
 </div></section>
+
+<script>
+/* One-click bug report: prefills environment into a GitHub issue */
+document.getElementById("buglink").addEventListener("click", function (e) {
+  e.preventDefault();
+  var ua = navigator.userAgent || "?";
+  var ls = "?";
+  try {
+    var b = 0;
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      b += (k.length + (localStorage.getItem(k) || "").length) * 2;
+    }
+    ls = "~" + (b / 1024).toFixed(1) + " KB";
+  } catch (err) {}
+  var body = "## Environment\n- App version: v14 (web)\n- User agent: " + ua
+    + "\n- localStorage used: " + ls
+    + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
+  location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
+    + encodeURIComponent("[bug] ") + "&body=" + encodeURIComponent(body);
+});
+</script>
 
 <footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>

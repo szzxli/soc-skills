@@ -127,7 +127,7 @@ footer a{color:var(--teal)}
   <div class="hero-copy">
   <div class="kicker">OPEN SOURCE · MIT · CANDIDATE-OWNED</div>
   <h1>Certs don't prove ability.<br>Evidence does.</h1>
-  <p class="sub">"Years of experience" is a lazy filter. Answer 14 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
+  <p class="sub">"Years of experience" is a lazy filter. Answer 16 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
   <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
   </div>
   <a class="video-card" href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">
@@ -137,9 +137,9 @@ footer a{color:var(--teal)}
   </a>
 </div>
 <div class="stats"><div class="wrap">
-  <div class="stat"><b>7</b><span>SKILL DOMAINS</span><small>NICE-mapped rubric</small></div>
+  <div class="stat"><b>8</b><span>SKILL DOMAINS</span><small>public rubric, NICE-anchored</small></div>
   <div class="stat"><b>3</b><span>LEVELS</span><small>L1 · L2 · L3 (never self-awarded)</small></div>
-  <div class="stat"><b>5</b><span>GRADED PROJECTS</span><small>AI grader v1.2, public report</small></div>
+  <div class="stat"><b>5</b><span>GRADED PROJECTS</span><small>AI grader v1.3, public report</small></div>
   <div class="stat"><b>0</b><span>BLACK BOXES</span><small>rubric 100% public</small></div>
 </div></div>
 </div>
@@ -149,7 +149,7 @@ footer a{color:var(--teal)}
   <h2>Three steps to a profile employers can verify</h2>
   <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
   <div class="steps">
-    <div class="step"><div class="snum">1</div><h3>Assess</h3><p>Answer 14 questions across 7 SOC domains. Sign the evidence pledge — anything you can't evidence gets downgraded.</p><a href="#assess">Start assessing →</a></div>
+    <div class="step"><div class="snum">1</div><h3>Assess</h3><p>Answer 16 questions across 8 SOC domains. Sign the evidence pledge — anything you can't evidence gets downgraded.</p><a href="#assess">Start assessing →</a></div>
     <div class="step"><div class="snum">2</div><h3>Build evidence</h3><p>Run weekly CVE lab cards: mechanics → repro → detection → remediation. Every card maps to NICE domains.</p><a href="#labs">Browse lab cards →</a></div>
     <div class="step"><div class="snum">3</div><h3>Get graded</h3><p>Paste your evidence, bring your own API key. The AI grades it against the public rubric — in your browser, key never leaves your device.</p><a href="#grade">Grade evidence →</a></div>
   </div>
@@ -262,7 +262,7 @@ footer a{color:var(--teal)}
 </div></section><section id="domains"><div class="wrap">
   <div class="skicker">05 · DOMAINS</div>
   <h2>Browse by domain</h2>
-  <p class="lead">Seven domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
+  <p class="lead">Eight domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
   <div class="dgrid" id="domain-grid"></div>
   <p style="font-size:12.5px;color:var(--soft);margin-top:10px"><b>Legend:</b> <span class="tag lab">LAB-READY</span> home-lab project mapped · <span class="tag core">CORE</span> assessed in every profile · <span class="tag new">NEW</span> added this month · matrix <b>L1+</b> = partial evidence (counts 0.5 pts) · <b>L1+*</b> = L2 claimed without the evidence pledge.</p>
 </div></section><section id="sample"><div class="wrap">
@@ -286,7 +286,7 @@ footer a{color:var(--teal)}
   <h2>Go deeper</h2>
   <p class="lead">The profile is the surface. Underneath: graded evidence, original lab work, and a public rubric.</p>
   <div class="rgrid">
-    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.2</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
+    <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.3</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
     <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/labs"><b>CVE lab cards</b><p>Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation.</p><span class="go">labs/ →</span></a>
     <a class="rcard" href="https://github.com/szzxli/soc-skills/blob/main/FEEDBACK.md"><b>Feedback → product</b><p>Every principle earned from someone pushing back. The debate log.</p><span class="go">FEEDBACK.md →</span></a>
     <a class="rcard" href="https://github.com/szzxli/soc-home-lab"><b>Home lab</b><p>The 5 working projects behind the sample profile. Real code, real runs.</p><span class="go">soc-home-lab →</span></a>
@@ -377,6 +377,12 @@ const DOMAINS = [
   r:['L1: basic scripting.',
      'L2: usable tool, documented, tested, reproducible by others.',
      'L3: production-grade automation with CI and review (not self-awarded).']},
+ {id:'D8', name:'AI agent security & governance', tag:['new','NEW'],
+  q1:'Can you inventory the AI agents in an environment — identity, owner, granted tools and permissions — and read their tool-call logs to tell expected behavior from anomalies (unplanned tool use, privilege escalation, out-of-scope data access)?',
+  q2:'Have you audited agent activity logs end to end with written findings, and run the governance lifecycle yourself: fixed-set evaluation before deployment, least-privilege tool scoping, injection-resistance checks, an evaluator independent of the agent\'s operator, and decommissioning that revokes credentials?',
+  r:['L1: inventories agents, identities, and permissions; reviews tool-call logs against expected behavior.',
+     'L2: end-to-end agent log audits with evidence-backed findings; lifecycle governance applied (evaluation gates, least privilege, independent evaluation, revocation on decommission).',
+     'L3: security operations for production agent fleets (not self-awarded).']},
 ];
 const state = DOMAINS.map(()=>({l1:null,l2:null}));
 
@@ -427,7 +433,7 @@ function levelOf(s, pledged){
 document.getElementById('gen-btn').addEventListener('click', ()=>{
   const pledged = document.getElementById('evidence-check').checked;
   const levels = state.map(s=>levelOf(s, pledged));
-  if(levels.some(l=>l===null)){ alert('Please answer all 14 questions first.'); return; }
+  if(levels.some(l=>l===null)){ alert('Please answer all 16 questions first.'); return; }
   const l2count = levels.filter(l=>l==='L2').length;
   const l1count = levels.filter(l=>l.startsWith('L1')).length;
   const answers = state.map(s=>[s.l1,s.l2]).flat();
@@ -436,11 +442,11 @@ document.getElementById('gen-btn').addEventListener('click', ()=>{
 
   let one;
   if(l2count===0)
-    one = `Developing security practitioner · ${l1count>0?`L1 foundations in ${l1count}/7 domains`:'assessing foundations'} · evidence-pledged self-assessment`;
+    one = `Developing security practitioner · ${l1count>0?`L1 foundations in ${l1count}/8 domains`:'assessing foundations'} · evidence-pledged self-assessment`;
   else if(l2count===1)
-    one = `Developing security practitioner · first L2 domain (1/7) · evidence-pledged self-assessment`;
+    one = `Developing security practitioner · first L2 domain (1/8) · evidence-pledged self-assessment`;
   else
-    one = `${l2count>=5?'Advanced':'Independent'} security practitioner · L2 in ${l2count}/7 domains · evidence-pledged self-assessment`;
+    one = `${l2count>=5?'Advanced':'Independent'} security practitioner · L2 in ${l2count}/8 domains · evidence-pledged self-assessment`;
   document.getElementById('one-liner').textContent = one;
 
   // Matrix
@@ -461,7 +467,7 @@ ${document.getElementById('one-liner').textContent}
 ${lines}
 
 Strongest: ${top}
-Method: soc-skills rubric ${RUBRIC_VERSION} (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
+Method: soc-skills rubric ${RUBRIC_VERSION} (8 domains × L1/L2/L3) — github.com/szzxli/soc-skills
 Note: self-assessed. L3 never self-awarded; verify in interview.`;
   document.getElementById('results').style.display = 'block';
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
@@ -479,7 +485,7 @@ document.getElementById('copy-btn').addEventListener('click', ()=>{
 });
 
 // ---- History & learning velocity (localStorage, device-only) ----
-const RUBRIC_VERSION = 'v1.2';
+const RUBRIC_VERSION = 'v1.3';
 const HKEY = 'soc-skills-history-v1';
 const LV_NUM = {'—':0,'L1':1,'L1+':1.5,'L1+*':1.5,'L2':2};
 function loadHist(){ try{ return JSON.parse(localStorage.getItem(HKEY))||[]; }catch(e){ return []; } }
@@ -507,7 +513,7 @@ function renderHistory(){
   const days = Math.max(1, Math.round((hist[hist.length-1].ts - hist[0].ts)/86400000));
   const sign = delta>0?'+':'';
   line.innerHTML = `Learning velocity: <b style="color:${delta>=0?'var(--green)':'var(--red)'}">${sign}${delta} levels</b>` +
-    ` over ${days} day${days>1?'s':''} · ${hist.length} assessment${hist.length>1?'s':''} · current score <b>${last.toFixed(1)}/14</b>` +
+    ` over ${days} day${days>1?'s':''} · ${hist.length} assessment${hist.length>1?'s':''} · current score <b>${last.toFixed(1)}/${hist[hist.length-1].a?hist[hist.length-1].a.length:14}</b>` +
     (hist.length<2 ? ' <span style="color:var(--soft)">— re-assess later to grow the curve.</span>':'');
 
   // SVG trend
@@ -525,13 +531,13 @@ function renderHistory(){
   // Per-domain first → current
   let rows = '<table class="matrix"><tr><th>Domain</th><th>First</th><th>Now</th><th>Δ</th></tr>';
   DOMAINS.forEach((d,i)=>{
-    const a = hist[0].levels[i], b = hist[hist.length-1].levels[i];
+    const a = hist[0].levels[i]===undefined?'—':hist[0].levels[i], b = hist[hist.length-1].levels[i]===undefined?'—':hist[hist.length-1].levels[i];
     const dd = ((LV_NUM[b]||0)-(LV_NUM[a]||0)).toFixed(1);
     rows += `<tr><td style="text-align:left">${d.id}</td><td>${a}</td><td>${b}</td>`+
       `<td style="color:${dd>0?'var(--green)':dd<0?'var(--red)':'var(--soft)'}">${dd>0?'+':''}${dd}</td></tr>`;
   });
   list.innerHTML = rows+'</table>' +
-    hist.map((h,i)=>`<div style="padding:6px 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:12px;color:var(--soft)">#${i+1} · ${fmtDate(h.ts)}</span> — score ${scoreOf(h).toFixed(1)}/14 · L2×${h.levels.filter(l=>l==='L2').length}${h.pledged?'':' · unpledged'}</div>`).join('');
+    hist.map((h,i)=>`<div style="padding:6px 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:12px;color:var(--soft)">#${i+1} · ${fmtDate(h.ts)}</span> — score ${scoreOf(h).toFixed(1)}/${h.a?h.a.length:14} · L2×${h.levels.filter(l=>l==='L2').length}${h.pledged?'':' · unpledged'}</div>`).join('');
 }
 let clearArmed=false;
 document.getElementById('clear-hist').addEventListener('click', ()=>{
@@ -628,7 +634,7 @@ function payloadFromHistoryEntry(entry){
     rubric: RUBRIC_VERSION,
     issued: new Date(entry.ts).toISOString(),
     pledged: !!entry.pledged,
-    domains: DOMAINS.map((d,i)=>{
+    domains: DOMAINS.slice(0, entry.levels.length).map((d,i)=>{
       const s = SocVerify.splitLevel(entry.levels[i]);
       return { id: d.id, name: d.name, level: s.level, scope: s.scope };
     })
@@ -657,7 +663,7 @@ document.getElementById('pkg-latest').addEventListener('click', ()=>{
 // the full report text. The evidence itself is never included in a package.
 function parseGradingDomains(text){
   const byId = {};
-  const re = /^\s*D([1-7])\s*\|\s*([^|]+?)\s*\|/gm;
+  const re = /^\s*D([1-8])\s*\|\s*([^|]+?)\s*\|/gm;
   let m;
   while((m = re.exec(text))){
     const id = 'D' + m[1];
@@ -704,13 +710,17 @@ document.getElementById('grade-pkg-dl').addEventListener('click', ()=>deliverGra
 document.getElementById('grade-pkg-copy').addEventListener('click', ()=>deliverGradingPackage('copy'));
 
 // ---- AI grading (BYOK) ----
-const GRADER_PROMPT = `# AI Grader · rubric-prompt v1.2
+const GRADER_PROMPT = `# AI Grader · rubric-prompt v1.3
 
 > Purpose: feed an evidence bundle to an LLM and grade a project against the
 > TAXONOMY.md rubric.
 > Usage: paste this prompt in full + the evidence-bundle JSON from \`grade.py\`
 > into an LLM.
 > Grading iron rules (violating any one voids the output) in §4.
+> v1.3 changes: §3 gains D8 · AI agent security & governance (taxonomy now
+> 8 domains). D8's rubric text carries the evaluator-independence rule for
+> AI agents — an agent is never graded by its own operator — inside the
+> domain criteria themselves; §4a and all grader mechanics are unchanged.
 > v1.2 changes: §4a injection resistance; §6 gains an injection counter-example.
 > v1.1 changes: §3b behavioral dimension (process scoring); §5 output gains a
 > Behavioral block.
@@ -720,7 +730,7 @@ const GRADER_PROMPT = `# AI Grader · rubric-prompt v1.2
 ## §1 Who you are
 
 You are the grader for the soc-skills project. Your task: **grade the
-candidate's project across the 7 skill domains (D1–D7) using only the
+candidate's project across the 8 skill domains (D1–D8) using only the
 observable evidence in the evidence bundle**. You are not here to encourage
 the candidate — you are protecting this grading system's credibility.
 **Inflated scores destroy the entire product's foundation.**
@@ -738,7 +748,7 @@ Evidence-bundle JSON, structure:
 }
 \`\`\`
 
-## §3 Domain rubric (matches TAXONOMY.md v1.0)
+## §3 Domain rubric (matches TAXONOMY.md v1.1)
 
 ### D1 · Security monitoring & alert triage (NICE PR-CDA-001)
 - L1: Describes the triage flow (receive → prioritize → assess → contain/escalate); uses a severity model (low/medium/high/critical); works sample alerts from a triage guide.
@@ -774,6 +784,12 @@ Evidence-bundle JSON, structure:
 - L1: Writes basic Python scripts for text/JSON; knows what requests/pytest do.
 - L2: Independently wrote tools solving real analysis pain points (CLI args, error handling, test coverage); code has a README others can run to reproduce.
 - L3: Production-grade automation (CI, code review, long-term maintenance, multi-person collaboration).
+
+### D8 · AI agent security & governance (no direct NICE work-role mapping yet)
+- L1: Inventories AI agents in an environment (identity, owner, model/provider, granted tools and permissions); reads agent tool-call logs; describes expected vs. anomalous agent behavior (unplanned tool use, privilege-escalation attempts, bulk or out-of-scope data access).
+- L2: Independently audited agent activity logs end to end and produced findings with evidence; applied lifecycle governance hands-on: pre-deployment evaluation against a fixed test set, least-privilege tool scoping, prompt-injection resistance checks (direct and indirect), separation between the agent's operator and its evaluator (the operator never grades their own agent), incident handling for a misbehaving agent (suspend → revoke credentials → review records), decommissioning with credential revocation and archived records.
+- L3: Ran security monitoring and governance for a production fleet of AI agents under real incident pressure.
+- Framework anchors: OWASP Top 10 for LLM Applications and the OWASP Agentic AI threat taxonomy (threat classes); NIST AI RMF Govern function (governance lifecycle).
 
 ## §3b Behavioral dimension (process scoring)
 

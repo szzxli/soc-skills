@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>soc-skills — verify a profile package</title>
+<meta name="description" content="Verify a soc-skills verification package: recompute the SHA-256 hash of a grading result and check it has not been altered.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2027">
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1c2733; --soft:#5b6b7b;
+  --navy:#0f2027; --navy2:#1a3440; --teal:#14b8a6; --teal-d:#0f766e;
+  --green:#16a34a; --amber:#d97706; --red:#dc2626; --line:#e2e8f0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.6}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:50;background:rgba(15,32,39,.97);backdrop-filter:blur(8px)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-family:var(--mono);font-size:18px;color:#fff;text-decoration:none;font-weight:700}
+.brand span{color:var(--teal)}
+nav a{margin-left:14px;color:#9fb3c4;text-decoration:none;font-size:13px}
+nav a:hover{color:#fff}
+section{padding:48px 0}
+section h2{font-size:26px;text-align:center;margin-bottom:6px}
+section p.lead{text-align:center;color:var(--soft);max-width:660px;margin:0 auto 28px}
+.skicker{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--teal-d);text-align:center;margin-bottom:10px;font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+.btn{display:inline-block;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:600;font-size:15px;margin:6px;cursor:pointer;border:none}
+.btn.primary{background:var(--teal);color:#04211d}
+.btn.primary:hover{background:#2dd4bf}
+.copybtn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:14px;font-weight:600}
+textarea{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:12.5px;line-height:1.55}
+.matrix{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+.matrix th,.matrix td{border:1px solid var(--line);padding:9px 6px;text-align:center}
+.matrix th{background:#f8fafc;font-size:12px;color:var(--soft)}
+.matrix td:first-child{text-align:left}
+.verdict{border-radius:12px;padding:20px 22px;margin-bottom:16px;display:none}
+.verdict.pass{display:block;background:#f0fdf4;border:1.5px solid var(--green)}
+.verdict.fail{display:block;background:#fef2f2;border:1.5px solid var(--red)}
+.verdict h3{font-size:19px;margin-bottom:4px}
+.verdict.pass h3{color:#065f46}
+.verdict.fail h3{color:#991b1b}
+.hashline{font-family:var(--mono);font-size:11.5px;word-break:break-all;color:var(--soft)}
+.meta{font-size:14px;margin:6px 0}
+.meta b{font-family:var(--mono);font-size:13px}
+.honest{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:16px 18px;font-size:14px}
+.honest li{margin-left:18px;margin-bottom:4px}
+footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
+footer a{color:var(--teal)}
+@media(max-width:640px){nav a{margin-left:9px;font-size:11.5px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">soc<span>-skills</span></a>
+  <nav><a href="index.html#assess">Assess</a><a href="index.html#grade">Grade</a><a href="index.html#progress">Progress</a><a href="verify.html">Verify</a><a href="index.html#support">Support</a></nav>
+</div></header>
+
+<section><div class="wrap">
+  <div class="skicker">VERIFY</div>
+  <h2>Verify a profile package</h2>
+  <p class="lead">A soc-skills verification package bundles one grading result with a SHA-256 hash of its contents. Paste or upload a package below — this page recomputes the hash in your browser and checks the contents have not been altered since the package was generated. Nothing is uploaded anywhere.</p>
+
+  <div class="card">
+    <h3 style="margin-bottom:10px">Package JSON</h3>
+    <textarea id="pkg-input" rows="12" placeholder='{"type":"soc-skills-verification-package","format":1,"payload":{...},"sha256":"..."}'></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px">
+      <button class="btn primary" id="verify-btn" style="margin:0">Verify package</button>
+      <button class="copybtn" id="upload-btn" style="background:#0f766e">Upload .json file</button>
+      <input type="file" id="pkg-file" accept=".json,application/json" style="display:none">
+      <span id="verify-status" style="font-size:12.5px;color:var(--soft)"></span>
+    </div>
+  </div>
+
+  <div class="verdict" id="verdict"></div>
+  <div class="card" id="profile-card" style="display:none"></div>
+
+  <div class="honest">
+    <b>What this verification does and does not prove</b>
+    <ul style="margin-top:8px">
+      <li><b>It proves</b> the profile contents match the SHA-256 hash inside the package — the record has not been altered since the package was generated — and it shows the rubric version the result claims to be graded against.</li>
+      <li><b>It does not prove</b> the identity of the person assessed, that the underlying evidence was genuine, or that the package was created at the stated time (the timestamp is self-asserted inside the payload). Anyone can generate a package with the public algorithm; a matching hash shows internal consistency, not origin.</li>
+      <li><b>It is not</b> a proctored exam or a certification. soc-skills grading is advisory and evidence-based; verify the evidence itself in an interview or work sample.</li>
+    </ul>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
+  <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="index.html#support">Support</a> · Evidence over pedigree.</p>
+</div></footer>
+
+<script src="verify-lib.js"></script>
+<script>
+var DOMAIN_NAMES = {
+  D1: 'Security monitoring & alert triage',
+  D2: 'Log analysis & detection engineering',
+  D3: 'Incident response & reporting',
+  D4: 'Phishing email analysis',
+  D5: 'Binary / malware triage',
+  D6: 'Cloud security (AWS) hands-on',
+  D7: 'Security automation & scripting'
+};
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function (m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m];
+  });
+}
+
+var statusEl = document.getElementById('verify-status');
+var verdictEl = document.getElementById('verdict');
+var cardEl = document.getElementById('profile-card');
+
+document.getElementById('upload-btn').addEventListener('click', function () {
+  document.getElementById('pkg-file').click();
+});
+document.getElementById('pkg-file').addEventListener('change', function (e) {
+  var f = e.target.files[0];
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function () {
+    document.getElementById('pkg-input').value = String(r.result || '');
+    statusEl.textContent = 'File loaded — click Verify package.';
+    statusEl.style.color = 'var(--soft)';
+  };
+  r.readAsText(f);
+  e.target.value = '';
+});
+
+function showProfile(p, res) {
+  var rows = '';
+  (p.domains || []).forEach(function (d) {
+    rows += '<tr><td>' + esc(d.id) + ' ' + esc(d.name || DOMAIN_NAMES[d.id] || '') + '</td>' +
+      '<td><b>' + esc(d.level) + '</b></td>' +
+      '<td>' + (d.scope ? esc(d.scope) : '—') + '</td></tr>';
+  });
+  var kindLabel = p.kind === 'ai-grading' ? 'AI grading report (rubric-graded evidence)'
+    : p.kind === 'self-assessment' ? 'Self-assessment profile (evidence-pledged)'
+    : esc(p.kind || 'profile');
+  var html = '<h3 style="margin-bottom:8px">Profile in this package</h3>' +
+    '<p class="meta">Result type: <b>' + kindLabel + '</b></p>' +
+    '<p class="meta">Rubric version: <b>' + esc(p.rubric || '?') + '</b> — ' +
+    '<a href="' + esc(SocVerify.rubricLink(p.rubric)) + '" target="_blank" rel="noopener">read the rubric source</a></p>' +
+    '<p class="meta">Issued (self-asserted): <b>' + esc(p.issued || '?') + '</b></p>';
+  if (p.kind === 'self-assessment') {
+    html += '<p class="meta">Evidence pledge signed: <b>' + (p.pledged ? 'yes' : 'NO — L2 answers downgraded') + '</b></p>';
+  }
+  if (p.kind === 'ai-grading') {
+    html += '<p class="meta">Grading model: <b>' + esc(p.model || '?') + '</b></p>' +
+      '<p class="meta">Full report text SHA-256:</p><p class="hashline">' + esc(p.report_sha256 || '?') + '</p>';
+  }
+  html += '<table class="matrix"><tr><th>Domain</th><th>Level</th><th>Scope</th></tr>' + rows + '</table>' +
+    '<p class="meta">Package hash (claimed):</p><p class="hashline">' + esc(res.claimed || '') + '</p>' +
+    '<p class="meta">Hash recomputed by this page:</p><p class="hashline">' + esc(res.computed || '') + '</p>';
+  cardEl.innerHTML = html;
+  cardEl.style.display = '';
+}
+
+document.getElementById('verify-btn').addEventListener('click', function () {
+  verdictEl.className = 'verdict';
+  verdictEl.innerHTML = '';
+  cardEl.style.display = 'none';
+  statusEl.textContent = '';
+  var raw = document.getElementById('pkg-input').value.trim();
+  if (!raw) {
+    statusEl.textContent = 'Paste a package or upload the .json file first.';
+    statusEl.style.color = 'var(--red)';
+    return;
+  }
+  var pkg;
+  try {
+    pkg = JSON.parse(raw);
+  } catch (e) {
+    verdictEl.className = 'verdict fail';
+    verdictEl.innerHTML = '<h3>✗ Not valid JSON</h3><p style="font-size:14px">The pasted text could not be parsed as JSON. Make sure you copied the complete package file.</p>';
+    return;
+  }
+  SocVerify.verifyPackage(pkg).then(function (res) {
+    if (res.ok) {
+      verdictEl.className = 'verdict pass';
+      verdictEl.innerHTML = '<h3>✓ Hash verified — contents unaltered</h3>' +
+        '<p style="font-size:14px">The recomputed SHA-256 matches the hash in the package. This record matches what was packaged, graded against rubric ' +
+        esc((pkg.payload && pkg.payload.rubric) || '?') + '. See the honesty notes below for what this does not prove.</p>';
+      showProfile(pkg.payload, res);
+    } else {
+      verdictEl.className = 'verdict fail';
+      verdictEl.innerHTML = '<h3>✗ Verification failed</h3><p style="font-size:14px">' +
+        esc(res.reason || 'The package could not be verified.') + '</p>' +
+        (res.computed ? '<p class="hashline" style="margin-top:8px">Recomputed: ' + esc(res.computed) + '<br>Claimed:&nbsp;&nbsp;&nbsp;&nbsp;' + esc(res.claimed || '') + '</p>' : '');
+      if (pkg.payload && pkg.payload.domains) {
+        statusEl.textContent = 'The package contents are shown below for inspection only — they did NOT pass verification.';
+        statusEl.style.color = 'var(--red)';
+        showProfile(pkg.payload, res);
+      }
+    }
+  }).catch(function (err) {
+    verdictEl.className = 'verdict fail';
+    verdictEl.innerHTML = '<h3>✗ Verification error</h3><p style="font-size:14px">' + esc(err.message) + '</p>';
+  });
+});
+</script>
+</body>
+</html>

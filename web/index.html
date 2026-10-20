@@ -120,7 +120,7 @@ footer a{color:var(--teal)}
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
+  <nav><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
 </div></header>
 
 <div class="hero"><div class="hero-grid">
@@ -181,6 +181,15 @@ footer a{color:var(--teal)}
       <div class="summary-box" id="summary"></div>
       <button class="copybtn" id="copy-btn">Copy summary</button>
       <p style="font-size:13.5px;margin-top:10px">What next? → <a href="#labs">Run a CVE lab card</a> · <a href="#grade">Grade your evidence with AI</a> · <a href="#progress">Track your velocity</a></p>
+      <div style="margin-top:14px;border-top:1px dashed var(--line);padding-top:12px">
+        <h4 style="margin-bottom:6px">Verification package <span class="pill-new">NEW</span></h4>
+        <p style="font-size:13px;color:var(--soft);margin-bottom:10px">A small JSON file containing this profile plus a SHA-256 hash of its contents. Share it with an employer: on the <a href="verify.html">Verify page</a> they can recompute the hash and confirm the profile has not been altered, and see which rubric version it was produced against. It proves the record is untampered — not who you are; the evidence still speaks in the interview.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="copybtn" id="pkg-dl" style="background:#0f766e">Download package</button>
+          <button class="copybtn" id="pkg-copy" style="background:#0f766e">Copy package</button>
+          <span id="pkg-status" style="font-size:12px;color:var(--soft)"></span>
+        </div>
+      </div>
     </div>
   </div>
 </div></section><section id="labs" class="alt"><div class="wrap">
@@ -221,6 +230,15 @@ footer a{color:var(--teal)}
     <div id="grade-status" style="font-size:13.5px;color:var(--soft);margin-bottom:10px"></div>
     <div id="grade-prescription" style="display:none;margin-bottom:14px"></div>
     <div class="summary-box" id="grade-result" style="font-size:13px"></div>
+    <div id="grade-pkg" style="display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px">
+      <h4 style="margin-bottom:6px">Verification package for this grading</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="copybtn" id="grade-pkg-dl" style="background:#0f766e">Download package</button>
+        <button class="copybtn" id="grade-pkg-copy" style="background:#0f766e">Copy package</button>
+        <a href="verify.html" style="font-size:13.5px">Verify a package →</a>
+      </div>
+      <p id="grade-pkg-status" style="font-size:12px;color:var(--soft);margin-top:6px"></p>
+    </div>
     <p style="font-size:12.5px;color:var(--soft)">Advisory output. The rubric decides, your evidence constrains. Disagree with a grade? The <a href="https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md">prompt</a> is public — inspect it.</p>
   </div>
 </div></section><section id="progress" class="alt"><div class="wrap">
@@ -235,6 +253,7 @@ footer a{color:var(--teal)}
     <button class="copybtn" id="export-hist" style="background:#0f766e">Export history</button>
     <button class="copybtn" id="import-hist-btn" style="background:#0f766e">Import history</button>
     <input type="file" id="import-hist" accept=".json,application/json" style="display:none">
+    <button class="copybtn" id="pkg-latest" style="background:#0f766e">Verification package (latest)</button>
     <button class="copybtn" id="clear-hist" style="background:#94a3b8">Clear history</button>
     <span id="hist-io-status" style="font-size:12px;color:var(--soft)"></span>
     </div>
@@ -298,7 +317,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v14 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v15 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -311,6 +330,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="#support">Support</a> · Evidence over pedigree.</p>
 </div></footer>
 
+<script src="verify-lib.js"></script>
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 
@@ -441,7 +461,7 @@ ${document.getElementById('one-liner').textContent}
 ${lines}
 
 Strongest: ${top}
-Method: soc-skills rubric v1.2 (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
+Method: soc-skills rubric ${RUBRIC_VERSION} (7 domains × L1/L2/L3) — github.com/szzxli/soc-skills
 Note: self-assessed. L3 never self-awarded; verify in interview.`;
   document.getElementById('results').style.display = 'block';
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
@@ -459,6 +479,7 @@ document.getElementById('copy-btn').addEventListener('click', ()=>{
 });
 
 // ---- History & learning velocity (localStorage, device-only) ----
+const RUBRIC_VERSION = 'v1.2';
 const HKEY = 'soc-skills-history-v1';
 const LV_NUM = {'—':0,'L1':1,'L1+':1.5,'L1+*':1.5,'L2':2};
 function loadHist(){ try{ return JSON.parse(localStorage.getItem(HKEY))||[]; }catch(e){ return []; } }
@@ -563,6 +584,124 @@ document.getElementById('import-hist').addEventListener('change', (e)=>{
   r.readAsText(f);
 });
 renderHistory();
+
+// ---- Verification packages: hash-verifiable exports of a grading result ----
+// A package wraps a profile payload with the SHA-256 of its canonical JSON
+// (see verify-lib.js). Anyone can recompute the hash on verify.html and check
+// the contents were not altered. It does not prove identity — see verify.html.
+let lastGrading = null;
+function downloadJSONFile(obj, filename){
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+}
+function deliverPackage(payload, filename, statusEl, mode){
+  if(typeof SocVerify === 'undefined'){
+    statusEl.textContent = 'Verification library failed to load — check your connection and reload.';
+    statusEl.style.color = 'var(--red)';
+    return;
+  }
+  SocVerify.buildPackage(payload).then(pkg=>{
+    if(mode === 'copy'){
+      const text = JSON.stringify(pkg, null, 2);
+      if(!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('clipboard unavailable in this browser — use Download instead');
+      return navigator.clipboard.writeText(text).then(()=>{
+        statusEl.textContent = 'Verification package copied — anyone can check it on the Verify page.';
+        statusEl.style.color = 'var(--green)';
+      });
+    }
+    downloadJSONFile(pkg, filename);
+    statusEl.textContent = 'Verification package downloaded — share the file; anyone can check it on the Verify page.';
+    statusEl.style.color = 'var(--green)';
+  }).catch(err=>{
+    statusEl.textContent = 'Package failed: ' + err.message;
+    statusEl.style.color = 'var(--red)';
+  });
+}
+function payloadFromHistoryEntry(entry){
+  return {
+    app: 'soc-skills',
+    kind: 'self-assessment',
+    rubric: RUBRIC_VERSION,
+    issued: new Date(entry.ts).toISOString(),
+    pledged: !!entry.pledged,
+    domains: DOMAINS.map((d,i)=>{
+      const s = SocVerify.splitLevel(entry.levels[i]);
+      return { id: d.id, name: d.name, level: s.level, scope: s.scope };
+    })
+  };
+}
+function latestHistoryEntry(){ const h = loadHist(); return h.length ? h[h.length-1] : null; }
+const pkgStatusEl = document.getElementById('pkg-status');
+document.getElementById('pkg-dl').addEventListener('click', ()=>{
+  const e = latestHistoryEntry();
+  if(!e){ pkgStatusEl.textContent = 'Generate a profile first.'; pkgStatusEl.style.color = 'var(--red)'; return; }
+  deliverPackage(payloadFromHistoryEntry(e), 'soc-skills-verification-package.json', pkgStatusEl, 'download');
+});
+document.getElementById('pkg-copy').addEventListener('click', ()=>{
+  const e = latestHistoryEntry();
+  if(!e){ pkgStatusEl.textContent = 'Generate a profile first.'; pkgStatusEl.style.color = 'var(--red)'; return; }
+  deliverPackage(payloadFromHistoryEntry(e), 'soc-skills-verification-package.json', pkgStatusEl, 'copy');
+});
+document.getElementById('pkg-latest').addEventListener('click', ()=>{
+  const st = document.getElementById('hist-io-status');
+  const e = latestHistoryEntry();
+  if(!e){ st.textContent = 'No saved assessments yet — generate a profile first.'; st.style.color = 'var(--red)'; return; }
+  deliverPackage(payloadFromHistoryEntry(e), 'soc-skills-verification-package.json', st, 'download');
+});
+// AI grading: parse the report's per-domain lines (D<n> | level | ... ) so the
+// graded levels — scope suffixes included — can be packaged with a hash of
+// the full report text. The evidence itself is never included in a package.
+function parseGradingDomains(text){
+  const byId = {};
+  const re = /^\s*D([1-7])\s*\|\s*([^|]+?)\s*\|/gm;
+  let m;
+  while((m = re.exec(text))){
+    const id = 'D' + m[1];
+    if(byId[id]) continue;
+    const s = SocVerify.splitLevel(m[2]);
+    byId[id] = { id: id, name: (DOMAINS[+m[1]-1] || {}).name || '', level: s.level, scope: s.scope };
+  }
+  return Object.keys(byId).sort().map(k=>byId[k]);
+}
+function updateGradingPackage(text, model){
+  const box = document.getElementById('grade-pkg');
+  const st = document.getElementById('grade-pkg-status');
+  const domains = text ? parseGradingDomains(text) : [];
+  if(!text || domains.length === 0){
+    box.style.display = 'none';
+    lastGrading = null;
+    return;
+  }
+  lastGrading = { text: text, model: model, domains: domains, ts: Date.now() };
+  box.style.display = '';
+  st.textContent = domains.length + ' domain grade' + (domains.length===1?'':'s') + ' found in the report. The package contains the grades plus a SHA-256 of the full report text — not your evidence, not your API key.';
+  st.style.color = 'var(--soft)';
+}
+function deliverGradingPackage(mode){
+  if(!lastGrading) return;
+  const st = document.getElementById('grade-pkg-status');
+  SocVerify.sha256Hex(lastGrading.text).then(reportHash=>{
+    const payload = {
+      app: 'soc-skills',
+      kind: 'ai-grading',
+      rubric: RUBRIC_VERSION,
+      issued: new Date(lastGrading.ts).toISOString(),
+      model: lastGrading.model,
+      report_sha256: reportHash,
+      domains: lastGrading.domains
+    };
+    deliverPackage(payload, 'soc-skills-grading-package.json', st, mode);
+  }).catch(err=>{
+    st.textContent = 'Package failed: ' + err.message;
+    st.style.color = 'var(--red)';
+  });
+}
+document.getElementById('grade-pkg-dl').addEventListener('click', ()=>deliverGradingPackage('download'));
+document.getElementById('grade-pkg-copy').addEventListener('click', ()=>deliverGradingPackage('copy'));
 
 // ---- AI grading (BYOK) ----
 const GRADER_PROMPT = `# AI Grader · rubric-prompt v1.2
@@ -798,8 +937,9 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
     status.textContent = 'Note: OpenAI blocks direct browser calls (CORS) — this will likely fail with "Failed to fetch". Use OpenRouter or a custom CORS-enabled endpoint.';
   }
   card.style.display = '';
-  status.textContent = 'Grading… (rubric v1.2, ' + model + ')';
+  status.textContent = 'Grading… (rubric ' + RUBRIC_VERSION + ', ' + model + ')';
   out.textContent = '';
+  updateGradingPackage('', model);
   document.getElementById('grade-btn').disabled = true;
   try{
     const headers = { 'Content-Type':'application/json', 'Authorization':'Bearer ' + key };
@@ -827,10 +967,12 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
     const text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '(empty response)';
     out.textContent = text;
     renderPrescription(text);
+    updateGradingPackage(text, model);
     status.textContent = 'Done. Advisory output — verify against the public rubric.';
   }catch(err){
     status.textContent = 'Grading failed: ' + err.message;
     renderPrescription('');
+    updateGradingPackage('', model);
     out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. OpenAI blocks browser calls (CORS) — use OpenRouter. The key never left this device except to the endpoint above.';
   }
   document.getElementById('grade-btn').disabled = false;

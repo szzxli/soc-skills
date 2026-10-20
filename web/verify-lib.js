@@ -17,6 +17,7 @@
   var PKG_FORMAT = 1;
 
   var RUBRIC_LINKS = {
+    'v1.3': 'https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md',
     'v1.2': 'https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md',
     'v1.1': 'https://github.com/szzxli/soc-skills/blob/main/grader/validation-v1.1.md'
   };

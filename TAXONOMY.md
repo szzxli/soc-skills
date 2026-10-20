@@ -1,6 +1,8 @@
 # SOC Skill Taxonomy (TAXONOMY)
 
-> Skeleton v1.0 · 2026-10-15
+> Skeleton v1.1 · 2026-10-20
+> v1.1 change: adds D8 · AI agent security & governance (no direct NICE
+> work-role mapping yet; reference frameworks noted in the D8 entry).
 > Basis: NIST NICE Cybersecurity Workforce Framework (published by the U.S.
 > Department of Commerce, NIST; current v2.0.0). NICE describes cybersecurity
 > work in a common language: Work Role Category → Work Role → Task / Knowledge
@@ -20,6 +22,7 @@
 | D5 Binary / malware triage | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
 | D6 Cloud security (AWS) hands-on | Cyber Defense Analyst (PR-CDA-001) | Protect and Defend |
 | D7 Security automation & scripting | Cross-role capability (programming/scripting KSAs across NICE roles) | — |
+| D8 AI agent security & governance | No direct NICE work-role mapping yet | — |
 
 Source: NICE Framework v2.0.0 work role listing (niccs.cisa.gov / NIST NICE
 pages); PR-CDA-001 / PR-CIR-001 definitions per official NICE work role
@@ -70,7 +73,7 @@ CTF scoreboard.
 methodical partial solve. Process evidence comes from run records, timestamped
 notes, and inject-response write-ups — not self-assessment.
 
-## Seven skill domains × three-tier rubric
+## Eight skill domains × three-tier rubric
 
 ### D1 · Security monitoring & alert triage
 - **L1**: Can describe the triage flow (receive → prioritize → assess →
@@ -136,6 +139,29 @@ notes, and inject-response write-ups — not self-assessment.
   reproduce.
 - **L3**: Production-grade automation (CI, code review, long-term maintenance,
   multi-person collaboration).
+
+### D8 · AI agent security & governance
+- **L1**: Can inventory the AI agents in an environment (identity, owner,
+  model/provider, granted tools and permissions); reads agent tool-call /
+  function-call logs; can describe expected vs. anomalous agent behavior
+  (unplanned tool use, privilege-escalation attempts, bulk or out-of-scope
+  data access).
+- **L2**: Has independently audited agent activity logs end to end and
+  produced findings with evidence; applies lifecycle governance in practice:
+  pre-deployment evaluation against a fixed test set, least-privilege tool
+  scoping, prompt-injection resistance checks (direct and indirect),
+  separation between the agent's operator and its evaluator (the operator
+  never grades their own agent), incident handling for a misbehaving agent
+  (suspend → revoke credentials → review records), and decommissioning that
+  revokes credentials and archives the agent's records.
+- **L3**: Ran security monitoring and governance for a production fleet of
+  AI agents under real incident pressure.
+- **Reference frameworks**: threat classes per the OWASP Top 10 for LLM
+  Applications and the OWASP Agentic AI threat taxonomy (e.g. prompt
+  injection, insecure tool use, excessive agency); governance lifecycle per
+  the NIST AI Risk Management Framework (AI RMF) Govern function. No direct
+  NICE work-role mapping yet — this domain is tracked against those public
+  frameworks until NICE publishes an agent-operations role.
 
 ## Grading iron rules
 

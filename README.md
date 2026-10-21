@@ -1,5 +1,16 @@
 # soc-skills — Quantified Cybersecurity Skill Profiles
 
+> **Free, open-source SOC analyst skill assessment.** Grade your real hands-on work against a public, NIST NICE-mapped rubric and get an evidence-backed skill profile you can put on a resume.
+>
+> **▶ Live demo:** https://szzxli.github.io/soc-skills/web/ — runs in your browser, no sign-up, no install.
+
+**Quick start**
+
+1. Open the [live site](https://szzxli.github.io/soc-skills/web/) and take the self-assessment.
+2. Build evidence with the CISA KEV-driven lab cards in [`labs/`](labs/).
+3. Paste your project evidence into **Grade**, bring your own API key (it stays in your browser), and get a per-domain gap analysis.
+4. Copy the one-line summary to the top of your resume.
+
 **"Years of experience" is unquantifiable. Certifications don't map to real ability. This project fixes that.**
 
 `soc-skills` is an open framework for turning hands-on security work into **HR-readable, evidence-backed skill profiles** — mapped to the [NIST NICE Cybersecurity Workforce Framework](https://niccs.cisa.gov/workforce-development/nice-framework), graded against public rubrics, and honest about scope. Think *LeetCode for cybersecurity hiring*.
@@ -16,12 +27,14 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 
 | File | What it is |
 |---|---|
-| [TAXONOMY.md](TAXONOMY.md) | 8 skill domains (D1–D8) × 3 levels (L1 guided / L2 independent hands-on / L3 production), anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001), each level with observable evidence criteria |
+| [TAXONOMY.md](TAXONOMY.md) | 8 skill domains × 3 levels (L1 guided / L2 independent hands-on / L3 production), D1–D6 anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001) (D7 cross-role, D8 AI agent security has no NICE mapping yet), each level with observable evidence criteria |
 | [MAPPING.md](MAPPING.md) | 5 real home-lab projects graded against the taxonomy, with cert alignment (GSEC / Security+ / OSCP — honest version) and an anti-inflation checklist |
 | [PROFILE.md](PROFILE.md) | The author's first one-page, HR-readable skill profile — linkable from a resume |
 | [PROJECT.md](PROJECT.md) | The product thesis: two-sided model (free candidate profiles → paid employer verification reports), competitive landscape, phased roadmap |
 | [grader/](grader/) | AI grader v1: executable rubric prompt + evidence-bundle harness + validation report (14/15 exact match vs human grades; the 1 miss made the AI *stricter*) |
 | [intel/](intel/) | Weekly threat-intel pipeline (CISA KEV + NVD) feeding future lab cards |
+| [labs/](labs/) | CVE / KEV-driven lab cards, each with a `*-detect.py` detector (synthetic sample logs live in the companion repo, `soc-home-lab/07-kev-hunting/samples/`) |
+| [web/](web/) | The static site: self-assessment, AI grading (BYOK), progress history with JSON export/import, verification packages — live at https://szzxli.github.io/soc-skills/web/ |
 
 Companion repo with the actual labs: [szzxli/soc-home-lab](https://github.com/szzxli/soc-home-lab)
 
@@ -51,3 +64,7 @@ This is early. The most useful contributions right now:
 ## License
 
 MIT — take it, adapt it, make it yours.
+
+## Privacy
+
+Privacy: we count anonymous page views with [GoatCounter](https://www.goatcounter.com) — no cookies, no personal data, no consent banner needed. Your content never goes to the counter: anything you type, paste or upload stays in your browser (except requests you start yourself, such as an AI-grading or lookup call to a provider you choose). Exactly what is sent is documented at the top of the site's `analytics.js`.

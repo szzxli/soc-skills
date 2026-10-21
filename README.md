@@ -27,12 +27,14 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 
 | File | What it is |
 |---|---|
-| [TAXONOMY.md](TAXONOMY.md) | 7 skill domains × 3 levels (L1 guided / L2 independent hands-on / L3 production), anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001), each level with observable evidence criteria |
+| [TAXONOMY.md](TAXONOMY.md) | 8 skill domains × 3 levels (L1 guided / L2 independent hands-on / L3 production), D1–D6 anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001) (D7 cross-role, D8 AI agent security has no NICE mapping yet), each level with observable evidence criteria |
 | [MAPPING.md](MAPPING.md) | 5 real home-lab projects graded against the taxonomy, with cert alignment (GSEC / Security+ / OSCP — honest version) and an anti-inflation checklist |
 | [PROFILE.md](PROFILE.md) | The author's first one-page, HR-readable skill profile — linkable from a resume |
 | [PROJECT.md](PROJECT.md) | The product thesis: two-sided model (free candidate profiles → paid employer verification reports), competitive landscape, phased roadmap |
 | [grader/](grader/) | AI grader v1: executable rubric prompt + evidence-bundle harness + validation report (14/15 exact match vs human grades; the 1 miss made the AI *stricter*) |
 | [intel/](intel/) | Weekly threat-intel pipeline (CISA KEV + NVD) feeding future lab cards |
+| [labs/](labs/) | CVE / KEV-driven lab cards, each with a `*-detect.py` detector (synthetic sample logs live in the companion repo, `soc-home-lab/07-kev-hunting/samples/`) |
+| [web/](web/) | The static site: self-assessment, AI grading (BYOK), progress history with JSON export/import, verification packages — live at https://szzxli.github.io/soc-skills/web/ |
 
 Companion repo with the actual labs: [szzxli/soc-home-lab](https://github.com/szzxli/soc-home-lab)
 

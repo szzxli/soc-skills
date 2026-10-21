@@ -114,7 +114,8 @@ That shapes the whole detection problem:
 ## 4. Lab exercises (do them yourself)
 
 1. Run `agent-tool-unauth-rce-detect.py` against
-   `samples/agent-tool-unauth-rce-access.log`; confirm it flags the
+   `samples/agent-tool-unauth-rce-access.log`
+   (in the companion soc-home-lab repo, `07-kev-hunting/`); confirm it flags the
    five-request attack source (INCIDENT, all five markers), both
    partial sources (SUSPICIOUS — one unauthenticated with no payload
    evidence, one authenticated shell-tool call), and none of the

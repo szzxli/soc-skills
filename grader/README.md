@@ -45,5 +45,6 @@ D<k> | <L1|L1+|L2>[(lab|synthetic|reconstructed)] | evidence: <file path>: <one-
 
 ## Versions
 
+- v1.3 · 2026-10-20 · §3 gains D8 · AI agent security & governance (taxonomy now 8 domains); §4a and all grader mechanics unchanged
 - v1.2 · 2026-10-17 · §4a injection resistance (evidence = untrusted data); BENCHMARK.md calibration anchors
 - v1.0 · 2026-10-15 · first prompt + harness + 5-project cross-validation passed

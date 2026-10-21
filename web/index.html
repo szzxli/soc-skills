@@ -370,9 +370,11 @@ document.getElementById("buglink").addEventListener("click", function (e) {
 <footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="#support">Support</a> · Evidence over pedigree.</p>
+  <p style="font-size:12px;margin-top:6px">Privacy: we count anonymous page views with <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> — no cookies, no personal data. Nothing you type or paste is ever sent to it; your evidence and API key stay in your browser (grading sends them only to the API provider you choose).</p>
 </div></footer>
 
 <script src="verify-lib.js"></script>
+<script src="analytics.js" defer></script>
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 

@@ -1,0 +1,47 @@
+{
+  "project": "04-rea-triage",
+  "readme": "# rea-triage\n\nOne-command ELF binary triage: heuristics + score-based verdict + a\none-page analyst report.\n\nStatic heuristics (section entropy, W^X segments, suspicious imports, string\nIOCs) roll up into a score-based verdict. One command in, one readable page\nout. Heuristic triage signals are not convictions — the tool never executes\nsamples.\n\n> **Honesty note:** verdicts are *triage signals*, not convictions.\n> \"malicious\" means \"prioritize for deep analysis (Ghidra / REA / sandbox)\",\n> never \"this is malware\". Heuristics have false positives by design.\n> The binary is never executed — all analysis is static.\n\n## Installation\n\n```bash\npython3 -m venv .venv && source .venv/bin/activate\npip install -r requirements.txt\n```\n\nOnly dependency is `pyelftools` (pure Python). `pytest` for the test suite.\n\n## Usage\n\n```bash\npython triage.py /bin/ls --output report.md\n```\n\nTry the synthetic demo (works on any OS, no real malware involved).\n`generate_demo.py` builds a minimal ELF with a high-entropy section and\nplanted IOC strings, purely from Python stdlib:\n\n```bash\npython sample_data/generate_demo.py\npython triage.py sample_data/synthetic_demo.elf --output report.md\n# expect: verdict=malicious (score 11, 6 findings)\n```\n\nOptions:\n\n| Flag | Description |\n|------|-------------|\n| `--output` | (required) Path for the markdown report |\n| `--rea` | Attempt REA `inspect-binary-layout` enrichment (optional) |\n| `--json` | Optional path to write raw triage JSON |\n\nExample output:\n\n```\nTriaged /bin/ls: verdict=benign (score 1, 1 finding(s)).\nReport written to report.md\n```\n\n## What it checks\n\n| Check | Signal | Severity |\n|-------|--------|----------|\n| Section entropy | High-entropy (>7.5 bits/byte) code sections suggest packing/encryption | medium |\n| W^X sections | Writable + executable section (shellcode staging) | high |\n| Suspicious imports | `ptrace`, `memfd_create`, `process_vm_writev`, `system`, … | high/medium/low |\n| String IOCs | Hardcoded IPs, URLs, sensitive paths (`/etc/shadow`), keywords | high/medium |\n| Context | Stripped / statically linked (analyst context, not accusations) | low |\n\nScoring: high=3, medium=2, low=1. Verdict bands: 0–1 benign,\n2–4 suspicious, 5+ malicious.\n\n## REA enrichment (optional)\n\nIf the [`rea`](https://github.com/morluto/rea) CLI is installed and its ELF\nprovider is configured, `--rea` folds `inspect-binary-layout` evidence\n(entry point, section inventory) into the report. When REA is absent or its\nprovider is unavailable, triage continues and the report says so\nexplicitly — it never fails because REA is missing.\n\n## Running tests\n\n```bash\npython -m pytest tests/ -v\n```\n\n10 tests, all against synthetic fixtures (no real malware involved).\n\n## Project structure\n\n```\n04-rea-triage/\n├── triage.py        # collect → heuristics → score → report\n├── requirements.txt # pyelftools, pytest\n├── sample_data/\n│   └── generate_demo.py  # builds a synthetic demo ELF (stdlib only)\n└── tests/\n    └── test_triage.py\n```\n\n## Limitations\n\n- ELF only (Linux binaries). PE/Mach-O/APK are out of scope.\n- Entropy and import heuristics are coarse — packers can be custom,\n  and legitimate software imports `system` too. The report is a\n  starting point for an analyst, not an AV verdict.\n- String IOCs are regex-based; obfuscated strings are missed.\n",
+  "files": [
+    {
+      "path": "README.md",
+      "kind": "doc",
+      "lines": 103,
+      "bytes": 3365
+    },
+    {
+      "path": "requirements.txt",
+      "kind": "doc",
+      "lines": 2,
+      "bytes": 29
+    },
+    {
+      "path": "sample_data/generate_demo.py",
+      "kind": "code",
+      "lines": 62,
+      "bytes": 2109
+    },
+    {
+      "path": "tests/test_triage.py",
+      "kind": "test",
+      "lines": 130,
+      "bytes": 3672
+    },
+    {
+      "path": "triage.py",
+      "kind": "code",
+      "lines": 632,
+      "bytes": 21349
+    }
+  ],
+  "excerpts": [
+    {
+      "path": "tests/test_triage.py",
+      "head": "\"\"\"pytest suite for rea-triage.\n\nAll fixtures are synthetic: heuristic functions are tested against\nhand-built TriageResult objects, never against real malware.\n\"\"\"\n\nimport sys\nimport os\n\nsys.path.insert(0, os.path.join(os.path.dirname(__file__), \"..\"))\n\nfrom triage import (  # noqa: E402\n    Finding,\n    TriageResult,\n    detect_packed_sections,\n    detect_string_iocs,\n    detect_suspicious_imports,\n    detect_wx_sections,\n    extract_strings,\n    run_heuristics,\n    shannon_entropy,\n)\n\n\ndef _blank_result(**kwargs):\n    base = dict(\n        path=\"/tmp/fake\",\n        sha256=\"0\" * 64,\n        size=1000,\n        arch=\"EM_X86_64\",\n        elf_type=\"ET_DYN\",\n        stripped=False,\n        statically_linked=False,\n    )\n    base.update(kwargs)\n    return TriageResult(**base)\n\n\ndef test_entropy_zeros_is_zero():\n    assert shannon_entropy(b\"\\x00\" * 1000) == 0.0\n\n\ndef test_entropy_random_is_high():\n    # deterministic pseudo-random bytes: entropy should approach 8.0\n    data = bytes((i * 1103515245 + 12345) % 256 for i in range(4096))\n    assert shannon_entropy(data) > 7.0\n\n\ndef test_packed_section_flagged():\n    data = bytes((i * 1103515245 + 12345) % 256 for i in range(8192))\n    import math\n\n    ent = round(\n        -sum(\n            (data.count(b) / len(data)) * math.log2(data.count(b) / len(data))\n            for b in set(data)\n        ),\n        3,\n    )\n    r = _blank_result(\n"
+    },
+    {
+      "path": "triage.py",
+      "head": "#!/usr/bin/env python3\n\"\"\"rea-triage: one-command ELF binary triage.\n\nStatic heuristics (section entropy, W^X segments, suspicious imports, string\nIOCs) roll up into a score-based verdict and a one-page analyst report.\nOne command in, one readable page out.\n\n    python triage.py /path/to/binary --output report.md\n\none command in, one analyst-readable page out: file identity, heuristic\nfindings with severity + rationale, a score-based verdict, and next steps.\n\nWhat it checks (all static, the binary is never executed):\n  1. file identity  - sha256, size, arch, ELF type, stripped?\n  2. section entropy - high-entropy sections suggest packing/encryption\n  3. W^X sections   - a section that is both writable and executable\n  4. suspicious imports - ptrace, memfd_create, process_vm_writev, ...\n  5. string IOCs    - IPs, URLs, suspicious paths/keywords in strings\n\nOptional REA enrichment: if the ``rea`` CLI is installed *and* its ELF\nprovider is configured, ``inspect-binary-layout`` evidence is folded into\nthe report. When REA is absent or its provider is unavailable, triage\ncontinues and the report says so explicitly -- it never fails.\n\nHonesty note: these are *triage signals*, not convictions. A \"malicious\"\nverdict means \"prioritize this for deep analysis (Ghidra / REA / sandbox)\",\nnever \"this is malware\". Heuristics have false positives by design.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport hashlib\nimport json\nimport math\nimport os\nimport re\nimport shutil\nimport subprocess\nimport sys\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\ntry:\n    from elftools.elf.elffile import ELFFile\n    from elftools.elf.sections import Section\nexcept ImportError:  # pragma: no cover\n    ELFFile = None  # type: ignore\n\n# ---------------------------------------------------------------------------\n# Heuristic tables\n# ---------------------------------------------------------------------------\n\n# Suspicious imports: name -> (severity, rationale). Matched against undefined\n# dynamic symbols (i.e. functions the binary expects from shared libraries).\nSUSPICIOUS_IMPORTS: Dict[str, Tuple[str, str]] = {\n    \"ptrace\": (\n        \"high\",\n        \"Anti-debugging primitive — classic malware evasion technique.\",\n    ),\n"
+    }
+  ],
+  "notes": "2 code files, 1 test files; venv/cache/vcs excluded; excerpts=2"
+}

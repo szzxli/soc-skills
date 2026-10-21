@@ -114,21 +114,43 @@ section p.lead{text-align:center;color:var(--soft);max-width:660px;margin:0 auto
 .copybtn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:14px;font-weight:600}
 footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
 footer a{color:var(--teal)}
+/* Hero benefits + keyless example */
+.hero h1.h1-long{font-size:clamp(28px,4.2vw,40px)}
+.hero .benefits{list-style:none;margin:14px 0 4px;max-width:580px}
+.hero .benefits li{position:relative;padding-left:26px;margin:7px 0;color:#dbe7ef;font-size:15px}
+.hero .benefits li:before{content:"✓";position:absolute;left:0;top:0;color:var(--teal);font-weight:800}
+.hero .honest{font-size:12.5px;color:#9fb3c4;margin-top:4px}
+.hero .honest a{color:#9fe3d9}
+.ex-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.ex-tabs button{padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:13px;font-family:var(--mono)}
+.ex-tabs button[aria-selected="true"]{border-color:var(--teal-d);background:#f0fdfa;color:var(--teal-d);font-weight:700}
+.ex-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;background:#fef3c7;color:#92400e;border-radius:20px;padding:2px 10px;margin-bottom:8px}
+.ex-table td{text-align:left;vertical-align:top}
+.ex-table td.lv{font-family:var(--mono);font-weight:700;white-space:nowrap}
+.ex-table td.lv.l2{background:#d1fae5;color:#065f46}
+.ex-table td.lv.l1p{background:#fffbeb;color:#92400e}
+.ex-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
 @media(max-width:640px){.hero{padding:52px 0 0}nav a{margin-left:9px;font-size:11.5px}.stat{padding:14px 16px;min-width:120px}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
+  <nav><a href="#example">Example</a><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
 </div></header>
 
 <div class="hero"><div class="hero-grid">
   <div class="hero-copy">
-  <div class="kicker">OPEN SOURCE · MIT · CANDIDATE-OWNED</div>
-  <h1>Certs don't prove ability.<br>Evidence does.</h1>
-  <p class="sub">"Years of experience" is a lazy filter. Answer 16 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
-  <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
+  <div class="kicker">FOR SOC JOB SEEKERS &amp; CAREER CHANGERS · FREE · OPEN SOURCE</div>
+  <h1 class="h1-long">Turn your labs into an evidence-backed skill profile hiring managers can read.</h1>
+  <p class="sub">No SOC job on your resume yet? Show what you can do instead. soc-skills grades your lab write-ups and code against a public rubric — 8 SOC skill domains mapped to the NIST NICE framework, with levels you can only earn with evidence.</p>
+  <ul class="benefits">
+    <li><b>Know where you stand:</b> a level per domain (L1 → L2), each one tied to the file or report that earned it — ready to walk through in an interview.</li>
+    <li><b>Know what to build next:</b> a gap analysis spells out what's missing for the next level, domain by domain.</li>
+    <li><b>Show it, don't claim it:</b> a resume one-liner plus a tamper-evident profile file an employer can check. Runs in your browser — no soc&#8209;skills account needed.</li>
+  </ul>
+  <div class="cta"><a class="btn primary" href="#example" id="hero-example" data-count="see-example">See an example profile</a><a class="btn ghost" href="#grade" data-count="grade-own-cta">Grade your own (free key)</a></div>
+  <p class="honest">Or start with the <a href="#assess">16-question self-assessment</a> — no key needed. Not a certification; not affiliated with or endorsed by NIST, NICE or any employer.</p>
   </div>
   <a class="video-card" href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">
     <img src="https://i.ytimg.com/vi/_WxnwmmL0co/hqdefault.jpg" alt="soc-skills intro — 60 seconds">
@@ -144,7 +166,30 @@ footer a{color:var(--teal)}
 </div></div>
 </div>
 
-<section id="how"><div class="wrap">
+<section id="example"><div class="wrap">
+  <div class="skicker">EXAMPLE · NO API KEY NEEDED</div>
+  <h2>See the output before you sign up for anything</h2>
+  <p class="lead">A real grading report, stored — not run live: the founder's own home-lab projects, graded on 2026-10-16 with rubric-prompt v1.1 and published in <a href="https://github.com/szzxli/soc-skills/blob/main/grader/validation-v1.1.md">grader/validation-v1.1.md</a>. Pick a project to see its skill levels, the evidence behind each one, and the gap analysis.</p>
+  <div class="ex-tabs" id="ex-tabs" role="tablist" aria-label="Example projects"></div>
+  <div class="card" id="ex-card">
+    <span class="ex-label">STORED EXAMPLE · NOT A LIVE RUN</span>
+    <h3 id="ex-title" style="margin-bottom:4px"></h3>
+    <p style="font-size:13px;color:var(--soft)" id="ex-meta"></p>
+    <h4 style="margin-top:14px">Skill levels</h4>
+    <table class="matrix ex-table" id="ex-levels"></table>
+    <div id="ex-gaps"></div>
+    <h4 style="margin-top:14px">Process (behavioral) scores</h4>
+    <table class="matrix ex-table" id="ex-behav"></table>
+    <p style="font-size:14px;margin-top:8px"><b>Overall:</b> <span id="ex-overall"></span></p>
+    <details style="margin-top:10px"><summary style="cursor:pointer;font-size:13.5px;color:var(--teal-d)">Show the raw grading report (verbatim)</summary><div class="summary-box" id="ex-raw" style="font-size:12.5px"></div></details>
+    <div class="ex-actions">
+      <button class="copybtn" id="ex-load" data-count="sample-load-evidence">Load this evidence into the grader</button>
+      <a class="copybtn" id="ex-src" style="background:#0f766e;text-decoration:none" target="_blank" rel="noopener">Inspect the evidence on GitHub</a>
+      <a href="#grade" style="font-size:13.5px;font-weight:600;color:var(--teal-d)">Grade your own (free key) →</a>
+    </div>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:10px">Levels: L1 = guided · L1+ = beyond L1, short of L2 · L2 = independent hands-on, with scope (lab / synthetic / reconstructed). L3 (production) is never self-awarded. Combined across all five projects, this becomes the <a href="#sample">sample profile</a> below. Advisory output from an AI grader — not a certification.</p>
+  </div>
+</div></section><section id="how"><div class="wrap">
   <div class="skicker">HOW IT WORKS</div>
   <h2>Three steps to a profile employers can verify</h2>
   <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
@@ -223,6 +268,7 @@ footer a{color:var(--teal)}
     <textarea id="evidence" rows="10" placeholder="Example:&#10;# My CloudTrail analyzer&#10;- ioc_analyzer.py (587 lines): CLI with argparse, error handling&#10;- tests/test_analyzer.py: 9 tests, all passing&#10;- Ran by hand against 200 synthetic CloudTrail events&#10;- 3 heuristic detectors: unusual-region login, brute-force burst, high-risk API calls&#10;- README has reproduce steps" style="width:100%;padding:14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:13px;line-height:1.6"></textarea>
     <div style="text-align:center;margin-top:16px">
       <button class="btn primary" id="grade-btn" style="font-size:16px">Grade my evidence</button>
+      <p style="font-size:13px;color:var(--soft);margin-top:6px">No key yet? <a href="#" id="try-sample" data-count="sample-try-evidence" style="font-weight:600;color:var(--teal-d)">Try with sample evidence</a> — loads a real evidence bundle and its stored grading report, no key needed.</p>
     </div>
   </div>
   <div class="card" id="grade-result-card" style="display:none">
@@ -919,7 +965,7 @@ function renderPrescription(text){
   let m;
   while((m = re.exec(text))){
     const up = m[3].trim();
-    if(!up || /^(none|n\/a|-)$/i.test(up)) continue;
+    if(!up || /^(none|n\/a|-)($|[\s;:,(])/i.test(up)) continue;
     const dom = (typeof DOMAINS !== 'undefined' && DOMAINS[+m[1]-1]) || null;
     items.push({ d:'D'+m[1], name: dom ? dom.name : '', level: m[2].trim(), upgrade: up });
   }
@@ -993,6 +1039,102 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   }
   document.getElementById('grade-btn').disabled = false;
 });
+
+// ---- Keyless example: stored grading reports (verbatim from grader/validation-v1.1.md) ----
+// Not a live run. Evidence bundles in samples/ were produced by grader/grade.py on
+// soc-home-lab @ f965d5c (2026-10-16) — see web/samples/README.md.
+const EXAMPLE_COMMIT = 'f965d5c10d32567efaead04f78501b818c9ba4e7';
+const EXAMPLE_PROJECTS = [
+  {id:'P1', dir:'01-mini-soc', title:'AWS mini-SOC — Terraform, CloudTrail, GuardDuty, 3 attack simulations'},
+  {id:'P2', dir:'02-python-ioc-analyzer', title:'CloudTrail IOC analyzer — Python CLI, 3 detectors, tests'},
+  {id:'P3', dir:'03-phishing-analysis-lab', title:'Phishing analysis lab — header→auth→URL→verdict walkthrough'},
+  {id:'P4', dir:'04-rea-triage', title:'ELF binary triage tool — entropy / W^X / import heuristics'}
+];
+const EXAMPLE_REPORTS = {
+ "P1": "D1 | L2 (lab) | evidence: triage-guide.md: full alert→severity→contain/escalate flow; README: 3 Stratus Red Team sims run by hand | upgrade: none for L2; L3 needs production queue\nD2 | L1+ | evidence: architecture.md: CloudTrail vs GuardDuty coverage blind spots explained; no detection logic written | upgrade: write one tunable heuristic rule with tests\nD3 | L1+ | evidence: incident-reports/ holds only blank report-template.md (rule 6 blocks L2); attack-runbook \"expected findings…expected, not observed\" (rule 7) | upgrade: hand-fill one detonation incident report\nD6 | L2 (lab) | evidence: terraform/main.tf: full-stack IaC, multi-region Trail, encrypted bucket, least-privilege IAM; README: hand-run apply/destroy | upgrade: none for L2\nD7 | L1 | evidence: no self-written analysis code; Terraform + off-the-shelf tools only | upgrade: n/a (not a code project)\n## Behavioral\nB1 adequate | evidence: attack-runbook.md: ATT&CK-mapped, warmup→detonate→verify→cleanup sequence\nB2 untested | evidence: no inject records: no mid-task disruption documented\nB3 weak | evidence: no documented pivots; runbook is linear by design\nB4 adequate | evidence: architecture.md + honesty notes: next-analyst-usable; \"expected ≠ observed\" labeled\n## Overall\nStrongest L2 (lab) pair D1+D6; D3 remains the evidence gap (template ≠ report).\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P2": "D7 | L2 | evidence: ioc_analyzer.py (587 lines): CLI args, error handling; tests/test_analyzer.py: 9 tests; README reproducible | upgrade: none for L2\nD2 | L2 (synthetic) | evidence: 3 heuristic detectors with tunable thresholds + positive/negative tests; sample_data explicitly synthetic | upgrade: run against real CloudTrail-shaped data (own lab) to graduate scope\nD1 | L1 | evidence: tool outputs findings, not triage decisions | upgrade: n/a\n## Behavioral\nB1 adequate | evidence: tests/test_analyzer.py: positive/negative cases show methodical verification\nB2 untested | evidence: no inject records\nB3 insufficient evidence | evidence: no pivot records in bundle\nB4 adequate | evidence: README.md: reproducible by others; synthetic data honestly labeled\n## Overall\nCleanest L2 in the set (D7+D2); scope suffix honest.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P3": "D4 | L2 (reconstructed) | evidence: sample-walkthrough.md (228 lines): headers→auth→URL decoding→IOCs→verdict independently, evidence-weighted; reconstructed labeled | upgrade: run the gophish self-test and write it up to graduate scope\nD3 | L1+ | evidence: handling playbook written; no live-fire, no filled reports (rule 6) | upgrade: fill one report from a self-phishing run\n## Behavioral\nB1 adequate | evidence: sample-walkthrough.md: systematic flow, confidence-scored verdicts\nB2 untested | evidence: gophish-selftest-guide.md exists but no run records\nB3 insufficient evidence | evidence: no pivot records\nB4 adequate | evidence: walkthrough + cheatsheet: next-analyst-usable\n## Overall\nD4 L2 (reconstructed) solid; the gophish self-test is the obvious next run.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P4": "D5 | L2 (synthetic) | evidence: triage.py (632 lines): entropy/W^X/import heuristics + score verdict + one-page report; tests/test_triage.py; sample_data generated by generate_demo.py | upgrade: run against a broader real-ELF corpus and document FP boundaries\nD7 | L2 | evidence: self-written CLI (632 lines), tests, README reproducible | upgrade: none for L2\n## Behavioral\nB1 adequate | evidence: tests cover heuristic boundaries; \"triage signals ≠ conviction\" methodology stated\nB2 untested | evidence: no inject records\nB3 insufficient evidence | evidence: no pivot records\nB4 strong | evidence: README honesty notes (\"triage signals ≠ conviction\", \"never executed\") are exactly next-analyst-grade documentation\n## Overall\nStrongest methodology honesty in the set; B4 is the model for other projects.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists"
+};
+const EXAMPLE_NOTE = 'Stored example — not a live run. Grading report recorded for this exact evidence on 2026-10-16 (rubric-prompt v1.1, grader/validation-v1.1.md). Add a free key and click "Grade my evidence" to re-grade it live with rubric ' + RUBRIC_VERSION + '.';
+function parseExample(text){
+  const levels = [], gaps = [], behav = [];
+  let overall = '';
+  const lines = text.split('\n');
+  lines.forEach((ln,i)=>{
+    let m = ln.match(/^D(\d)\s*\|\s*([^|]+?)\s*\|\s*evidence:\s*(.*?)\s*\|\s*upgrade:\s*(.*)$/);
+    if(m){
+      const dom = DOMAINS[+m[1]-1] || {name:''};
+      levels.push({d:'D'+m[1], name:dom.name, level:m[2], evidence:m[3]});
+      const up = m[4].trim();
+      if(up && !/^(none|n\/a|-)($|[\s;:,(])/i.test(up)) gaps.push({d:'D'+m[1], name:dom.name, level:m[2], upgrade:up});
+      return;
+    }
+    m = ln.match(/^B(\d)\s+(.+?)\s*\|\s*evidence:\s*(.*)$/);
+    if(m){ behav.push({b:'B'+m[1], score:m[2], evidence:m[3]}); return; }
+    if(/^## Overall/.test(ln) && lines[i+1]) overall = lines[i+1];
+  });
+  return {levels, gaps, behav, overall};
+}
+const B_NAMES = {B1:'Methodical enumeration', B2:'Composure under injects', B3:'Reassessment discipline', B4:'Documentation discipline'};
+let exCurrent = EXAMPLE_PROJECTS[0];
+function renderExample(pid){
+  const p = EXAMPLE_PROJECTS.find(x=>x.id===pid) || EXAMPLE_PROJECTS[0];
+  exCurrent = p;
+  const text = EXAMPLE_REPORTS[p.id];
+  const r = parseExample(text);
+  document.querySelectorAll('#ex-tabs button').forEach(b=>b.setAttribute('aria-selected', String(b.dataset.p===p.id)));
+  document.getElementById('ex-title').textContent = p.id + ' · ' + p.dir + ' — ' + p.title;
+  document.getElementById('ex-meta').textContent = 'Graded 2026-10-16 · rubric-prompt v1.1 · evidence bundle from grader/grade.py · soc-home-lab @ ' + EXAMPLE_COMMIT.slice(0,7);
+  document.getElementById('ex-levels').innerHTML = '<tr><th>Domain</th><th>Level</th><th>Evidence the grader cited</th></tr>' +
+    r.levels.map(l=>{
+      const cls = /^L2/.test(l.level) ? 'l2' : /^L1\+/.test(l.level) ? 'l1p' : '';
+      return '<tr><td><b>' + escRx(l.d) + '</b> ' + escRx(l.name) + '</td><td class="lv ' + cls + '">' + escRx(l.level) + '</td><td>' + escRx(l.evidence) + '</td></tr>';
+    }).join('');
+  document.getElementById('ex-gaps').innerHTML = r.gaps.length ?
+    '<div style="border:1.5px solid var(--teal);border-radius:10px;padding:14px 16px;background:#f0fdfa;margin-top:14px">' +
+    '<div style="font-weight:700;font-size:14.5px;margin-bottom:6px">Gap analysis — next moves</div>' +
+    r.gaps.map(g=>'<div style="font-size:13.5px;margin:6px 0"><b>' + escRx(g.d) + (g.name ? ' · ' + escRx(g.name) : '') + '</b> <span class="tag" style="font-size:11px">now ' + escRx(g.level) + '</span><br>' + escRx(g.upgrade) + '</div>').join('') +
+    '</div>' : '';
+  document.getElementById('ex-behav').innerHTML = '<tr><th>Dimension</th><th>Score</th><th>Evidence</th></tr>' +
+    r.behav.map(b=>'<tr><td><b>' + escRx(b.b) + '</b> ' + escRx(B_NAMES[b.b]||'') + '</td><td class="lv">' + escRx(b.score) + '</td><td>' + escRx(b.evidence) + '</td></tr>').join('');
+  document.getElementById('ex-overall').textContent = r.overall;
+  document.getElementById('ex-raw').textContent = text;
+  document.getElementById('ex-src').href = 'https://github.com/szzxli/soc-home-lab/tree/' + EXAMPLE_COMMIT + '/' + p.dir;
+}
+(function(){
+  const tabs = document.getElementById('ex-tabs');
+  EXAMPLE_PROJECTS.forEach(p=>{
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.p = p.id; b.setAttribute('role','tab');
+    b.textContent = p.id + ' · ' + p.dir;
+    b.addEventListener('click', ()=>renderExample(p.id));
+    tabs.appendChild(b);
+  });
+  renderExample('P1');
+})();
+// Load the example's real evidence bundle into the grader and show its stored report there.
+function loadSampleIntoGrader(p){
+  p = p || exCurrent;
+  const status = document.getElementById('grade-status');
+  const card = document.getElementById('grade-result-card');
+  const out = document.getElementById('grade-result');
+  const ev = document.getElementById('evidence');
+  card.style.display = '';
+  status.textContent = 'Loading sample evidence…';
+  const showStored = ()=>{
+    out.textContent = EXAMPLE_REPORTS[p.id];
+    renderPrescription(EXAMPLE_REPORTS[p.id]);
+    updateGradingPackage('', '');   // no verification package for a stored example
+    status.textContent = EXAMPLE_NOTE;
+  };
+  fetch('samples/evidence-' + p.dir + '.json').then(r=>{ if(!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(t=>{ ev.value = t; showStored(); })
+    .catch(()=>{ showStored(); status.textContent = EXAMPLE_NOTE + ' (The evidence bundle could not be loaded offline — see it on GitHub.)'; });
+  document.getElementById('grade').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('ex-load').addEventListener('click', ()=>loadSampleIntoGrader(exCurrent));
+document.getElementById('try-sample').addEventListener('click', e=>{ e.preventDefault(); loadSampleIntoGrader(exCurrent); });
 
 // ---- Lab cards ----
 const LABS = [

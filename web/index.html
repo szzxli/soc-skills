@@ -3,8 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>soc-skills — prove what you can do</title>
-<meta name="description" content="Quantified hands-on cybersecurity skill profiles. Certs don't prove ability — evidence does.">
+<title>soc-skills — Free SOC Analyst Skill Assessment &amp; Evidence-Based Profile</title>
+<meta name="description" content="Free, open-source SOC analyst skill assessment. Self-assess, grade your real project evidence against a public NIST NICE-mapped rubric, and get a resume-ready skill profile.">
+<link rel="canonical" href="https://szzxli.github.io/soc-skills/web/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="soc-skills">
+<meta property="og:title" content="soc-skills — Free SOC Analyst Skill Assessment &amp; Evidence-Based Profile">
+<meta property="og:description" content="Free, open-source SOC analyst skill assessment. Self-assess, grade your real project evidence against a public NIST NICE-mapped rubric, and get a resume-ready skill profile.">
+<meta property="og:url" content="https://szzxli.github.io/soc-skills/web/">
+<meta property="og:image" content="https://opengraph.githubassets.com/1/szzxli/soc-skills">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="soc-skills — Free SOC Analyst Skill Assessment &amp; Evidence-Based Profile">
+<meta name="twitter:description" content="Free, open-source SOC analyst skill assessment. Self-assess, grade your real project evidence against a public NIST NICE-mapped rubric, and get a resume-ready skill profile.">
+<meta name="twitter:image" content="https://opengraph.githubassets.com/1/szzxli/soc-skills">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "soc-skills",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Cybersecurity skills assessment",
+  "description": "Open-source, browser-based SOC analyst skill assessment: self-assessment, an AI grader that scores your project evidence against a public NIST NICE-mapped rubric (bring your own API key), and CISA KEV-driven lab cards.",
+  "operatingSystem": "Any (web browser)",
+  "url": "https://szzxli.github.io/soc-skills/web/",
+  "image": "https://opengraph.githubassets.com/1/szzxli/soc-skills",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "license": "https://opensource.org/licenses/MIT",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "szzxli",
+    "url": "https://github.com/szzxli"
+  },
+  "sameAs": [
+    "https://github.com/szzxli/soc-skills"
+  ]
+}
+</script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2027">
 <style>
@@ -114,21 +155,43 @@ section p.lead{text-align:center;color:var(--soft);max-width:660px;margin:0 auto
 .copybtn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:14px;font-weight:600}
 footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
 footer a{color:var(--teal)}
+/* Hero benefits + keyless example */
+.hero h1.h1-long{font-size:clamp(28px,4.2vw,40px)}
+.hero .benefits{list-style:none;margin:14px 0 4px;max-width:580px}
+.hero .benefits li{position:relative;padding-left:26px;margin:7px 0;color:#dbe7ef;font-size:15px}
+.hero .benefits li:before{content:"✓";position:absolute;left:0;top:0;color:var(--teal);font-weight:800}
+.hero .honest{font-size:12.5px;color:#9fb3c4;margin-top:4px}
+.hero .honest a{color:#9fe3d9}
+.ex-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.ex-tabs button{padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:13px;font-family:var(--mono)}
+.ex-tabs button[aria-selected="true"]{border-color:var(--teal-d);background:#f0fdfa;color:var(--teal-d);font-weight:700}
+.ex-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;background:#fef3c7;color:#92400e;border-radius:20px;padding:2px 10px;margin-bottom:8px}
+.ex-table td{text-align:left;vertical-align:top}
+.ex-table td.lv{font-family:var(--mono);font-weight:700;white-space:nowrap}
+.ex-table td.lv.l2{background:#d1fae5;color:#065f46}
+.ex-table td.lv.l1p{background:#fffbeb;color:#92400e}
+.ex-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
 @media(max-width:640px){.hero{padding:52px 0 0}nav a{margin-left:9px;font-size:11.5px}.stat{padding:14px 16px;min-width:120px}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
+  <nav><a href="#example">Example</a><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
 </div></header>
 
 <div class="hero"><div class="hero-grid">
   <div class="hero-copy">
-  <div class="kicker">OPEN SOURCE · MIT · CANDIDATE-OWNED</div>
-  <h1>Certs don't prove ability.<br>Evidence does.</h1>
-  <p class="sub">"Years of experience" is a lazy filter. Answer 16 questions, get a quantified skill profile — with the 6-second one-liner that survives the resume scan.</p>
-  <div class="cta"><a class="btn primary" href="#assess">Start self-assessment</a><a class="btn ghost" href="#sample">See a sample profile</a></div>
+  <div class="kicker">FOR SOC JOB SEEKERS &amp; CAREER CHANGERS · FREE · OPEN SOURCE</div>
+  <h1 class="h1-long">Turn your labs into an evidence-backed skill profile hiring managers can read.</h1>
+  <p class="sub">No SOC job on your resume yet? Show what you can do instead. soc-skills grades your lab write-ups and code against a public rubric — 8 SOC skill domains mapped to the NIST NICE framework, with levels you can only earn with evidence.</p>
+  <ul class="benefits">
+    <li><b>Know where you stand:</b> a level per domain (L1 → L2), each one tied to the file or report that earned it — ready to walk through in an interview.</li>
+    <li><b>Know what to build next:</b> a gap analysis spells out what's missing for the next level, domain by domain.</li>
+    <li><b>Show it, don't claim it:</b> a resume one-liner plus a tamper-evident profile file an employer can check. Runs in your browser — no soc&#8209;skills account needed.</li>
+  </ul>
+  <div class="cta"><a class="btn primary" href="#example" id="hero-example" data-count="see-example">See an example profile</a><a class="btn ghost" href="#grade" data-count="grade-own-cta">Grade your own (free key)</a></div>
+  <p class="honest">Or start with the <a href="#assess">16-question self-assessment</a> — no key needed. Not a certification; not affiliated with or endorsed by NIST, NICE or any employer.</p>
   </div>
   <a class="video-card" href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">
     <img src="https://i.ytimg.com/vi/_WxnwmmL0co/hqdefault.jpg" alt="soc-skills intro — 60 seconds">
@@ -144,7 +207,30 @@ footer a{color:var(--teal)}
 </div></div>
 </div>
 
-<section id="how"><div class="wrap">
+<section id="example"><div class="wrap">
+  <div class="skicker">EXAMPLE · NO API KEY NEEDED</div>
+  <h2>See the output before you sign up for anything</h2>
+  <p class="lead">A real grading report, stored — not run live: the founder's own home-lab projects, graded on 2026-10-16 with rubric-prompt v1.1 and published in <a href="https://github.com/szzxli/soc-skills/blob/main/grader/validation-v1.1.md">grader/validation-v1.1.md</a>. Pick a project to see its skill levels, the evidence behind each one, and the gap analysis.</p>
+  <div class="ex-tabs" id="ex-tabs" role="tablist" aria-label="Example projects"></div>
+  <div class="card" id="ex-card">
+    <span class="ex-label">STORED EXAMPLE · NOT A LIVE RUN</span>
+    <h3 id="ex-title" style="margin-bottom:4px"></h3>
+    <p style="font-size:13px;color:var(--soft)" id="ex-meta"></p>
+    <h4 style="margin-top:14px">Skill levels</h4>
+    <table class="matrix ex-table" id="ex-levels"></table>
+    <div id="ex-gaps"></div>
+    <h4 style="margin-top:14px">Process (behavioral) scores</h4>
+    <table class="matrix ex-table" id="ex-behav"></table>
+    <p style="font-size:14px;margin-top:8px"><b>Overall:</b> <span id="ex-overall"></span></p>
+    <details style="margin-top:10px"><summary style="cursor:pointer;font-size:13.5px;color:var(--teal-d)">Show the raw grading report (verbatim)</summary><div class="summary-box" id="ex-raw" style="font-size:12.5px"></div></details>
+    <div class="ex-actions">
+      <button class="copybtn" id="ex-load" data-count="sample-load-evidence">Load this evidence into the grader</button>
+      <a class="copybtn" id="ex-src" style="background:#0f766e;text-decoration:none" target="_blank" rel="noopener">Inspect the evidence on GitHub</a>
+      <a href="#grade" style="font-size:13.5px;font-weight:600;color:var(--teal-d)">Grade your own (free key) →</a>
+    </div>
+    <p style="font-size:12.5px;color:var(--soft);margin-top:10px">Levels: L1 = guided · L1+ = beyond L1, short of L2 · L2 = independent hands-on, with scope (lab / synthetic / reconstructed). L3 (production) is never self-awarded. Combined across all five projects, this becomes the <a href="#sample">sample profile</a> below. Advisory output from an AI grader — not a certification.</p>
+  </div>
+</div></section><section id="how"><div class="wrap">
   <div class="skicker">HOW IT WORKS</div>
   <h2>Three steps to a profile employers can verify</h2>
   <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
@@ -223,6 +309,7 @@ footer a{color:var(--teal)}
     <textarea id="evidence" rows="10" placeholder="Example:&#10;# My CloudTrail analyzer&#10;- ioc_analyzer.py (587 lines): CLI with argparse, error handling&#10;- tests/test_analyzer.py: 9 tests, all passing&#10;- Ran by hand against 200 synthetic CloudTrail events&#10;- 3 heuristic detectors: unusual-region login, brute-force burst, high-risk API calls&#10;- README has reproduce steps" style="width:100%;padding:14px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:13px;line-height:1.6"></textarea>
     <div style="text-align:center;margin-top:16px">
       <button class="btn primary" id="grade-btn" style="font-size:16px">Grade my evidence</button>
+      <p style="font-size:13px;color:var(--soft);margin-top:6px">No key yet? <a href="#" id="try-sample" data-count="sample-try-evidence" style="font-weight:600;color:var(--teal-d)">Try with sample evidence</a> — loads a real evidence bundle and its stored grading report, no key needed.</p>
     </div>
   </div>
   <div class="card" id="grade-result-card" style="display:none">
@@ -269,7 +356,7 @@ footer a{color:var(--teal)}
   <div class="skicker">06 · SAMPLE</div>
   <h2>Sample profile</h2>
   <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, AI-graded against the rubric (v1.1 report in <span style="font-family:var(--mono)">grader/</span>).</p>
-  <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 5/7 domains (lab) · 5 projects AI-graded against a public rubric</span></div>
+  <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 5/8 domains (lab; D8 not yet assessed) · 5 projects AI-graded against a public rubric</span></div>
   <div class="card"><table class="matrix">
     <tr><th>Domain</th><th>—</th><th>L1</th><th>L1+</th><th>L2</th></tr>
     <tr><td style="text-align:left">D1 Monitoring &amp; triage</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
@@ -279,6 +366,7 @@ footer a{color:var(--teal)}
     <tr><td style="text-align:left">D5 Binary triage</td><td></td><td></td><td></td><td class="hit">L2 (syn.)</td></tr>
     <tr><td style="text-align:left">D6 Cloud (AWS)</td><td></td><td></td><td></td><td class="hit">L2 (lab)</td></tr>
     <tr><td style="text-align:left">D7 Automation &amp; scripting</td><td></td><td></td><td></td><td class="hit">L2</td></tr>
+    <tr><td style="text-align:left">D8 AI agent security &amp; governance</td><td colspan="4" style="color:var(--soft)">not yet assessed (domain added 2026-10-20)</td></tr>
   </table>
   <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. D3 downgraded to L1+ on 2026-10-16 (blank template ≠ filled report — the rubric working as intended). L3 column intentionally empty.</p></div>
 </div></section><section id="resources" class="alt"><div class="wrap">
@@ -317,7 +405,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v15 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v18 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -328,9 +416,11 @@ document.getElementById("buglink").addEventListener("click", function (e) {
 <footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="#support">Support</a> · Evidence over pedigree.</p>
+  <p style="font-size:12px;margin-top:6px">Privacy: we count anonymous page views with <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> — no cookies, no personal data. Nothing you type or paste is ever sent to it; your evidence and API key stay in your browser (grading sends them only to the API provider you choose).</p>
 </div></footer>
 
 <script src="verify-lib.js"></script>
+<script src="analytics.js" defer></script>
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 
@@ -919,7 +1009,7 @@ function renderPrescription(text){
   let m;
   while((m = re.exec(text))){
     const up = m[3].trim();
-    if(!up || /^(none|n\/a|-)$/i.test(up)) continue;
+    if(!up || /^(none|n\/a|-)($|[\s;:,(])/i.test(up)) continue;
     const dom = (typeof DOMAINS !== 'undefined' && DOMAINS[+m[1]-1]) || null;
     items.push({ d:'D'+m[1], name: dom ? dom.name : '', level: m[2].trim(), upgrade: up });
   }
@@ -994,8 +1084,105 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   document.getElementById('grade-btn').disabled = false;
 });
 
+// ---- Keyless example: stored grading reports (verbatim from grader/validation-v1.1.md) ----
+// Not a live run. Evidence bundles in samples/ were produced by grader/grade.py on
+// soc-home-lab @ f965d5c (2026-10-16) — see web/samples/README.md.
+const EXAMPLE_COMMIT = 'f965d5c10d32567efaead04f78501b818c9ba4e7';
+const EXAMPLE_PROJECTS = [
+  {id:'P1', dir:'01-mini-soc', title:'AWS mini-SOC — Terraform, CloudTrail, GuardDuty, 3 attack simulations'},
+  {id:'P2', dir:'02-python-ioc-analyzer', title:'CloudTrail IOC analyzer — Python CLI, 3 detectors, tests'},
+  {id:'P3', dir:'03-phishing-analysis-lab', title:'Phishing analysis lab — header→auth→URL→verdict walkthrough'},
+  {id:'P4', dir:'04-rea-triage', title:'ELF binary triage tool — entropy / W^X / import heuristics'}
+];
+const EXAMPLE_REPORTS = {
+ "P1": "D1 | L2 (lab) | evidence: triage-guide.md: full alert→severity→contain/escalate flow; README: 3 Stratus Red Team sims run by hand | upgrade: none for L2; L3 needs production queue\nD2 | L1+ | evidence: architecture.md: CloudTrail vs GuardDuty coverage blind spots explained; no detection logic written | upgrade: write one tunable heuristic rule with tests\nD3 | L1+ | evidence: incident-reports/ holds only blank report-template.md (rule 6 blocks L2); attack-runbook \"expected findings…expected, not observed\" (rule 7) | upgrade: hand-fill one detonation incident report\nD6 | L2 (lab) | evidence: terraform/main.tf: full-stack IaC, multi-region Trail, encrypted bucket, least-privilege IAM; README: hand-run apply/destroy | upgrade: none for L2\nD7 | L1 | evidence: no self-written analysis code; Terraform + off-the-shelf tools only | upgrade: n/a (not a code project)\n## Behavioral\nB1 adequate | evidence: attack-runbook.md: ATT&CK-mapped, warmup→detonate→verify→cleanup sequence\nB2 untested | evidence: no inject records: no mid-task disruption documented\nB3 weak | evidence: no documented pivots; runbook is linear by design\nB4 adequate | evidence: architecture.md + honesty notes: next-analyst-usable; \"expected ≠ observed\" labeled\n## Overall\nStrongest L2 (lab) pair D1+D6; D3 remains the evidence gap (template ≠ report).\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P2": "D7 | L2 | evidence: ioc_analyzer.py (587 lines): CLI args, error handling; tests/test_analyzer.py: 9 tests; README reproducible | upgrade: none for L2\nD2 | L2 (synthetic) | evidence: 3 heuristic detectors with tunable thresholds + positive/negative tests; sample_data explicitly synthetic | upgrade: run against real CloudTrail-shaped data (own lab) to graduate scope\nD1 | L1 | evidence: tool outputs findings, not triage decisions | upgrade: n/a\n## Behavioral\nB1 adequate | evidence: tests/test_analyzer.py: positive/negative cases show methodical verification\nB2 untested | evidence: no inject records\nB3 insufficient evidence | evidence: no pivot records in bundle\nB4 adequate | evidence: README.md: reproducible by others; synthetic data honestly labeled\n## Overall\nCleanest L2 in the set (D7+D2); scope suffix honest.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P3": "D4 | L2 (reconstructed) | evidence: sample-walkthrough.md (228 lines): headers→auth→URL decoding→IOCs→verdict independently, evidence-weighted; reconstructed labeled | upgrade: run the gophish self-test and write it up to graduate scope\nD3 | L1+ | evidence: handling playbook written; no live-fire, no filled reports (rule 6) | upgrade: fill one report from a self-phishing run\n## Behavioral\nB1 adequate | evidence: sample-walkthrough.md: systematic flow, confidence-scored verdicts\nB2 untested | evidence: gophish-selftest-guide.md exists but no run records\nB3 insufficient evidence | evidence: no pivot records\nB4 adequate | evidence: walkthrough + cheatsheet: next-analyst-usable\n## Overall\nD4 L2 (reconstructed) solid; the gophish self-test is the obvious next run.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists",
+ "P4": "D5 | L2 (synthetic) | evidence: triage.py (632 lines): entropy/W^X/import heuristics + score verdict + one-page report; tests/test_triage.py; sample_data generated by generate_demo.py | upgrade: run against a broader real-ELF corpus and document FP boundaries\nD7 | L2 | evidence: self-written CLI (632 lines), tests, README reproducible | upgrade: none for L2\n## Behavioral\nB1 adequate | evidence: tests cover heuristic boundaries; \"triage signals ≠ conviction\" methodology stated\nB2 untested | evidence: no inject records\nB3 insufficient evidence | evidence: no pivot records\nB4 strong | evidence: README honesty notes (\"triage signals ≠ conviction\", \"never executed\") are exactly next-analyst-grade documentation\n## Overall\nStrongest methodology honesty in the set; B4 is the model for other projects.\n## Honesty check\n- [x] Every L2 cites evidence\n- [x] No L3\n- [x] No OSCP mentioned\n- [x] Templates/expected results not counted as output evidence\n- [x] Behavioral scored separately; \"untested\" used where no inject evidence exists"
+};
+const EXAMPLE_NOTE = 'Stored example — not a live run. Grading report recorded for this exact evidence on 2026-10-16 (rubric-prompt v1.1, grader/validation-v1.1.md). Add a free key and click "Grade my evidence" to re-grade it live with rubric ' + RUBRIC_VERSION + '.';
+function parseExample(text){
+  const levels = [], gaps = [], behav = [];
+  let overall = '';
+  const lines = text.split('\n');
+  lines.forEach((ln,i)=>{
+    let m = ln.match(/^D(\d)\s*\|\s*([^|]+?)\s*\|\s*evidence:\s*(.*?)\s*\|\s*upgrade:\s*(.*)$/);
+    if(m){
+      const dom = DOMAINS[+m[1]-1] || {name:''};
+      levels.push({d:'D'+m[1], name:dom.name, level:m[2], evidence:m[3]});
+      const up = m[4].trim();
+      if(up && !/^(none|n\/a|-)($|[\s;:,(])/i.test(up)) gaps.push({d:'D'+m[1], name:dom.name, level:m[2], upgrade:up});
+      return;
+    }
+    m = ln.match(/^B(\d)\s+(.+?)\s*\|\s*evidence:\s*(.*)$/);
+    if(m){ behav.push({b:'B'+m[1], score:m[2], evidence:m[3]}); return; }
+    if(/^## Overall/.test(ln) && lines[i+1]) overall = lines[i+1];
+  });
+  return {levels, gaps, behav, overall};
+}
+const B_NAMES = {B1:'Methodical enumeration', B2:'Composure under injects', B3:'Reassessment discipline', B4:'Documentation discipline'};
+let exCurrent = EXAMPLE_PROJECTS[0];
+function renderExample(pid){
+  const p = EXAMPLE_PROJECTS.find(x=>x.id===pid) || EXAMPLE_PROJECTS[0];
+  exCurrent = p;
+  const text = EXAMPLE_REPORTS[p.id];
+  const r = parseExample(text);
+  document.querySelectorAll('#ex-tabs button').forEach(b=>b.setAttribute('aria-selected', String(b.dataset.p===p.id)));
+  document.getElementById('ex-title').textContent = p.id + ' · ' + p.dir + ' — ' + p.title;
+  document.getElementById('ex-meta').textContent = 'Graded 2026-10-16 · rubric-prompt v1.1 · evidence bundle from grader/grade.py · soc-home-lab @ ' + EXAMPLE_COMMIT.slice(0,7);
+  document.getElementById('ex-levels').innerHTML = '<tr><th>Domain</th><th>Level</th><th>Evidence the grader cited</th></tr>' +
+    r.levels.map(l=>{
+      const cls = /^L2/.test(l.level) ? 'l2' : /^L1\+/.test(l.level) ? 'l1p' : '';
+      return '<tr><td><b>' + escRx(l.d) + '</b> ' + escRx(l.name) + '</td><td class="lv ' + cls + '">' + escRx(l.level) + '</td><td>' + escRx(l.evidence) + '</td></tr>';
+    }).join('');
+  document.getElementById('ex-gaps').innerHTML = r.gaps.length ?
+    '<div style="border:1.5px solid var(--teal);border-radius:10px;padding:14px 16px;background:#f0fdfa;margin-top:14px">' +
+    '<div style="font-weight:700;font-size:14.5px;margin-bottom:6px">Gap analysis — next moves</div>' +
+    r.gaps.map(g=>'<div style="font-size:13.5px;margin:6px 0"><b>' + escRx(g.d) + (g.name ? ' · ' + escRx(g.name) : '') + '</b> <span class="tag" style="font-size:11px">now ' + escRx(g.level) + '</span><br>' + escRx(g.upgrade) + '</div>').join('') +
+    '</div>' : '';
+  document.getElementById('ex-behav').innerHTML = '<tr><th>Dimension</th><th>Score</th><th>Evidence</th></tr>' +
+    r.behav.map(b=>'<tr><td><b>' + escRx(b.b) + '</b> ' + escRx(B_NAMES[b.b]||'') + '</td><td class="lv">' + escRx(b.score) + '</td><td>' + escRx(b.evidence) + '</td></tr>').join('');
+  document.getElementById('ex-overall').textContent = r.overall;
+  document.getElementById('ex-raw').textContent = text;
+  document.getElementById('ex-src').href = 'https://github.com/szzxli/soc-home-lab/tree/' + EXAMPLE_COMMIT + '/' + p.dir;
+}
+(function(){
+  const tabs = document.getElementById('ex-tabs');
+  EXAMPLE_PROJECTS.forEach(p=>{
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.p = p.id; b.setAttribute('role','tab');
+    b.textContent = p.id + ' · ' + p.dir;
+    b.addEventListener('click', ()=>renderExample(p.id));
+    tabs.appendChild(b);
+  });
+  renderExample('P1');
+})();
+// Load the example's real evidence bundle into the grader and show its stored report there.
+function loadSampleIntoGrader(p){
+  p = p || exCurrent;
+  const status = document.getElementById('grade-status');
+  const card = document.getElementById('grade-result-card');
+  const out = document.getElementById('grade-result');
+  const ev = document.getElementById('evidence');
+  card.style.display = '';
+  status.textContent = 'Loading sample evidence…';
+  const showStored = ()=>{
+    out.textContent = EXAMPLE_REPORTS[p.id];
+    renderPrescription(EXAMPLE_REPORTS[p.id]);
+    updateGradingPackage('', '');   // no verification package for a stored example
+    status.textContent = EXAMPLE_NOTE;
+  };
+  fetch('samples/evidence-' + p.dir + '.json').then(r=>{ if(!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(t=>{ ev.value = t; showStored(); })
+    .catch(()=>{ showStored(); status.textContent = EXAMPLE_NOTE + ' (The evidence bundle could not be loaded offline — see it on GitHub.)'; });
+  document.getElementById('grade').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('ex-load').addEventListener('click', ()=>loadSampleIntoGrader(exCurrent));
+document.getElementById('try-sample').addEventListener('click', e=>{ e.preventDefault(); loadSampleIntoGrader(exCurrent); });
+
 // ---- Lab cards ----
 const LABS = [
+ {"id": "CVE-2026-110447", "title": "Nextcloud Collabora built-in CODE Server RCE", "status": "SCAFFOLD · detector run on synthetic log (TP=1 FP=0, 2026-10-21) · lab repro not yet run — run in your own lab", "tag": "Not in KEV", "sev": "Critical · CVSS 9.2", "body": [["Verified facts", "Collabora Online built-in CODE Server (richdocumentscode) &lt; 26.4.303; fixed in 26.4.303 (tagged 2026-09-11). Published 2026-10-14 (MITRE). Unauthenticated, network; precondition: the bundled CODE server is not running (after restart, upgrade, or crash). Standalone Collabora Online, Docker/RPM/DEB installs, Nextcloud All-in-One, and the richdocuments connector without richdocumentscode are not affected. CWE-78. NOT in CISA KEV — the MITRE CVE text itself confirms in-the-wild exploitation (Sept–Oct 2026). Disabling the app alone does NOT remediate; update to ≥ 26.4.303 or fully remove it."], ["In the wild", "Admin reports of PHP web shells from mid-September 2026; community alert 2026-10-03; BleepingComputer 2026-10-15. Post-exploitation searches for *.kdbx, wallet.dat, keystore.json, Bitwarden/1Password artifacts and Bitcoin/Monero/Ethereum directories. Runs as the web-server user (no root observed) — every file readable by www-data is considered exposed."], ["Mechanics", "apps/richdocumentscode/proxy.php builds a double-quoted bash command to start the bundled CODE server when it is not running. Attacker-controlled input in the request path reaches that command unescaped, so $(...) / ${IFS} expand and execute as the web-server user. Typical attack: one request to the proxy.php?status endpoint writes a one-line PHP shell (often named shx*.php) into the app folder; the shell is then used for follow-on commands."], ["Hunt markers", "1) Access-log hits on proxy.php (esp. ?status) containing %2e%2e, $(, or ${IFS} — the injection probe. 2) New shx*.php (or any unfamiliar .php) under apps/richdocumentscode/ or other web-accessible dirs. 3) A 200 on (1) followed within minutes by requests to the dropped shell. 4) Post-exploitation: find-style access patterns for *.kdbx / wallet.dat / keystore.json in web-server process audit logs."], ["Detection — run on synthetic log", "Script: labs/cve-2026-110447-detect.py, run 2026-10-21 against soc-home-lab 07-kev-hunting/samples/nextcloud-access.log: the successful web-shell chain (198.51.100.23: probe → shx9.php → credential-file hunt) is INCIDENT, the failed probe burst (203.0.113.44) is SUSPICIOUS, and no benign traffic is flagged (FP=0). Lab repro (isolated Nextcloud + richdocumentscode 26.4.302) not yet run."], ["Triage &amp; remediation", "Version ≥ 26.4.303 → not vulnerable; still check marker 2 for historical shells. App present but disabled (not removed/updated) → still vulnerable; treat as exposed. App absent / never installed → out of scope. Confirmed shell → incident: kill the shell, rotate everything www-data could read (DB credentials, secrets), rebuild or restore from known-good, review logs back to the first probe."]], "domains": []},
  { id:'CVE-2026-102764', title:'BeyondTrust Remote Support / PRA auth bypass (CWE-290)',
    status:'INTEL — hunting guidance, not detection-validated (no public PoC as of 2026-10-17)', tag:'KEV', sev:'Critical · CVSS 9.3',
    domains:['D1','D2'],
@@ -1003,7 +1190,7 @@ const LABS = [
     ['Verified facts','BeyondTrust advisory BT26-05 (2026-10-15); CISA KEV 2026-10-16 (federal due 2026-10-19). RS/PRA self-hosted ≤ 26.2.3; fixed in 26.2.4; patches for 24.3.1+. Cloud mitigated upstream. Unauthenticated origin-validation flaw (CWE-290) → file operations on the appliance.'],
     ['In the wild','Mandiant/GTIG: suspected PRC-nexus ARMORY CASTLE (ex-UNC5221) exploited as zero-day from late Aug 2026. Chain: SAWFLY PHP web shell → root SUID shell → secrets-vault dump → passwordless sudo via boot script → BARECLAW SOCKS5-over-WebSocket via HAProxy → Jump Item role escalation → log deletion.'],
     ['Mechanics','Internal message bus accepts messages without origin validation. Trigger details withheld by vendor — no public PoC. Defensive consequence: hunt post-exploitation artifacts, not request signatures.'],
-    ['Detection — hunting guidance (INTEL)','7 artifact heuristics + correlator: ≥2 distinct artifact types on one host within 24h → incident. Reference: labs/cve-2026-102764-detect.py (synthetic corpus: 7/7 chain artifacts hit, 0 false incidents). Tune allowlists: scheduled haproxy reloads, svc-bt vault reads, scheduled log rotation.'],
+    ['Detection — hunting guidance (INTEL)','7 artifact heuristics + correlator: ≥2 distinct artifact types on one host within 24h → incident. Reference: soc-home-lab 07-kev-hunting/detections/cve-2026-102764-detect.py (synthetic corpus: 7/7 chain artifacts hit, 0 false incidents). Tune allowlists: scheduled haproxy reloads, svc-bt vault reads, scheduled log rotation.'],
     ['Remediation','1) Patch to 26.2.4 now (emergency change). 2) Assume breach if exposed & unpatched Aug 29 → Oct 8: hunt historical logs, rotate all vault secrets, rebuild from known-good, review Jump Item roles. 3) Cloud tenants: no action.'],
     ['NICE mapping','D2 → L2 (lab): multi-artifact hunt correlator with documented synthetic TP/FP + explicit INTEL caveat. D1 → L2 (lab): P1 severity call (CVSS 9.3 + KEV + state-actor zero-day) + escalation path. Anti-inflation: reading = L1 at most.']
    ] },
@@ -1019,95 +1206,22 @@ const LABS = [
     ['Remediation','1) Patch to fixed version (emergency change). 2) WAF virtual patch blocking :: in URL path. 3) Hunt pre-patch logs; assume compromised on hits, rotate secrets.'],
     ['NICE mapping','D2 → L2 (lab): working ::-detector with TP/FP numbers + tune notes. D1 → L2 (lab): P1 severity call + escalation. Anti-inflation: reading this card = L1 at most.']
    ] },
- { id:'CVE-2026-104935', title:'Ivanti Connect Secure welcome.cgi auth bypass → RCE (CWE-290)',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-19)', tag:'KEV', sev:'High · CVSS 8.6',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','Exploited in the wild from 2026-10-03 (UTA0576, per Volexity forensics); CISA KEV added 2026-10-13, federal due 2026-10-16. Bypass/RCE patched 2026-10-13 — the chained dsinvoked/DSCache privilege escalation was still unpatched as of 2026-10-19. In-memory execution + log wiping; post-exploitation includes AD/LDAP credential theft and password spraying.'],
-    ['Mechanics','Confused-deputy routing: the request URL decides allow/deny, the X-DSCGI-PATH header decides routing — a welcome.cgi request carrying the header reaches the privileged wu.cgi unauthenticated. A race executes a dropped Perl script; in-memory Python patches the privileged service for root, restores state, and wipes its own log window. File-based detection is dead here by design.'],
-    ['Detection — validated','Markers: welcome.cgi requests whose X-DSCGI-PATH target differs from the requested script; bursts of tmp-path header values from one IP inside ~2 min; gaps in debuglog/audit.log. Requires header-enriched logging — stock ICS access logs do not record the header. Validated on synthetic log: full chain INCIDENT, recon-only SUSPICIOUS, FP=0. Script: labs/cve-2026-104935-detect.py.'],
-    ['Remediation','1) Patch (2026-10-13 fix) — closes bypass/RCE, not the privesc. 2) On any pre-patch hit: isolate the appliance, take memory + disk images before reboot, rotate AD service-account and LAPS credentials the appliance holds. 3) Enable header-enriched logging at the WAF/reverse proxy.'],
-    ['NICE mapping','D2 → L2 (lab): header-spoof detector validated on synthetic log + memory-forensics triage tree. D1 → L2 (lab): severity call and escalation path on an actively exploited appliance chain. Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-110936', title:'Siemens Software Center DLL sideloading via ClickFix (CWE-427)',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-20)', tag:'KEV', sev:'High · CVSS v4 8.4',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','All versions before 4.0.9.8 affected; fixed in 4.0.9.8. CISA KEV added 2026-10-20, federal due 2026-11-03. Exploited in the wild Oct 2026 via the Romulus ClickFix delivery platform. The loaded executable is genuine, unmodified, and validly signed — no Siemens system, product, or update channel was breached.'],
-    ['Mechanics','ClickFix lure tricks the victim into pasting a command; msiexec runs a trojanized installer (observed: AllMyBasic.msi) that drops genuine SiemensSoftwareCenter.exe v3.5.8.7 into a user-writable folder, where it loads an attacker archive.dll from beside it. Every signature check on the exe passes — the tells are where it runs from, who launched it, and what it loads.'],
-    ['Detection — validated','Behavioral markers: M1 exe in a user-writable path, M2 msiexec.exe parent, M3 local DLL load (Sysmon Event 7), M4 unsigned DLL under a validly signed exe. ≥2 markers → incident; exactly 1 → suspicious. Validated on synthetic Sysmon-style log: full chain INCIDENT (4 markers), partial SUSPICIOUS, FP=0. Script: labs/cve-2026-110936-detect.py.'],
-    ['Remediation','1) Update Siemens Software Center to 4.0.9.8. 2) Hunt for the exe running from user-writable paths or launched by msiexec. 3) Never clear a host on signature validity — the signature is valid in the attack too.'],
-    ['NICE mapping','D2 → L2 (lab): behavioral (path + parent + DLL provenance) detector with validated TP/FP. D1 → L2 (lab): severity call + escalation. Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-110447', title:'Nextcloud Collabora built-in CODE Server RCE (CWE-78)',
-   status:'DRAFT — scaffold card; detector run on synthetic log 2026-10-21 (chain flagged, FP=0), lab repro not yet run', tag:'NOT IN KEV', sev:'Critical · CVSS 9.2',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','Published 2026-10-14 (MITRE); fix 26.4.303 tagged 2026-09-11. Affects the Collabora Online built-in CODE app (richdocumentscode) < 26.4.303; standalone Collabora, Docker/RPM/DEB installs, and Nextcloud All-in-One are not affected. MITRE text confirms in-the-wild exploitation Sept–Oct 2026 (PHP web shells); NOT in CISA KEV. Precondition: the bundled CODE server is not running. Disabling the app does NOT remediate — update or fully remove it.'],
-    ['Mechanics','proxy.php builds a double-quoted bash command to start the bundled CODE server; attacker-controlled input in the request path reaches that command unescaped, so $(...) and ${IFS} expand and execute as the web-server user. A single request to the proxy.php?status endpoint writes a one-line PHP shell (often named shx*.php) into the app folder.'],
-    ['Detection — drafted','Markers: proxy.php hits (esp. ?status) carrying %2e%2e, $(, or ${IFS}; new shx*.php or unfamiliar .php under web-accessible dirs; a 200 on the probe followed within minutes by requests to the dropped shell. Detector run 2026-10-21 against the synthetic Nextcloud access log: real chain INCIDENT (198.51.100.23), failed probe burst SUSPICIOUS, benign traffic unflagged (FP=0). Script: labs/cve-2026-110447-detect.py.'],
-    ['Remediation','1) Update richdocumentscode to ≥ 26.4.303 or fully remove the app. 2) Hunt for dropped shells (patch status does not clear historical shells). 3) On a confirmed shell: rotate everything the web-server user could read, rebuild or restore from known-good.'],
-    ['NICE mapping','D2 → L2 (lab) once you run the detection validation yourself (per the lab card); D1 → L2 (lab): severity call + containment order. Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-25243', title:'Redis RESTORE double-free → authenticated RCE (CWE-415)',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-20)', tag:'NOT IN KEV', sev:'High · CVSS 8.8',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','All versions before the fixed releases 6.2.22 / 7.2.14 / 7.4.9 / 8.2.6 / 8.4.3 / 8.6.3. Requires an authenticated user holding RESTORE permission. First in-the-wild attempts recorded by honeypots 2026-10-16/17 — scripted, repeated, same payload on a timer, each run ending in a keyspace wipe. NOT in CISA KEV (as of 2026-10-20).'],
-    ['Mechanics','A crafted serialized RESTORE payload deserializes with mismatched length/count metadata and frees the same allocation twice — heap corruption developed into arbitrary read/write. The final stage re-enables DEBUG in memory and abuses DEBUG CRASH-AND-RECOVER to execute a shell command. The payload is an opaque blob: payload inspection is a dead end, command-pattern analysis is the detection surface.'],
-    ['Detection — validated','Markers: RESTORE from a non-allowlisted (user, source) pair; RESTORE bursts (≥3 in 10 min); any DEBUG in production; FLUSHALL/FLUSHDB within ~30 min after RESTORE from the same source; oversized RESTORE payloads. Validated on synthetic command-audit log: full sequence INCIDENT (all five markers), lone RESTORE SUSPICIOUS, FP=0. Script: labs/cve-2026-25243-detect.py. Assumes a command-audit feed — stock Redis does not log commands.'],
-    ['Remediation','1) Upgrade to a fixed release. 2) ACL: -RESTORE for every user that does not run backups/migrations. 3) enable-debug-command no in production. 4) Never expose Redis directly to the internet.'],
-    ['NICE mapping','D2 → L2 (lab): command-audit pattern detector with validated TP/FP + honest telemetry limitations. D1 → L2 (lab): severity call (the wipe is data destruction + anti-forensics). Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-85097', title:'Bricksforge (WordPress) unauthenticated RCE (CWE-434)',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-19); lab repro not yet run', tag:'NOT IN KEV', sev:'Critical · CVSS 10.0',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','Bricksforge, add-on for the Bricks Builder WordPress theme. Affected ≤ 3.1.8.9; fixed in 3.1.8.10. ~6,000 sites exposed (Patchstack). Exploited in the wild since 2026-10-07. NOT in CISA KEV. Updating closes the hole but does NOT remove shells already uploaded — a post-patch compromise check is mandatory.'],
-    ['Mechanics','Two compounding CWE-434 failures: the upload validator trusts MIME sniffing on a GIF+PHP polyglot, and the move-to-final step takes the destination filename from client-controlled input (temporaryFileUploads[].url ending in .php, incl. .php5/.phtml/case/encoding variants) without stripping executable extensions. The nonce the chain starts from is public by design (guest-facing forms) — no auth gate anywhere.'],
-    ['Detection — validated','Markers: nonce harvesting (bricksforge_regenerate_nonce) from sessionless IPs; form_submit with a temporaryFileUploads url ending in .php*; new .php files under the uploads temp dir with GIF89a magic bytes; a 200 on the submit followed by a GET to the dropped shell. Validated on synthetic log: real chain flagged, benign traffic clean (TP=1 FP=0). Script: labs/cve-2026-85097-detect.py.'],
-    ['Remediation','1) Update to ≥ 3.1.8.10. 2) Hunt the uploads tree for polyglot shells even after patching. 3) On a confirmed shell: delete it, rotate DB credentials and wp-config.php salts, review rogue admin users / cron / must-use plugins, restore from known-good if in doubt.'],
-    ['NICE mapping','D2 → L2 (lab): upload-chain detector with validated TP/FP + triage tree. D1 → L2 (lab): severity call + containment order (patch + shell hunt, justified). Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-96652 +3', title:'Plex2Shell — Plex Media Server unauthenticated RCE chain (CVE-2026-96652/96654/96655/96656)',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-21); lab repro not yet run', tag:'KEV', sev:'Critical (chain) · CVSS 4.3–7.2',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','All builds before 1.43.3.10861; fixed in 1.43.3.10861. Plex warned users 2026-09-01 and published the four CVEs 2026-10-19 as actively and widely exploited; public PoC 2026-10-16. CISA KEV added 2026-10-20 — federal due 2026-10-23 (96654, 96656) and 2026-11-03 (96652, 96655). Honeypot in-the-wild from 2026-10-17: XMRig miner + residential-proxy second stage.'],
-    ['Mechanics','Four low/medium oversights compose into unauthenticated RCE because each stage hands the next its missing credential: SSRF in /player/timeline (the endpoint checks only that an X-Plex-Token value is present, not valid) → crafted /searchOne forces loopback calls that leak the owner admin token → second SSRF in the transcoder fetches remote URIs with that token → transcoder preferences write a shared object into the Codecs directory, loaded without signature checks. Detection must be stage-aware: any single stage looks minor; the sequence is the incident.'],
-    ['Detection — validated','Markers: /player/timeline with protocol/address params or loopback targets; /searchOne params carrying schemes or internal paths; /video/:/transcode/universal with an external url=; host-side: new .so/.dll in Codecs, processes myawesomeproxy / mylovelyminer / x12345, outbound to proxystream.st, high CPU with nothing playing. Validated on synthetic log: full chain flagged, benign playback and approved scanner clean (TP=1 FP=0). Script: labs/cve-2026-96652-plex2shell-detect.py.'],
-    ['Remediation','1) Update to ≥ 1.43.3.10861. 2) Inspect the Codecs directory — patching does not remove a planted codec. 3) On any compromise sign: rebuild from a clean install, rotate the owner token and reachable credentials. 4) Do not expose port 32400 to the internet.'],
-    ['NICE mapping','D2 → L2 (lab): stage-aware chain detector with validated TP/FP. D1 → L2 (lab): severity call on a chain whose per-CVE scores understate it. Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'CVE-2026-77936 et al.', title:'Agent tool-execution endpoints without authentication — one pattern, five CVEs',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-20)', tag:'NOT IN KEV', sev:'Critical · CVSS 9.8 (all five)',
-   domains:['D2','D8'],
-   body: [
-    ['Verified facts','Five AI agent frameworks published 2026-10-20, all CVSS 9.8, CWE-306/1188: Letta ≤ 0.16.8 (CVE-2026-77936), Langchain-Chatchat ≤ 0.3.1.3 (CVE-2026-75128), DB-GPT ≤ 0.8.2 (CVE-2026-77932), piflow 2.0.0–2.0.1 (CVE-2026-109442), Cognition < 0.13.0 (CVE-2026-109437; fixed in 0.13.0). None in CISA KEV (as of 2026-10-20). The shared shape: the tool that runs shell commands or code is exposed on an HTTP endpoint with no authentication in front of it.'],
-    ['Mechanics','The vulnerability is an absent control, not a malformed input — the exploiting request is byte-for-byte the request the product client sends, arriving without credentials because the server never asks. Auth is a deployment option (in Letta, an env flag the shipped compose never enables), sandboxes default to local shell execution, and shipped images run as root. Blast radius is the host and every secret the agent process holds: LLM API keys, database credentials, cloud metadata.'],
-    ['Detection — validated','The invariant signal is the combination: tool-execution endpoint + no credential presented + payload markers / 2xx acceptance / bursts. Scoring needs enriched proxy logs that record credential presence and a body excerpt — stock access logs are blind to the decisive leg. Validated on synthetic enriched log: five-request attack source INCIDENT (all five markers), two partial sources SUSPICIOUS, allowlisted application traffic clean (TP=1 FP=0). Script: labs/agent-tool-unauth-rce-detect.py.'],
-    ['Remediation','1) Put authentication in front of the agent API (the framework mechanism or an authenticated reverse proxy); never expose agent ports directly. 2) Run the agent process unprivileged; sandbox the shell/code tools or remove them from the registry. 3) Upgrade where a fixed release exists (Cognition ≥ 0.13.0). 4) On a hit: rotate everything the agent process could read.'],
-    ['NICE mapping','D2 → L2 (lab): enriched-log detector with validated TP/FP and documented prerequisites. D8: the pattern is the AI-agent governance case — authentication by default for tool endpoints. Anti-inflation: reading this card = L1 at most.']
-   ] },
- { id:'PATTERN — NO CVE', title:'M365 app-identity persistence — a stolen SaaS application secret becomes tenant-wide backdoors',
-   status:'READY — detector validated on synthetic log (TP=1 FP=0, 2026-10-20)', tag:'NOT IN KEV', sev:'Critical · tenant-wide compromise path',
-   domains:['D1','D2'],
-   body: [
-    ['Verified facts','Operational incident pattern, not a software flaw — no CVE exists, so there is nothing for CISA KEV to list. 2026-10-15: ConnectWise identified unauthorized access to application identities in its Cloud Backup environment and suspended Cloud Backup, SaaS Security, and Cloud Management. Huntress confirmed a compromised M365 API secret in active abuse: in one customer tenant, a second application (ConnectWise Cloud Management - MS Teams) granted itself Global Administrator, then added new credentials to two other applications.'],
-    ['Mechanics','A SaaS app operates inside a tenant as an application identity — a standing credential outside MFA and most human controls. Steal the secret and the attacker makes three legitimate administrative moves: authenticate as the app, grant a second app Global Administrator, mint fresh credentials on other apps. The persistence trap: disabling the abused applications does NOT remove credentials already added elsewhere. Every step is an ordinary audit-log event, so detection is actor analysis: who acted, what kind of actor, what they touched, how much at once.'],
-    ['Detection — validated','Markers: M1 privileged directory role granted to a service principal; M2 new credentials added to a service principal; M3 directory changes performed by an application actor; M4 ≥3 distinct applications touched inside 30 minutes; M5 service-principal sign-in from a non-allowlisted IP. Validated on synthetic audit log: application actor INCIDENT (all five markers), two partials SUSPICIOUS, allowlisted rotation clean (TP=1 FP=0). Script: labs/m365-app-identity-persistence-detect.py.'],
-    ['Remediation','1) Census every credential on every application in the tenant; remove any credential not attributable to a named human and a change record, rotate the rest. 2) Review every privileged role grant to a service principal. 3) Prove from the audit log that no unattributed credential remains. Do not close on disabling the app — that is the step that does not fix it.'],
-    ['NICE mapping','D2 → L2 (lab): audit-log actor-analysis detector with validated TP/FP. D1 → L2 (lab): incident scoping where the obvious remediation is the trap. Anti-inflation: reading this card = L1 at most.']
-   ] }
+ {"id": "CVE-2026-96652 (+96654/96655/96656)", "title": "Plex2Shell — Plex Media Server unauthenticated RCE chain", "status": "SCAFFOLD — in progress: detector validated on synthetic log (TP=1 FP=0, 2026-10-21); lab repro not yet run", "tag": "KEV", "sev": "Critical as a chain · CVSS 4.3 / 6.5 / 4.3 / 7.2 per CVE", "body": [["Verified facts", "Plex Media Server, all builds before 1.43.3.10861 (fixed in 1.43.3.10861). CISA KEV added 2026-10-20 (federal due 2026-10-23 for 96654/96656, 2026-11-03 for 96652/96655). Plex warned users 2026-09-01 and published the four CVEs 2026-10-19 as actively and widely exploited; public PoC 2026-10-16."], ["Attack chain", "96652: SSRF in /player/timeline — the protocol parameter is concatenated without schema validation and X-Plex-Token is only checked for presence. 96654: /searchOne makes the server call internal endpoints over loopback with the owner admin token attached, exfiltrating it. 96655: second SSRF in /video/:/transcode/universal (remote url/path) using the stolen token. 96656: transcoder preference abuse writes a shared object into the Codecs directory, loaded without signature checks → code execution as the Plex service user."], ["In the wild", "Honeypot (from 2026-10-17): attack IPs 45.194.92.222, 91.92.40.202, 176.65.139.228; payloads from 217.60.194.116 (XMRig miner); second stage myawesomeproxy (residential proxy). Processes myawesomeproxy, mylovelyminer, x12345; outbound to proxystream.st."], ["Mechanics", "Four low/medium oversights compose into unauthenticated RCE because each stage hands the next its missing credential. Any single stage looks low-severity; the sequence is the incident — detection must be stage-aware."], ["Hunt markers", "1) /player/timeline with a scheme in protocol or loopback / metadata / RFC1918 address. 2) X-Plex-Token present on otherwise anonymous requests. 3) /searchOne parameters with ://, .. or internal paths. 4) /video/:/transcode/universal with url=/path= to an external host. 5) Host: new .so/.dll in Codecs, x264 preference changes, the observed process names, outbound to proxystream.st, high CPU with nothing playing."], ["Detection — validated (synthetic)", "Script: labs/cve-2026-96652-plex2shell-detect.py, run against soc-home-lab 07-kev-hunting/samples/plex2shell-access.log: flags the timeline → searchOne → transcode chain as INCIDENT, not the benign playback or the approved scanner. Lab repro (isolated Docker, build &lt; 1.43.3.10861) not yet run."], ["Triage &amp; remediation", "≥ 1.43.3.10861 → not vulnerable, but still check marker 5 — patching does not remove a planted codec. Any (1)→(3)→(4) sequence from one IP → incident: isolate, rebuild from a clean install (Plex guidance; do not reuse the old data directory), rotate the owner token and reachable credentials. Never expose port 32400 to the internet."]], "domains": []},
+ {"id": "AGENT-TOOL-RCE (5 CVEs)", "title": "AI agent tool-execution endpoints without authentication — one pattern, five CVEs", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-20) · no live-instance lab — enriched HTTP access / proxy logs only", "tag": "Not in KEV (as of 2026-10-20)", "sev": "Critical · CVSS 9.8 (all five)", "body": [["Verified facts", "Published to NVD 2026-10-20 (Cognition 2026-10-19). CVE-2026-77936 Letta ≤ 0.16.8 (POST /v1/tools/run — shipped compose never enables LETTA_SERVER_SECURE, so all routes are unauthenticated). CVE-2026-75128 Langchain-Chatchat ≤ 0.3.1.3 (POST /tools/call invokes any tool, a shell tool is always registered). CVE-2026-77932 DB-GPT ≤ 0.8.2 (POST /api/v1/chat/react-agent — mock auth grants every caller admin). CVE-2026-109442 piflow 2.0.0–2.0.1 (POST /chat, /chat/stream → exec_shell). CVE-2026-109437 Cognition &lt; 0.13.0 (POST /sessions + messages run shell commands; fixed in 0.13.0). CWE-306 / CWE-1188."], ["Mechanics", "No memory corruption and no malformed input — the vulnerability is an absent control. The exploit request is the request the product's own client sends, just without credentials. The invariant signal is the combination: tool-execution endpoint + no credential presented + payload markers or a successful, repeated session flow. Stock access logs cannot see the no-credential leg; a proxy/WAF log recording credential presence is required."], ["Hunt markers", "1) POST to a known agent tool-execution endpoint. 2) No credential presented (auth=none in the enriched log). 3) Shell/code payload markers in the body (exec_shell, code_interpreter, os.system, curl … | sh, printenv, /dev/tcp/). 4) 2xx responses. 5) Bursts: ≥3 endpoint hits from one source in 10 minutes."], ["Detection — validated (synthetic)", "Script: labs/agent-tool-unauth-rce-detect.py, run against soc-home-lab 07-kev-hunting/samples/agent-tool-unauth-rce-access.log: the five-request attack source is INCIDENT (all five markers), both partial sources are SUSPICIOUS, and no benign traffic is flagged — including the allowlisted app server's own tool calls (FP=0)."], ["Triage &amp; remediation", "(1)+(2)+(3) → incident: isolate, preserve process/memory state, rotate everything the agent process could read (LLM keys, DB credentials, cloud tokens). Upgrade where a fix exists (Cognition ≥ 0.13.0); elsewhere put authentication in front of the agent API, never expose agent ports, run unprivileged, and sandbox or remove shell/code tools."], ["Honest limitations", "Plain access logs lose the decisive no-auth marker. Endpoint lists age fast and /chat-style paths collide with unrelated products. Payload markers are a wordlist. No live vulnerable instance — synthetic enriched log only."]], "domains": []},
+ {"id": "M365-APP-IDENTITY", "title": "M365 app-identity persistence — a stolen SaaS application secret becomes tenant-wide backdoors", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-20) · no live-tenant lab — M365 / Entra ID audit-log exports only", "tag": "No CVE · not in KEV", "sev": "Critical · tenant-wide compromise path", "body": [["Verified facts", "ConnectWise advisory 2026-10-16 + Huntress write-up: 2026-10-15 unauthorized access to application identities in ConnectWise Cloud Backup (ex-SkyKick); Cloud Backup, SaaS Security and Cloud Management suspended. A compromised M365 API secret was used against customer tenants. In one tenant, ConnectWise Cloud Management - MS Teams (App ID 24205314-2b89-4e07-a2a4-579e898a5640) granted itself Global Administrator and added new credentials to two other applications. ATT&amp;CK T1098.003, T1098.001, T1078.004. Operational incident pattern, not a software flaw."], ["The persistence trap", "Disabling the abused M365 applications does NOT remove credentials already added to other applications. Every application in the tenant must have its credentials reviewed — the backdoor survives the obvious remediation."], ["Mechanics", "Three ordinary administrative API moves: authenticate as the application with the stolen secret → a second application grants itself Global Administrator → add fresh credentials to other applications. Every step is an ordinary audit-log event, so detection asks: who did this, what kind of actor, what did they touch, and how much at once?"], ["Hunt markers", "M1 service principal granted a privileged directory role. M2 new credentials added to a service principal. M3 the actor making directory changes is an application, not a human. M4 cross-application burst: ≥3 distinct apps in 30 minutes from one actor. M5 service-principal sign-in from a non-allowlisted IP."], ["Detection — validated (synthetic)", "Script: labs/m365-app-identity-persistence-detect.py, run against soc-home-lab 07-kev-hunting/samples/m365-app-identity-audit.log: the application actor is INCIDENT with all five markers; the second abused app's sign-in and the unlisted human's credential add are SUSPICIOUS; no benign traffic is flagged, including the allowlisted admin's certificate rotation (FP=0)."], ["Triage &amp; remediation", "M1 from any actor → incident; hunt M2–M5 tenant-wide. M2+M3 → incident: enumerate every credential on every application; remove credentials not attributable to a named human and a change record, rotate the rest. Allowlisted rotations and sign-ins from allowlisted egress → expected."], ["Honest limitations", "Audit-log coverage and retention are prerequisites — a clean run means no markers in the log given, not a clean tenant. Data-plane abuse without role/credential changes trips M5 at most. The sample allowlist must be replaced with your tenant's. No live tenant — synthetic audit log only."]], "domains": []},
+ {"id": "CVE-2026-110936", "title": "Siemens Software Center DLL sideloading via ClickFix", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-20) · no Siemens install in lab — synthetic Sysmon-style endpoint logs only", "tag": "KEV", "sev": "High · CVSS v4 8.4 (v3.1 6.7)", "body": [["Verified facts", "Siemens Software Center before 4.0.9.8 loads DLLs from an uncontrolled search path (CWE-427); fixed in 4.0.9.8. CISA KEV added 2026-10-20 (federal due 2026-11-03); ransomware use unknown. Local access — the DLL must be planted where the application searches."], ["In the wild", "Oct 2026 via the Romulus ClickFix platform: a fake “verify you are human” page makes the victim paste a command that pulls a trojanized MSI (observed AllMyBasic.msi); msiexec.exe drops a genuine, validly signed SiemensSoftwareCenter.exe v3.5.8.7 into a user-writable folder next to an attacker archive.dll, which runs inside the signed process as a loader for remote-access tooling. No Siemens system or update channel was breached."], ["Mechanics", "Application-directory DLL load with no provenance check. Every signature check on the EXE passes because nothing about the EXE is wrong — the signal is where it runs from, who launched it, and what it loads."], ["Hunt markers", "M1 exe running from a user-writable path (AppData, Downloads, Temp, ProgramData, Users\\Public). M2 msiexec.exe parent. M3 ImageLoad (Sysmon EID 7) of a DLL from its own user-writable folder — archive.dll is the observed name. M4 unsigned DLL loaded by the signed exe. ≥2 markers → incident; exactly 1 → suspicious."], ["Detection — validated (synthetic)", "Script: labs/cve-2026-110936-detect.py, run against soc-home-lab 07-kev-hunting/samples/siemens-sideload.log: the full chain is INCIDENT (4 markers), the partial is SUSPICIOUS (M1 only), and no benign traffic is flagged (FP=0)."], ["Triage &amp; remediation", "M1 + M2 (+M3) → incident: isolate, preserve the whole folder (exe + every DLL, with hashes) and memory, hunt follow-on activity and the ClickFix entry. Upgrade to 4.0.9.8. Never clear a host because the exe signature is valid — that is true in the attack too."], ["Honest limitations", "No real Siemens install — synthetic telemetry only. Sysmon EID 7 is often disabled or filtered, leaving M1/M2 to carry the hunt. M4 needs signature fields. The detector says nothing about what the DLL did next."]], "domains": []},
+ {"id": "CVE-2026-25243", "title": "Redis RESTORE double-free → authenticated RCE", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-20) · no live-instance lab — Redis command-audit logs only", "tag": "Not in KEV (as of 2026-10-20)", "sev": "High · CVSS v3 8.8", "body": [["Verified facts", "A crafted RESTORE payload triggers a double-free (CWE-415) during deserialization; an authenticated user holding the RESTORE permission can potentially execute code as the Redis process. Fixed in 6.2.22, 7.2.14, 7.4.9, 8.2.6, 8.4.3, 8.6.3. Public analysis: the final stage re-enables DEBUG in memory and abuses DEBUG CRASH-AND-RECOVER to run a shell command."], ["In the wild", "Honeypots recorded scripted attempts on 2026-10-16/17 (first public in-the-wild report): one actor hit the same target five times on a timer with the same payload, each run ending in a keyspace wipe — data destruction and anti-forensics in one move."], ["Mechanics", "Because the flaw is authenticated, the audit trail (which user, from where, how often, what else they ran) is the detection surface. The payload is an opaque blob — payload inspection is a dead end; command-pattern analysis is not."], ["Hunt markers", "1) RESTORE from a (user, source) pair that is not the known backup/migration path. 2) ≥3 RESTOREs from one source in 10 minutes. 3) Any DEBUG command in production, above all CRASH-AND-RECOVER. 4) FLUSHALL/FLUSHDB within ~30 minutes after RESTORE from the same source. 5) RESTORE payloads &gt; 1 MB from non-allowlisted sources."], ["Detection — validated (synthetic)", "Script: labs/cve-2026-25243-detect.py, run against soc-home-lab 07-kev-hunting/samples/redis-restore-audit.log: the full attack sequence is INCIDENT (all five markers), the lone non-allowlisted RESTORE is SUSPICIOUS, and the benign backup/app traffic is not flagged (FP=0)."], ["Triage &amp; remediation", "Markers 2+3+4 from one source → incident: isolate, snapshot memory/disk before restart, rotate all Redis credentials, plan for the keyspace being gone. Patch; restrict RESTORE by ACL (ACL SETUSER &lt;user&gt; -RESTORE); set enable-debug-command no; never expose Redis to the internet."], ["Honest limitations", "Stock Redis does not log every command — this assumes an audit feed (proxy, managed-service audit log, or lab MONITOR capture). The detector reads command patterns and payload sizes only; a single small RESTORE from a compromised allowlisted account stays under every threshold. No live vulnerable instance."]], "domains": []},
+ {"id": "CVE-2026-104935", "title": "Ivanti Connect Secure welcome.cgi auth bypass → RCE", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-19) · no appliance lab — header-enriched HTTP logs + memory forensics only", "tag": "KEV", "sev": "High · CVSS 8.6", "body": [["Verified facts", "Ivanti Connect Secure VPN appliance; observed exploited on 22.8R2.4 (fully patched at the time). Unauthenticated, network, no user interaction (CWE-290). In CISA KEV (federal due 2026-10-19). Fix shipped 2026-10-13 on supported branches — the chained privilege-escalation flaw was still unpatched as of 2026-10-19."], ["In the wild", "UTA0576 from 2026-10-03 (Volexity). Chain: POST to the public welcome.cgi with X-DSCGI-PATH pointing at the privileged wu.cgi → a Perl script uploaded as .zip lands at /home/runtime/tmp/&lt;md5&gt; and is executed in a race window → memory-only Python patches libdsplibs.so / DSCache so dsinvoked runs Perl as root, then restores both → wipes its window from debuglog and audit.log. Post-exploitation: AD/LDAP credential theft, LDAP capture, password spraying. No web shell on disk, no separate C2."], ["Mechanics", "Confused-deputy routing: the URL decides allow/deny, the header decides routing, and they disagree. The restore-after-use privesc kills file-based detection — durable evidence is in RAM and around the wiped logs."], ["Hunt markers", "1) welcome.cgi requests whose X-DSCGI-PATH targets a different script (requires header-enriched logging; stock ICS logs don't record it). 2) Bursts of X-DSCGI-PATH: /home/runtime/tmp/&lt;32 hex&gt; from one IP within ~2 minutes. 3) Gaps in debuglog/audit.log over the attack window. 4) Residue such as /tmp/*.py, /data/.icscap/h.py, sp_out.txt, spray_hits.json."], ["Detection — validated (synthetic)", "Script: labs/cve-2026-104935-detect.py, run against soc-home-lab 07-kev-hunting/samples/ivanti-welcome-cgi.log: the full chain is INCIDENT, the recon-only prober is SUSPICIOUS, and no benign traffic is flagged (FP=0)."], ["Triage &amp; remediation", "Markers 1+2 from one IP → incident: isolate, take memory + disk images before reboot (reboot kills in-memory evidence), rotate AD service-account credentials the appliance holds, hunt LDAP/DC logs for the spray. Patched hosts: the privesc is still open — treat any pre-patch window as hostile until memory forensics clears it. Marker 1 alone → hostile recon: patch, enable header logging."]], "domains": []},
+ {"id": "CVE-2026-85097", "title": "Bricksforge (Bricks Builder add-on) unauthenticated RCE", "status": "DETECTOR VALIDATED on synthetic log (TP=1 FP=0, 2026-10-19) · lab repro not yet run — run in your own lab", "tag": "Not in KEV", "sev": "Critical · CVSS 10.0 (Patchstack) / 9.8 (Wordfence)", "body": [["Verified facts", "Bricksforge ≤ 3.1.8.9 (fixed in 3.1.8.10; current release is the 4.0 branch). Unauthenticated, network; ~6,000 sites exposed (Patchstack). CWE-434. Endpoints: /wp-json/bricksforge/v1/form_submit and admin-ajax.php with action=bricksforge_form_submit. Updating does not remove shells already uploaded."], ["In the wild", "Patchstack confirms exploitation since 2026-10-07 21:47 UTC; automated scanners from dozens of IPs. Chain (wpXSS): harvest a nonce from the public bricksforge_regenerate_nonce action → upload a GIF+PHP polyglot that passes the MIME check → submit temporaryFileUploads with a url ending in .php (also .php5, .php7, .phtml, .pHp, %2ephp) → request the file → code runs with the site's PHP permissions."], ["Mechanics", "Two compounding failures: the upload validator trusts MIME sniffing on a polyglot instead of re-encoding or extension-allowlisting, and the final move takes the destination filename from client input without stripping executable extensions. The nonce endpoint is public by design — no auth gate anywhere in the chain."], ["Hunt markers", "1) bricksforge_regenerate_nonce hits from IPs with no session (recon). 2) form_submit with temporaryFileUploads and a .php* url (weaponization). 3) New .php* files under the uploads temp dir with GIF89a magic bytes (shell on disk). 4) A 200 on (2) followed by a GET to the dropped .php path (execution)."], ["Detection — validated (synthetic)", "Script: labs/cve-2026-85097-detect.py, run against soc-home-lab 07-kev-hunting/samples/bricksforge-access.log: flags the real attack chain (nonce harvest → weaponized submit → shell exec) as INCIDENT and not the benign traffic. Lab repro (isolated WordPress + Bricks + Bricksforge 3.1.8.9) not yet run."], ["Triage &amp; remediation", "≥ 3.1.8.10 → not vulnerable, but still check marker 3. Version unknown → check markers 1+2 in 30 days of access logs. Confirmed polyglot shell → incident: delete the shell, rotate DB credentials and wp-config.php salts, review for rogue admins, cron jobs and must-use plugins; restore from known-good if in doubt."]], "domains": []}
 ];
 const labGrid = document.getElementById('lab-grid');
 LABS.forEach(lab=>{
   const c = document.createElement('div');
   c.className = 'dcard';
-  const st = lab.status.indexOf('DRAFT')===0 ? ['new','DRAFT'] : lab.status.indexOf('INTEL')===0 ? ['new','INTEL'] : ['lab','READY'];
+  const st = lab.status.indexOf('DRAFT')===0 ? ['new','DRAFT'] : lab.status.indexOf('INTEL')===0 ? ['new','INTEL'] : lab.status.indexOf('SCAFFOLD')===0 ? ['new','IN PROGRESS'] : lab.status.indexOf('DETECTOR VALIDATED')===0 ? ['lab','VALIDATED'] : ['lab','READY'];
   c.innerHTML = `<div class="chead"><span class="did">${lab.id}</span><h3>${lab.title}</h3>`+
     `<span class="tag ${st[0]}">${st[1]}</span></div>`+
-    `<div style="font-size:13px;color:var(--soft);margin-bottom:8px"><b style="color:var(--red)">${lab.sev}</b> · ${lab.tag} · ${lab.domains.join(' + ')}</div>`+
+    `<div style="font-size:13px;color:var(--soft);margin-bottom:8px"><b style="color:var(--red)">${lab.sev}</b> · ${lab.tag} · ${lab.domains.length ? lab.domains.join(' + ') : 'NICE mapping not yet in lab card'}</div>`+
     `<div style="font-size:13px;color:var(--amber)">${lab.status}</div>`+
     `<div class="lv-detail">` + lab.body.map(([h,b])=>`<p style="margin:8px 0"><b style="color:var(--ink)">${h}.</b> ${b}</p>`).join('') + `</div>`;
   c.addEventListener('click', ()=>c.classList.toggle('open'));

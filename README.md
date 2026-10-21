@@ -16,7 +16,7 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 
 | File | What it is |
 |---|---|
-| [TAXONOMY.md](TAXONOMY.md) | 7 skill domains × 3 levels (L1 guided / L2 independent hands-on / L3 production), anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001), each level with observable evidence criteria |
+| [TAXONOMY.md](TAXONOMY.md) | 8 skill domains (D1–D8) × 3 levels (L1 guided / L2 independent hands-on / L3 production), anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001), each level with observable evidence criteria |
 | [MAPPING.md](MAPPING.md) | 5 real home-lab projects graded against the taxonomy, with cert alignment (GSEC / Security+ / OSCP — honest version) and an anti-inflation checklist |
 | [PROFILE.md](PROFILE.md) | The author's first one-page, HR-readable skill profile — linkable from a resume |
 | [PROJECT.md](PROJECT.md) | The product thesis: two-sided model (free candidate profiles → paid employer verification reports), competitive landscape, phased roadmap |

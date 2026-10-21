@@ -1,5 +1,16 @@
 # soc-skills — Quantified Cybersecurity Skill Profiles
 
+> **Free, open-source SOC analyst skill assessment.** Grade your real hands-on work against a public, NIST NICE-mapped rubric and get an evidence-backed skill profile you can put on a resume.
+>
+> **▶ Live demo:** https://szzxli.github.io/soc-skills/web/ — runs in your browser, no sign-up, no install.
+
+**Quick start**
+
+1. Open the [live site](https://szzxli.github.io/soc-skills/web/) and take the self-assessment.
+2. Build evidence with the CISA KEV-driven lab cards in [`labs/`](labs/).
+3. Paste your project evidence into **Grade**, bring your own API key (it stays in your browser), and get a per-domain gap analysis.
+4. Copy the one-line summary to the top of your resume.
+
 **"Years of experience" is unquantifiable. Certifications don't map to real ability. This project fixes that.**
 
 `soc-skills` is an open framework for turning hands-on security work into **HR-readable, evidence-backed skill profiles** — mapped to the [NIST NICE Cybersecurity Workforce Framework](https://niccs.cisa.gov/workforce-development/nice-framework), graded against public rubrics, and honest about scope. Think *LeetCode for cybersecurity hiring*.

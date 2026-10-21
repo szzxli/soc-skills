@@ -317,7 +317,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v15 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v17 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -1003,7 +1003,7 @@ const LABS = [
     ['Verified facts','BeyondTrust advisory BT26-05 (2026-10-15); CISA KEV 2026-10-16 (federal due 2026-10-19). RS/PRA self-hosted ≤ 26.2.3; fixed in 26.2.4; patches for 24.3.1+. Cloud mitigated upstream. Unauthenticated origin-validation flaw (CWE-290) → file operations on the appliance.'],
     ['In the wild','Mandiant/GTIG: suspected PRC-nexus ARMORY CASTLE (ex-UNC5221) exploited as zero-day from late Aug 2026. Chain: SAWFLY PHP web shell → root SUID shell → secrets-vault dump → passwordless sudo via boot script → BARECLAW SOCKS5-over-WebSocket via HAProxy → Jump Item role escalation → log deletion.'],
     ['Mechanics','Internal message bus accepts messages without origin validation. Trigger details withheld by vendor — no public PoC. Defensive consequence: hunt post-exploitation artifacts, not request signatures.'],
-    ['Detection — hunting guidance (INTEL)','7 artifact heuristics + correlator: ≥2 distinct artifact types on one host within 24h → incident. Reference: labs/cve-2026-102764-detect.py (synthetic corpus: 7/7 chain artifacts hit, 0 false incidents). Tune allowlists: scheduled haproxy reloads, svc-bt vault reads, scheduled log rotation.'],
+    ['Detection — hunting guidance (INTEL)','7 artifact heuristics + correlator: ≥2 distinct artifact types on one host within 24h → incident. Reference: soc-home-lab 07-kev-hunting/detections/cve-2026-102764-detect.py (synthetic corpus: 7/7 chain artifacts hit, 0 false incidents). Tune allowlists: scheduled haproxy reloads, svc-bt vault reads, scheduled log rotation.'],
     ['Remediation','1) Patch to 26.2.4 now (emergency change). 2) Assume breach if exposed & unpatched Aug 29 → Oct 8: hunt historical logs, rotate all vault secrets, rebuild from known-good, review Jump Item roles. 3) Cloud tenants: no action.'],
     ['NICE mapping','D2 → L2 (lab): multi-artifact hunt correlator with documented synthetic TP/FP + explicit INTEL caveat. D1 → L2 (lab): P1 severity call (CVSS 9.3 + KEV + state-actor zero-day) + escalation path. Anti-inflation: reading = L1 at most.']
    ] },

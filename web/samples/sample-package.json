@@ -1,0 +1,63 @@
+{
+  "type": "soc-skills-verification-package",
+  "format": 1,
+  "payload": {
+    "app": "soc-skills",
+    "kind": "self-assessment",
+    "rubric": "v1.3",
+    "issued": "2026-10-21T00:00:00.000Z",
+    "pledged": true,
+    "sample": "Public demo package built from the founder sample profile on the soc-skills homepage. Not a real candidate record.",
+    "domains": [
+      {
+        "id": "D1",
+        "name": "Security monitoring & alert triage",
+        "level": "L2",
+        "scope": "lab"
+      },
+      {
+        "id": "D2",
+        "name": "Log analysis & detection engineering",
+        "level": "L1+",
+        "scope": null
+      },
+      {
+        "id": "D3",
+        "name": "Incident response & reporting",
+        "level": "L1+",
+        "scope": null
+      },
+      {
+        "id": "D4",
+        "name": "Phishing email analysis",
+        "level": "L2",
+        "scope": "rec."
+      },
+      {
+        "id": "D5",
+        "name": "Binary / malware triage",
+        "level": "L2",
+        "scope": "syn."
+      },
+      {
+        "id": "D6",
+        "name": "Cloud security (AWS) hands-on",
+        "level": "L2",
+        "scope": "lab"
+      },
+      {
+        "id": "D7",
+        "name": "Security automation & scripting",
+        "level": "L2",
+        "scope": null
+      },
+      {
+        "id": "D8",
+        "name": "AI agent security & governance",
+        "level": "—",
+        "scope": null
+      }
+    ]
+  },
+  "sha256": "a9e91048dd74bd5c4109f1ecb10acb2dd57b194511ba44d08aedd227578a4136"
+}

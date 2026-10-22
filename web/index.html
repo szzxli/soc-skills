@@ -172,44 +172,144 @@ footer a{color:var(--teal)}
 .ex-table td.lv.l1p{background:#fffbeb;color:#92400e}
 .ex-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
 @media(max-width:640px){.hero{padding:52px 0 0}nav a{margin-left:9px;font-size:11.5px}.stat{padding:14px 16px;min-width:120px}}
+/* ===== 2026-10 clean redesign: compact hero, feature grid, collapsible panels ===== */
+html{scroll-behavior:smooth}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:var(--navy);padding:8px 14px;border-radius:8px;font-weight:700}
+.skip:focus{left:12px}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px;border-radius:6px}
+header.top .wrap{height:54px;gap:12px}
+nav{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+nav::-webkit-scrollbar{display:none}
+nav a{margin-left:16px;color:#c3d2de;font-size:13.5px;font-weight:500;padding:6px 0}
+nav a.gh{border:1px solid #3d5b6b;border-radius:999px;padding:4px 12px}
+.hero{padding:40px 0 44px}
+.hero-grid{gap:44px}
+.hero-copy{flex:1}
+.hero h1{font-size:clamp(30px,4.4vw,46px);margin:10px 0 12px;line-height:1.12;letter-spacing:-.01em}
+.hero p.sub{font-size:17px;color:#c3d2de;max-width:470px}
+.hero .cta{margin:22px 0 0}
+.btn{margin:0}
+.btn.big{font-size:17px;padding:14px 30px;box-shadow:0 6px 20px rgba(20,184,166,.28)}
+.cta2{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cta2 a{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border:1.5px solid #4a6a7b;border-radius:999px;color:#e2ecf2;text-decoration:none;font-size:13.5px;font-weight:600;background:rgba(255,255,255,.04)}
+.cta2 a:hover{border-color:var(--teal);color:#fff}
+.cta2 .ico{width:16px;height:16px;stroke:var(--teal)}
+.ico,.pico{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.trust{list-style:none;display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:18px;font-size:12.5px;color:#a9bccb}
+.trust li:before{content:"✓ ";color:var(--teal);font-weight:800}
+.shot{flex:1;min-width:0;position:relative;display:block;border-radius:14px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.18);background:#fff;max-height:440px;transition:transform .15s}
+.shot:hover{transform:translateY(-3px)}
+.shot img{display:block;width:100%;height:auto}
+.shot .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 10px;background:linear-gradient(rgba(15,32,39,0),rgba(15,32,39,.92));color:#fff;font-size:12.5px;font-weight:600}
+.feats{padding:28px 0 8px}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fcard{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:box-shadow .15s,border-color .15s}
+.fcard:hover{border-color:var(--teal);box-shadow:0 6px 20px rgba(15,32,39,.08)}
+.fcard .ico{width:26px;height:26px;color:var(--teal-d);margin-bottom:6px}
+.fcard b{font-size:14.5px;line-height:1.3}
+.fcard small{font-size:12.5px;color:var(--soft)}
+.panels{padding:22px 0 40px}
+.phead{font-size:13px;color:var(--soft);margin-bottom:10px}
+.linkbtn{background:none;border:none;color:var(--teal-d);font-weight:700;cursor:pointer;font-size:13px;text-decoration:underline}
+details.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;scroll-margin-top:66px}
+details.panel>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;border-radius:12px}
+details.panel>summary::-webkit-details-marker{display:none}
+details.panel>summary:hover{background:#f8fafc}
+.pico{width:22px;height:22px;color:var(--teal-d);flex:none}
+.ptxt{display:flex;flex-direction:column;min-width:0;flex:1}
+.ptxt .pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--teal-d);font-weight:700}
+section .ptxt h2,.ptxt h2{font-size:16.5px;text-align:left;margin:0;line-height:1.3}
+.phint{font-size:12px;color:var(--soft);white-space:nowrap}
+.pchev{width:10px;height:10px;border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg);margin:0 4px 4px;transition:transform .15s;flex:none}
+details.panel[open]>summary .pchev{transform:rotate(-135deg);margin-bottom:-4px}
+details.panel[open]>summary{border-bottom:1px solid var(--line);border-radius:12px 12px 0 0}
+.pbody{padding:20px 18px 8px}
+.pbody>p.lead{text-align:left;margin:0 0 18px;max-width:none}
+.benefits-l{margin:8px 0 6px 20px;font-size:14.5px}
+.benefits-l li{margin:6px 0}
+.honest-l{font-size:13px;color:var(--soft);margin-top:6px}
+.btn.ghost-l{border:1.5px solid var(--teal-d);color:var(--teal-d);background:transparent;margin-left:8px}
+.stats-l{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.stats-l .stat{background:var(--navy);border-radius:10px;padding:12px 16px;min-width:140px;flex:1;text-align:center;border:none}
+.stats-l .stat+.stat{border-left:none}
+.faq dt{font-weight:700;margin-top:12px;font-size:15px}
+.faq dt:first-child{margin-top:0}
+.faq dd{color:var(--soft);font-size:14px;margin:2px 0 4px}
+footer .flinks a{margin:0 6px}
+@media(max-width:860px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+  .hero{padding:22px 0 26px}
+  .hero-grid{gap:20px}
+  .hero h1{font-size:30px}
+  .hero p.sub{font-size:15.5px}
+  .hero .cta{margin-top:16px}
+  .btn.big{display:block;text-align:center;font-size:16px;padding:13px 18px}
+  .cta2{gap:6px;margin-top:10px}
+  .cta2 a{font-size:13px;padding:7px 11px}
+  .trust{margin-top:12px;font-size:12px}
+  .shot{max-height:190px;width:100%}
+  .phint{display:none}
+}
+@media(max-width:640px){nav a{margin-left:12px;font-size:12.5px}.brand{font-size:16px}header.top .wrap{height:50px}details.panel{scroll-margin-top:60px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.brand{white-space:nowrap;flex:none}
+@media(max-width:760px){.hero .kicker{font-size:10.5px;letter-spacing:.14em}.fgrid{gap:8px}.fcard{padding:10px 12px}.fcard .ico{width:22px;height:22px;margin-bottom:2px}.fcard b{font-size:13.5px}.fcard small{font-size:12px}}
+@media(max-width:760px){.pbody{padding:16px 12px 6px}.pbody .card{padding:16px 12px}.matrix{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.ex-table td{overflow-wrap:anywhere}.summary-box{overflow-x:auto}}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;row-gap:4px}
+.dcard .chead{flex-wrap:wrap}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
-  <a class="brand" href="#">soc<span>-skills</span></a>
-  <nav><a href="#example">Example</a><a href="#how">How it works</a><a href="#assess">Assess</a><a href="#labs">Labs<span class="pill-new">NEW</span></a><a href="#grade">Grade<span class="pill-new">NEW</span></a><a href="#progress">Progress</a><a href="verify.html">Verify</a><a href="#domains">Domains</a><a href="#sample">Sample</a><a href="#support">Support</a></nav>
+  <a class="brand" href="#top" aria-label="soc-skills home">soc<span>-skills</span></a>
+  <nav aria-label="Main"><a href="#example">Demo</a><a href="#assess">Assess</a><a href="#grade">Grade</a><a href="#labs">Labs</a><a href="verify.html">Verify</a><a href="#faq">FAQ</a><a href="https://github.com/szzxli/soc-skills" class="gh">GitHub</a></nav>
 </div></header>
 
-<div class="hero"><div class="hero-grid">
+<main id="main">
+<div class="hero" id="top"><div class="hero-grid">
   <div class="hero-copy">
-  <div class="kicker">FOR SOC JOB SEEKERS &amp; CAREER CHANGERS · FREE · OPEN SOURCE</div>
-  <h1 class="h1-long">Turn your labs into an evidence-backed skill profile hiring managers can read.</h1>
-  <p class="sub">No SOC job on your resume yet? Show what you can do instead. soc-skills grades your lab write-ups and code against a public rubric — 8 SOC skill domains mapped to the NIST NICE framework, with levels you can only earn with evidence.</p>
-  <ul class="benefits">
-    <li><b>Know where you stand:</b> a level per domain (L1 → L2), each one tied to the file or report that earned it — ready to walk through in an interview.</li>
-    <li><b>Know what to build next:</b> a gap analysis spells out what's missing for the next level, domain by domain.</li>
-    <li><b>Show it, don't claim it:</b> a resume one-liner plus a tamper-evident profile file an employer can check. Runs in your browser — no soc&#8209;skills account needed.</li>
-  </ul>
-  <div class="cta"><a class="btn primary" href="#example" id="hero-example" data-count="see-example">See an example profile</a><a class="btn ghost" href="#grade" data-count="grade-own-cta">Grade your own (free key)</a></div>
-  <p class="honest">Or start with the <a href="#assess">16-question self-assessment</a> — no key needed. Not a certification; not affiliated with or endorsed by NIST, NICE or any employer.</p>
+    <div class="kicker">FOR SOC JOB SEEKERS · FREE · OPEN SOURCE</div>
+    <h1>Prove your SOC skills with evidence.</h1>
+    <p class="sub">Grade your labs against a public, NICE-mapped rubric. Get levels, gaps and a verifiable profile.</p>
+    <div class="cta"><a class="btn primary big" href="#example" id="hero-example" data-count="see-example">▶ Try the demo — no key</a></div>
+    <div class="cta2" aria-label="All tools">
+      <a href="#assess" data-count="hero-assess"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Self-assess</a>
+      <a href="#grade" data-count="grade-own-cta"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5L7 14.5l-5-5 7-1z"/></svg>Grade evidence</a>
+      <a href="verify.html" data-count="hero-verify"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Verify</a>
+      <a href="#progress" data-count="hero-export"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Export</a>
+      <a href="#labs" data-count="hero-labs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7.5 14h9"/></svg>CVE labs</a>
+    </div>
+    <ul class="trust" aria-label="Trust">
+      <li>MIT open source</li><li>No login</li><li>Runs in your browser</li><li>$0</li>
+    </ul>
   </div>
-  <a class="video-card" href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">
-    <img src="https://i.ytimg.com/vi/_WxnwmmL0co/hqdefault.jpg" alt="soc-skills intro — 60 seconds">
-    <span class="play"><i>▶</i></span>
-    <span class="cap">Watch: 60 seconds — why evidence beats pedigree</span>
+  <a class="shot" href="#example" data-count="hero-shot" aria-label="Open the graded example">
+    <img src="img/example-profile.webp" width="990" height="994" alt="A real soc-skills grading result for the AWS mini-SOC project: a skill-level table with D1 L2 (lab), D2 L1+, D3 L1+, D6 L2 (lab) and D7 L1, each with the evidence the grader cited." fetchpriority="high">
+    <span class="cap">Real stored result · not a mock-up</span>
   </a>
-</div>
-<div class="stats"><div class="wrap">
-  <div class="stat"><b>8</b><span>SKILL DOMAINS</span><small>public rubric, NICE-anchored</small></div>
-  <div class="stat"><b>3</b><span>LEVELS</span><small>L1 · L2 · L3 (never self-awarded)</small></div>
-  <div class="stat"><b>5</b><span>GRADED PROJECTS</span><small>AI grader v1.3, public report</small></div>
-  <div class="stat"><b>0</b><span>BLACK BOXES</span><small>rubric 100% public</small></div>
 </div></div>
-</div>
 
-<section id="example"><div class="wrap">
-  <div class="skicker">EXAMPLE · NO API KEY NEEDED</div>
-  <h2>See the output before you sign up for anything</h2>
+<section class="feats" aria-labelledby="feats-h"><div class="wrap">
+  <h2 id="feats-h" class="sr-only">What you can do</h2>
+  <div class="fgrid">
+    <a class="fcard" href="#example" data-count="feature-demo"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg><b>Try a graded example</b><small>No key · 1 click</small></a>
+    <a class="fcard" href="#assess" data-count="feature-assess"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><b>16-question self-assessment</b><small>8 domains · no key</small></a>
+    <a class="fcard" href="#grade" data-count="feature-grade"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5L7 14.5l-5-5 7-1z"/></svg><b>AI grading, your key</b><small>Free models · $0</small></a>
+    <a class="fcard" href="#labs" data-count="feature-labs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7.5 14h9"/></svg><b>Weekly CVE lab cards</b><small>KEV-driven</small></a>
+    <a class="fcard" href="#progress" data-count="feature-export"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><b>Export &amp; track progress</b><small>JSON · resume text</small></a>
+    <a class="fcard" href="verify.html" data-count="feature-verify"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>Verify a profile package</b><small>SHA-256 check</small></a>
+    <a class="fcard" href="#domains" data-count="feature-domains"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><b>8 NICE-mapped domains</b><small>Public rubric</small></a>
+    <a class="fcard" href="#sample" data-count="feature-sample"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><b>Founder sample profile</b><small>5 graded projects</small></a>
+  </div>
+</div></section>
+
+<section class="panels" aria-label="Tools and details"><div class="wrap">
+  <p class="phead">Open any section · <button type="button" class="linkbtn" id="expand-all" aria-pressed="false">Expand all</button></p>
+<details class="panel" id="example">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg><span class="ptxt"><span class="pk">EXAMPLE · NO API KEY NEEDED</span><h2>See the output before you sign up for anything</h2></span><span class="phint">Demo</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">A real grading report, stored — not run live: the founder's own home-lab projects, graded on 2026-10-16 with rubric-prompt v1.1 and published in <a href="https://github.com/szzxli/soc-skills/blob/main/grader/validation-v1.1.md">grader/validation-v1.1.md</a>. Pick a project to see its skill levels, the evidence behind each one, and the gap analysis.</p>
   <div class="ex-tabs" id="ex-tabs" role="tablist" aria-label="Example projects"></div>
   <div class="card" id="ex-card">
@@ -230,18 +330,11 @@ footer a{color:var(--teal)}
     </div>
     <p style="font-size:12.5px;color:var(--soft);margin-top:10px">Levels: L1 = guided · L1+ = beyond L1, short of L2 · L2 = independent hands-on, with scope (lab / synthetic / reconstructed). L3 (production) is never self-awarded. Combined across all five projects, this becomes the <a href="#sample">sample profile</a> below. Advisory output from an AI grader — not a certification.</p>
   </div>
-</div></section><section id="how"><div class="wrap">
-  <div class="skicker">HOW IT WORKS</div>
-  <h2>Three steps to a profile employers can verify</h2>
-  <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
-  <div class="steps">
-    <div class="step"><div class="snum">1</div><h3>Assess</h3><p>Answer 16 questions across 8 SOC domains. Sign the evidence pledge — anything you can't evidence gets downgraded.</p><a href="#assess">Start assessing →</a></div>
-    <div class="step"><div class="snum">2</div><h3>Build evidence</h3><p>Run weekly CVE lab cards: mechanics → repro → detection → remediation. Every card maps to NICE domains.</p><a href="#labs">Browse lab cards →</a></div>
-    <div class="step"><div class="snum">3</div><h3>Get graded</h3><p>Paste your evidence, bring your own API key. The AI grades it against the public rubric — in your browser, key never leaves your device.</p><a href="#grade">Grade evidence →</a></div>
   </div>
-</div></section><section id="assess"><div class="wrap">
-  <div class="skicker">01 · ASSESS</div>
-  <h2>Self-assessment</h2>
+</details>
+<details class="panel" id="assess">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span class="ptxt"><span class="pk">01 · ASSESS</span><h2>Self-assessment</h2></span><span class="phint">No key</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">Two questions per domain. Answer honestly — the honesty check at the end downgrades anything you can't evidence.</p>
   <div class="card" id="quiz"></div>
   <div class="honesty">
@@ -278,16 +371,11 @@ footer a{color:var(--teal)}
       </div>
     </div>
   </div>
-</div></section><section id="labs" class="alt"><div class="wrap">
-  <div class="skicker">02 · LAB CARDS</div>
-  <h2>CVE lab cards <span class="pill-new">NEW</span></h2>
-  <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
-  <div class="dgrid" id="lab-grid"></div>
-  <p style="text-align:center;font-size:13.5px;margin-top:14px">Worked a card? <a href="#grade"><b>Grade your evidence with AI</b></a> — the grader only credits what you can show.</p>
-  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:8px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
-</div></section><section id="grade"><div class="wrap">
-  <div class="skicker">03 · AI GRADING</div>
-  <h2>AI grading <span class="pill-new">BETA</span></h2>
+  </div>
+</details>
+<details class="panel" id="grade">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5L7 14.5l-5-5 7-1z"/></svg><span class="ptxt"><span class="pk">02 · AI GRADING</span><h2>AI grading <span class="pill-new">BETA</span></h2></span><span class="phint">Your key</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">Self-assessment is a claim. Grading is the check. Paste your evidence, bring your own API key — the rubric grades it, right here in your browser. Your key never leaves this device except to the API provider you choose.</p>
   <div class="card">
     <h3 style="margin-bottom:10px">1 · Your API key <span style="font-size:12px;color:var(--soft);font-weight:400">(free signup · free models — grading costs $0)</span></h3>
@@ -328,9 +416,20 @@ footer a{color:var(--teal)}
     </div>
     <p style="font-size:12.5px;color:var(--soft)">Advisory output. The rubric decides, your evidence constrains. Disagree with a grade? The <a href="https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md">prompt</a> is public — inspect it.</p>
   </div>
-</div></section><section id="progress" class="alt"><div class="wrap">
-  <div class="skicker">04 · PROGRESS</div>
-  <h2>Progress &amp; learning velocity <span class="pill-new">NEW</span></h2>
+  </div>
+</details>
+<details class="panel" id="labs">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7.5 14h9"/></svg><span class="ptxt"><span class="pk">03 · LAB CARDS</span><h2>CVE lab cards <span class="pill-new">NEW</span></h2></span><span class="phint">Weekly</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
+  <p class="lead">Weekly vulnerability-driven challenges: mechanics → repro → detection → remediation. Built from public CVE data; every card is original work. Tap a card for the full brief.</p>
+  <div class="dgrid" id="lab-grid"></div>
+  <p style="text-align:center;font-size:13.5px;margin-top:14px">Worked a card? <a href="#grade"><b>Grade your evidence with AI</b></a> — the grader only credits what you can show.</p>
+  <p style="text-align:center;font-size:13px;color:var(--soft);margin-top:8px">New cards land weekly from the <a href="https://github.com/szzxli/soc-skills/tree/main/intel">intel feed</a> (CISA KEV first).</p>
+  </div>
+</details>
+<details class="panel" id="progress">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg><span class="ptxt"><span class="pk">04 · PROGRESS</span><h2>Progress &amp; learning velocity</h2></span><span class="phint">Export</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">Every assessment is saved on this device. Re-assess over time — the curve measures trajectory. Employers buy future performance; this is the closest thing to measuring it.</p>
   <div class="card" id="history-card">
     <div id="velocity-line" style="font-family:var(--mono);font-size:15px;margin-bottom:12px"></div>
@@ -346,15 +445,19 @@ footer a{color:var(--teal)}
     </div>
     <div style="margin-top:6px"><span style="font-size:12px;color:var(--soft)">Stored only in this browser. Export the JSON to move it to another device — nothing is uploaded anywhere.</span></div>
   </div>
-</div></section><section id="domains"><div class="wrap">
-  <div class="skicker">05 · DOMAINS</div>
-  <h2>Browse by domain</h2>
+  </div>
+</details>
+<details class="panel" id="domains">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="ptxt"><span class="pk">05 · DOMAINS</span><h2>Browse by domain</h2></span><span class="phint">8 domains</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">Eight domains, one rubric. Tap a card for the full level definitions. L3 is never self-awarded — that's the honesty line.</p>
   <div class="dgrid" id="domain-grid"></div>
   <p style="font-size:12.5px;color:var(--soft);margin-top:10px"><b>Legend:</b> <span class="tag lab">LAB-READY</span> home-lab project mapped · <span class="tag core">CORE</span> assessed in every profile · <span class="tag new">NEW</span> added this month · matrix <b>L1+</b> = partial evidence (counts 0.5 pts) · <b>L1+*</b> = L2 claimed without the evidence pledge.</p>
-</div></section><section id="sample"><div class="wrap">
-  <div class="skicker">06 · SAMPLE</div>
-  <h2>Sample profile</h2>
+  </div>
+</details>
+<details class="panel" id="sample">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span class="ptxt"><span class="pk">06 · SAMPLE</span><h2>Sample profile</h2></span><span class="phint">Founder</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">A real self-assessment by the project founder — 5 home-lab projects, AI-graded against the rubric (v1.1 report in <span style="font-family:var(--mono)">grader/</span>).</p>
   <div class="oneliner"><span class="lbl">6-SECOND ONE-LINER</span><span>Independent SOC analyst · L2 in 5/8 domains (lab; D8 not yet assessed) · 5 projects AI-graded against a public rubric</span></div>
   <div class="card"><table class="matrix">
@@ -369,9 +472,59 @@ footer a{color:var(--teal)}
     <tr><td style="text-align:left">D8 AI agent security &amp; governance</td><td colspan="4" style="color:var(--soft)">not yet assessed (domain added 2026-10-20)</td></tr>
   </table>
   <p style="font-size:13px;color:var(--soft)">Scope suffixes: lab = self-built environment, rec. = reconstructed sample, syn. = synthetic data. D3 downgraded to L1+ on 2026-10-16 (blank template ≠ filled report — the rubric working as intended). L3 column intentionally empty.</p></div>
-</div></section><section id="resources" class="alt"><div class="wrap">
-  <div class="skicker">07 · GO DEEPER</div>
-  <h2>Go deeper</h2>
+  </div>
+</details>
+<details class="panel" id="how">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3M14 12h3"/></svg><span class="ptxt"><span class="pk">HOW IT WORKS</span><h2>Three steps to a profile employers can verify</h2></span><span class="phint">3 steps</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
+  <p class="lead">The journey every candidate takes — assess what you can do, build evidence that proves it, get it graded against the public rubric.</p>
+  <div class="steps">
+    <div class="step"><div class="snum">1</div><h3>Assess</h3><p>Answer 16 questions across 8 SOC domains. Sign the evidence pledge — anything you can't evidence gets downgraded.</p><a href="#assess">Start assessing →</a></div>
+    <div class="step"><div class="snum">2</div><h3>Build evidence</h3><p>Run weekly CVE lab cards: mechanics → repro → detection → remediation. Every card maps to NICE domains.</p><a href="#labs">Browse lab cards →</a></div>
+    <div class="step"><div class="snum">3</div><h3>Get graded</h3><p>Paste your evidence, bring your own API key. The AI grades it against the public rubric — in your browser, key never leaves your device.</p><a href="#grade">Grade evidence →</a></div>
+  </div>
+  </div>
+</details>
+<details class="panel" id="about">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.5"/></svg><span class="ptxt"><span class="pk">WHY SOC-SKILLS</span><h2>Turn your labs into an evidence-backed skill profile hiring managers can read.</h2></span><span class="phint">About</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
+  <p class="lead" style="text-align:left;margin:0 0 10px;max-width:none">No SOC job on your resume yet? Show what you can do instead. soc-skills grades your lab write-ups and code against a public rubric — 8 SOC skill domains mapped to the NIST NICE framework, with levels you can only earn with evidence.</p>
+  <ul class="benefits-l">
+    <li><b>Know where you stand:</b> a level per domain (L1 → L2), each one tied to the file or report that earned it — ready to walk through in an interview.</li>
+    <li><b>Know what to build next:</b> a gap analysis spells out what's missing for the next level, domain by domain.</li>
+    <li><b>Show it, don't claim it:</b> a resume one-liner plus a tamper-evident profile file an employer can check. Runs in your browser — no soc&#8209;skills account needed.</li>
+  </ul>
+  <div class="cta" style="margin:8px 0"><a class="btn primary" href="#example" data-count="about-see-example">See an example profile</a><a class="btn ghost-l" href="#grade" data-count="grade-own-cta">Grade your own (free key)</a></div>
+  <p class="honest-l">Or start with the <a href="#assess">16-question self-assessment</a> — no key needed. Not a certification; not affiliated with or endorsed by NIST, NICE or any employer.</p>
+  <div class="stats-l">
+  <div class="stat"><b>8</b><span>SKILL DOMAINS</span><small>public rubric, NICE-anchored</small></div>
+  <div class="stat"><b>3</b><span>LEVELS</span><small>L1 · L2 · L3 (never self-awarded)</small></div>
+  <div class="stat"><b>5</b><span>GRADED PROJECTS</span><small>AI grader v1.3, public report</small></div>
+  <div class="stat"><b>0</b><span>BLACK BOXES</span><small>rubric 100% public</small></div>
+  </div>
+  <p style="font-size:13.5px;margin-top:10px"><a href="https://youtu.be/_WxnwmmL0co" target="_blank" rel="noopener">▶ Watch: 60 seconds — why evidence beats pedigree</a> (YouTube)</p>
+  </div>
+</details>
+<details class="panel" id="faq">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><path d="M12 17.5v.5"/></svg><span class="ptxt"><span class="pk">FAQ</span><h2>Questions new users ask</h2></span><span class="phint">5 answers</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
+  <dl class="faq">
+    <dt>Is this a certification?</dt>
+    <dd>No. Grading is advisory and evidence-based. soc-skills is not affiliated with or endorsed by NIST, NICE or any employer. L3 (production) is never self-awarded.</dd>
+    <dt>Do I need an account or an API key?</dt>
+    <dd>No account, ever. The example, the self-assessment, the lab cards and the Verify page need no key. Only live AI grading needs your own key — free OpenRouter models cost $0.</dd>
+    <dt>Where does my data go?</dt>
+    <dd>Nowhere. Everything runs in your browser and history stays on this device. Your evidence and key are sent only to the API provider you choose, and only when you click Grade. Page views are counted anonymously with GoatCounter — no cookies, and nothing you type.</dd>
+    <dt>What do the levels mean?</dt>
+    <dd>L1 = guided · L1+ = beyond L1, short of L2 · L2 = independent hands-on, with scope (lab / synthetic / reconstructed) · L3 = production, never self-awarded.</dd>
+    <dt>What does a verification package prove?</dt>
+    <dd>That the profile has not been altered since it was packaged (SHA-256), and which rubric version it claims. Not who you are — the evidence still speaks in the interview. <a href="verify.html">Try the Verify page</a>.</dd>
+  </dl>
+  </div>
+</details>
+<details class="panel" id="resources">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5V21h16"/></svg><span class="ptxt"><span class="pk">07 · GO DEEPER</span><h2>Go deeper</h2></span><span class="phint">Methodology</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">The profile is the surface. Underneath: graded evidence, original lab work, and a public rubric.</p>
   <div class="rgrid">
     <a class="rcard" href="https://github.com/szzxli/soc-skills/tree/main/grader"><b>AI grader v1.3</b><p>Rubric-encoded grading prompt + validation report. 5 projects graded, behavioral dimension included.</p><span class="go">grader/ →</span></a>
@@ -379,9 +532,11 @@ footer a{color:var(--teal)}
     <a class="rcard" href="https://github.com/szzxli/soc-skills/blob/main/FEEDBACK.md"><b>Feedback → product</b><p>Every principle earned from someone pushing back. The debate log.</p><span class="go">FEEDBACK.md →</span></a>
     <a class="rcard" href="https://github.com/szzxli/soc-home-lab"><b>Home lab</b><p>The 5 working projects behind the sample profile. Real code, real runs.</p><span class="go">soc-home-lab →</span></a>
   </div>
-</div></section><section id="support" class="alt"><div class="wrap">
-  <div class="skicker">08 · SUPPORT</div>
-  <h2>Support</h2>
+  </div>
+</details>
+<details class="panel" id="support">
+  <summary><svg class="pico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H8l-4 4z"/></svg><span class="ptxt"><span class="pk">08 · SUPPORT</span><h2>Support</h2></span><span class="phint">Email · bugs</span><span class="pchev" aria-hidden="true"></span></summary>
+  <div class="pbody">
   <p class="lead">Found a bug, confused by a grade, or want a lab card for a CVE you care about? Write to us — a human reads every email.</p>
   <div class="card" style="text-align:center;max-width:580px;margin:0 auto">
     <p style="font-size:12px;letter-spacing:.2em;color:var(--soft);margin-bottom:6px">EMAIL</p>
@@ -389,7 +544,10 @@ footer a{color:var(--teal)}
     <p style="font-size:13px;color:var(--soft)">Bug reports: browser + device, what you clicked, what happened vs what you expected.<br>Feature ideas and CVE lab requests welcome.</p>
     <p style="margin-top:12px"><a href="#" id="buglink" style="display:inline-block;padding:10px 22px;border:1.5px solid var(--teal-d);border-radius:999px;color:var(--teal-d);text-decoration:none;font-weight:700">🐞 Report a bug (auto-fills your environment)</a></p>
   </div>
+  </div>
+</details>
 </div></section>
+</main>
 
 <script>
 /* One-click bug report: prefills environment into a GitHub issue */
@@ -405,7 +563,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v20 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v21 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -415,10 +573,45 @@ document.getElementById("buglink").addEventListener("click", function (e) {
 
 <footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
+  <p class="flinks" style="margin-bottom:6px"><a href="#example">Demo</a>·<a href="#assess">Assess</a>·<a href="#grade">Grade</a>·<a href="#labs">Labs</a>·<a href="#progress">Progress</a>·<a href="verify.html">Verify</a>·<a href="#domains">Domains</a>·<a href="#sample">Sample</a>·<a href="#faq">FAQ</a>·<a href="#support">Support</a></p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="#support">Support</a> · Evidence over pedigree.</p>
   <p style="font-size:12px;margin-top:6px">Privacy: we count anonymous page views with <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> — no cookies, no personal data. Nothing you type or paste is ever sent to it; your evidence and API key stay in your browser (grading sends them only to the API provider you choose).</p>
 </div></footer>
 
+<script>
+/* Collapsible panels: every in-page link, CTA and #hash opens its panel first, so
+   nothing is hidden behind a closed <details>. */
+window.openPanel = function (id) {
+  var el = id && document.getElementById(id);
+  if (!el) return null;
+  var d = el.tagName === 'DETAILS' ? el : (el.closest && el.closest('details.panel'));
+  if (d && !d.open) d.open = true;
+  return el;
+};
+document.addEventListener('click', function (e) {
+  var a = e.target && e.target.closest && e.target.closest('a[href*="#"]');
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  var i = href.indexOf('#');
+  var page = href.slice(0, i);
+  if (page && page !== 'index.html' && page !== './') return;
+  var id = href.slice(i + 1);
+  if (id) window.openPanel(id);
+}, true);
+function openFromHash() { if (location.hash.length > 1) { var el = window.openPanel(decodeURIComponent(location.hash.slice(1))); if (el) el.scrollIntoView(); } }
+window.addEventListener('hashchange', openFromHash);
+openFromHash();
+(function () {
+  var btn = document.getElementById('expand-all');
+  btn.addEventListener('click', function () {
+    var ps = document.querySelectorAll('details.panel');
+    var open = btn.getAttribute('aria-pressed') !== 'true';
+    ps.forEach(function (d) { d.open = open; });
+    btn.setAttribute('aria-pressed', String(open));
+    btn.textContent = open ? 'Collapse all' : 'Expand all';
+  });
+})();
+</script>
 <script src="verify-lib.js"></script>
 <script src="analytics.js" defer></script>
 <script>
@@ -1175,6 +1368,7 @@ function loadSampleIntoGrader(p){
   fetch('samples/evidence-' + p.dir + '.json').then(r=>{ if(!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
     .then(t=>{ ev.value = t; showStored(); })
     .catch(()=>{ showStored(); status.textContent = EXAMPLE_NOTE + ' (The evidence bundle could not be loaded offline — see it on GitHub.)'; });
+  window.openPanel && window.openPanel('grade');
   document.getElementById('grade').scrollIntoView({behavior:'smooth'});
 }
 document.getElementById('ex-load').addEventListener('click', ()=>loadSampleIntoGrader(exCurrent));

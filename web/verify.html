@@ -62,19 +62,60 @@ textarea{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:10
 .honest li{margin-left:18px;margin-bottom:4px}
 footer{background:var(--navy);color:#9fb3c4;padding:30px 0;text-align:center;font-size:13px}
 footer a{color:var(--teal)}
-@media(max-width:640px){nav a{margin-left:9px;font-size:11.5px}}
+@media(max-width:640px){nav a{margin-left:12px;font-size:12.5px}}
+html{scroll-behavior:smooth}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:var(--navy);padding:8px 14px;border-radius:8px;font-weight:700}
+.skip:focus{left:12px}
+a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px;border-radius:6px}
+.brand{white-space:nowrap;flex:none}
+header.top .wrap{height:54px;gap:12px}
+nav{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+nav::-webkit-scrollbar{display:none}
+nav a{margin-left:16px;color:#c3d2de;font-size:13.5px;font-weight:500;padding:6px 0}
+nav a[aria-current="page"]{color:#fff;border-bottom:2px solid var(--teal)}
+nav a.gh{border:1px solid #3d5b6b;border-radius:999px;padding:4px 12px}
+.vhero{background:linear-gradient(135deg,#0f2027 0%,#1a3440 55%,#234e5f 100%);color:#fff;padding:32px 0 30px}
+.vhero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--teal)}
+.vhero h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:8px 0}
+.vhero .sub{color:#c3d2de;font-size:16.5px}
+.trust{list-style:none;display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12.5px;color:#a9bccb}
+.trust li:before{content:"\2713  ";color:var(--teal);font-weight:800}
+section{padding:28px 0 44px}
+details.panel{background:var(--card);border:1px solid var(--line);border-radius:12px}
+details.panel>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;border-radius:12px}
+details.panel>summary::-webkit-details-marker{display:none}
+.ptxt{display:flex;flex-direction:column;flex:1}
+.ptxt .pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--teal-d);font-weight:700}
+.ptxt .ph{font-weight:700;font-size:16px}
+.pchev{width:10px;height:10px;border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg);margin:0 4px 4px;transition:transform .15s}
+details.panel[open]>summary .pchev{transform:rotate(-135deg);margin-bottom:-4px}
+.pbody{padding:4px 18px 8px}
+.pbody p.lead{text-align:left;margin:0 0 10px;max-width:none}
+details.honest>summary{cursor:pointer}
+.flinks a{margin:0 6px}
+@media(max-width:640px){header.top .wrap{height:50px}.brand{font-size:16px}.vhero{padding:22px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;row-gap:4px}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html">soc<span>-skills</span></a>
-  <nav><a href="index.html#assess">Assess</a><a href="index.html#grade">Grade</a><a href="index.html#progress">Progress</a><a href="verify.html">Verify</a><a href="index.html#support">Support</a></nav>
+  <nav aria-label="Main"><a href="index.html#example">Demo</a><a href="index.html#assess">Assess</a><a href="index.html#grade">Grade</a><a href="index.html#labs">Labs</a><a href="verify.html" aria-current="page">Verify</a><a href="index.html#faq">FAQ</a><a href="https://github.com/szzxli/soc-skills" class="gh">GitHub</a></nav>
 </div></header>
 
+<main id="main">
+<div class="vhero"><div class="wrap">
+  <div class="kicker">VERIFY · FOR EMPLOYERS &amp; CANDIDATES</div>
+  <h1>Verify a profile package</h1>
+  <p class="sub">Paste or upload a package. We recompute its SHA-256 in your browser.</p>
+  <ul class="trust"><li>Nothing uploaded</li><li>No login</li><li>MIT open source</li></ul>
+</div></div>
 <section><div class="wrap">
-  <div class="skicker">VERIFY</div>
-  <h2>Verify a profile package</h2>
+  <details class="panel" style="margin-bottom:14px"><summary><span class="ptxt"><span class="pk">HOW IT WORKS</span><span class="ph">What is a verification package?</span></span><span class="pchev" aria-hidden="true"></span></summary><div class="pbody">
   <p class="lead">A soc-skills verification package bundles one grading result with a SHA-256 hash of its contents. Paste or upload a package below — this page recomputes the hash in your browser and checks the contents have not been altered since the package was generated. Nothing is uploaded anywhere.</p>
+  </div></details>
 
   <div class="card">
     <h3 style="margin-bottom:10px">Package JSON</h3>
@@ -82,6 +123,7 @@ footer a{color:var(--teal)}
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px">
       <button class="btn primary" id="verify-btn" style="margin:0">Verify package</button>
       <button class="copybtn" id="upload-btn" style="background:#0f766e">Upload .json file</button>
+      <button class="copybtn" id="sample-btn" data-count="verify-sample" style="background:#fff;color:var(--teal-d);border:1.5px solid var(--teal-d)">No package? Load a sample</button>
       <input type="file" id="pkg-file" accept=".json,application/json" style="display:none">
       <span id="verify-status" style="font-size:12.5px;color:var(--soft)"></span>
     </div>
@@ -90,18 +132,20 @@ footer a{color:var(--teal)}
   <div class="verdict" id="verdict"></div>
   <div class="card" id="profile-card" style="display:none"></div>
 
-  <div class="honest">
-    <b>What this verification does and does not prove</b>
+  <details class="honest" open>
+    <summary><b>What this verification does and does not prove</b></summary>
     <ul style="margin-top:8px">
       <li><b>It proves</b> the profile contents match the SHA-256 hash inside the package — the record has not been altered since the package was generated — and it shows the rubric version the result claims to be graded against.</li>
       <li><b>It does not prove</b> the identity of the person assessed, that the underlying evidence was genuine, or that the package was created at the stated time (the timestamp is self-asserted inside the payload). Anyone can generate a package with the public algorithm; a matching hash shows internal consistency, not origin.</li>
       <li><b>It is not</b> a proctored exam or a certification. soc-skills grading is advisory and evidence-based; verify the evidence itself in an interview or work sample.</li>
     </ul>
-  </div>
+  </details>
 </div></section>
+</main>
 
 <footer><div class="wrap">
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
+  <p class="flinks" style="margin-bottom:6px"><a href="index.html#example">Demo</a>·<a href="index.html#assess">Assess</a>·<a href="index.html#grade">Grade</a>·<a href="index.html#labs">Labs</a>·<a href="index.html#progress">Progress</a>·<a href="verify.html">Verify</a>·<a href="index.html#faq">FAQ</a>·<a href="index.html#support">Support</a></p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="index.html#support">Support</a> · Evidence over pedigree.</p>
   <p style="font-size:12px;margin-top:6px">Privacy: we count anonymous page views with <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> — no cookies, no personal data. Packages you paste or upload are checked in your browser and never sent anywhere.</p>
 </div></footer>
@@ -127,6 +171,24 @@ function esc(s) {
 }
 
 var statusEl = document.getElementById('verify-status');
+
+// "No package? Load a sample": a public demo package (web/samples/sample-package.json,
+// built from the founder sample profile) so a first-time visitor sees a result in one click.
+document.getElementById('sample-btn').addEventListener('click', function () {
+  statusEl.textContent = 'Loading sample package…';
+  statusEl.style.color = 'var(--soft)';
+  fetch('samples/sample-package.json').then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  }).then(function (t) {
+    document.getElementById('pkg-input').value = t.trim();
+    statusEl.textContent = 'Sample loaded (public demo, not a real candidate) — verifying…';
+    document.getElementById('verify-btn').click();
+  }).catch(function (e) {
+    statusEl.textContent = 'Could not load the sample package: ' + e.message;
+    statusEl.style.color = 'var(--red)';
+  });
+});
 var verdictEl = document.getElementById('verdict');
 var cardEl = document.getElementById('profile-card');
 

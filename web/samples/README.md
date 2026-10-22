@@ -23,3 +23,7 @@ The "See an example profile" / "Try with sample evidence" flow on the site shows
 
 All data is the project founder's own home-lab work; synthetic / reconstructed data is
 labeled as such inside the bundles.
+
+## sample-package.json
+
+A public demo verification package for the Verify page ("No package? Load a sample"). Built with `verify-lib.js` `buildPackage()` from the founder sample profile shown on the homepage (rubric v1.3, self-assessment, evidence-pledged). It is not a real candidate record; its `sample` field says so.

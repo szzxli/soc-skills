@@ -1,5 +1,7 @@
 # Phase 2 Validation Report · v1.1 round (2026-10-16)
 
+> **Note (2026-10-21):** "human ratings" / "ground truth" below means `MAPPING.md`, rated by the project author on the author's own projects. It is not an independent human-rater comparison; no inter-rater data exists yet (see `HUMAN-RATING.md`).
+
 > Method: rubric-prompt v1.1 (§3–§6 + new §3b behavioral dimension); evidence
 > from fresh `grade.py` bundles. Baseline: MAPPING.md human ratings.
 > Grader: LLM executing the prompt (dogfood — the prompt is designed for any LLM).

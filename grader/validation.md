@@ -1,5 +1,7 @@
 # Phase 2 Validation Report
 
+> **Note (2026-10-21):** "human ratings" / "ground truth" below means `MAPPING.md`, rated by the project author on the author's own projects. It is not an independent human-rater comparison; no inter-rater data exists yet (see `HUMAN-RATING.md`).
+
 > Method: the grader (LLM) executed `rubric-prompt.md` §3–§6 strictly;
 > evidence taken only from `grade.py` evidence bundles (full README + file
 > inventory + excerpts). Baseline: `../MAPPING.md` human ratings (ground

@@ -1,14 +1,21 @@
 /* soc-skills verification packages — shared by index.html and verify.html.
  *
  * A verification package wraps one grading result (profile payload) with a
- * SHA-256 hash of its canonical JSON form. Anyone can recompute the hash and
- * confirm the payload has not been altered since the package was generated.
+ * SHA-256 hash of its canonical JSON form. Anyone can recompute the hash.
  *
- * What this proves: the payload contents match the hash in the package, and
- * the payload names the rubric version it was produced against.
- * What it does NOT prove: the identity of the person assessed, that the
- * underlying evidence was genuine, or proctored/certification equivalence.
- * The timestamp inside the payload is self-asserted by the generator.
+ * What a matching hash proves: the payload is unchanged since that hash was
+ * made. It is NOT a signature: anyone who edits the payload can also recompute
+ * the hash, so the check only has teeth when the hash was recorded somewhere
+ * independent first (see "public anchor" below).
+ * What it does NOT prove: that the content is truthful, who made the package,
+ * the identity of the person assessed, that the underlying evidence was
+ * genuine, or proctored/certification equivalence. The "issued" time inside
+ * the payload is self-asserted by the generator.
+ *
+ * Public anchor (optional, free, no server): the candidate posts the hash in a
+ * public GitHub gist. GitHub records when the gist was created and last
+ * edited, so the gist shows the hash was public no later than that date.
+ * checkGistAnchor() compares a gist's content and dates against a package.
  */
 (function (global) {
   'use strict';
@@ -18,8 +25,8 @@
 
   var RUBRIC_LINKS = {
     'v1.3': 'https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md',
-    'v1.2': 'https://github.com/szzxli/soc-skills/blob/main/grader/rubric-prompt.md',
-    'v1.1': 'https://github.com/szzxli/soc-skills/blob/main/grader/validation-v1.1.md'
+    'v1.2': 'https://github.com/szzxli/soc-skills/blob/19b8d4f/grader/rubric-prompt.md',
+    'v1.1': 'https://github.com/szzxli/soc-skills/blob/21976d9/grader/rubric-prompt.md'
   };
   var RUBRIC_DIR = 'https://github.com/szzxli/soc-skills/tree/main/grader';
 
@@ -98,7 +105,7 @@
         ok: ok,
         computed: computed,
         claimed: claimed,
-        reason: ok ? '' : 'Hash mismatch: the payload has been altered since this package was generated.'
+        reason: ok ? '' : 'Hash mismatch: the payload no longer matches the hash written in this package — the file was changed after the hash was made.'
       };
     });
   }
@@ -116,6 +123,91 @@
     return RUBRIC_LINKS[version] || RUBRIC_DIR;
   }
 
+  /* ---- Public anchor: a GitHub gist that contains the package hash ---- */
+
+  /* Accepts https://gist.github.com/<user>/<id>, https://gist.github.com/<id>,
+   * optional trailing /<revision>, #fragment or query, and a bare gist id.
+   * Returns the gist id (lowercase hex) or null. */
+  function parseGistUrl(input) {
+    var s = String(input == null ? '' : input).trim();
+    if (!s) return null;
+    if (/^[0-9a-f]{20,40}$/i.test(s)) return s.toLowerCase();
+    var m = s.match(/^https?:\/\/gist\.github\.com\/(?:[A-Za-z0-9-]+\/)?([0-9a-f]{20,40})(?:[\/?#].*)?$/i);
+    return m ? m[1].toLowerCase() : null;
+  }
+
+  function gistApiUrl(id) {
+    return 'https://api.github.com/gists/' + id;
+  }
+
+  /* Text a candidate pastes into a new public gist. */
+  function anchorText(sha256, payload) {
+    var p = payload || {};
+    return 'soc-skills verification package\n' +
+      'sha256: ' + String(sha256 || '').toLowerCase() + '\n' +
+      (p.rubric ? 'rubric: ' + p.rubric + '\n' : '') +
+      (p.kind ? 'kind: ' + p.kind + '\n' : '') +
+      'verify: https://szzxli.github.io/soc-skills/web/verify.html\n';
+  }
+
+  /* Pure check of a gist API response (JSON object) against a package hash.
+   * The hash must appear as a whole 64-hex token in a file's content.
+   * Dates come from GitHub's server (created_at / updated_at), not the user.
+   * publicSince is the conservative bound: updated_at (the content has been
+   * exactly as it is now since at least the last edit). */
+  function checkGistAnchor(gist, sha256) {
+    var want = String(sha256 || '').toLowerCase();
+    var out = { ok: false, found: false, reason: '', owner: null, url: null,
+      createdAt: null, updatedAt: null, publicSince: null, edited: false,
+      isPublic: null, file: null, truncated: false };
+    if (!/^[0-9a-f]{64}$/.test(want)) { out.reason = 'No valid package hash to compare.'; return out; }
+    if (!gist || typeof gist !== 'object' || !gist.files) { out.reason = 'Not a GitHub gist response.'; return out; }
+    out.owner = gist.owner && gist.owner.login ? gist.owner.login : null;
+    out.url = gist.html_url || null;
+    out.createdAt = gist.created_at || null;
+    out.updatedAt = gist.updated_at || gist.created_at || null;
+    out.edited = !!(out.createdAt && out.updatedAt && out.createdAt !== out.updatedAt);
+    out.isPublic = gist.public === true;
+    var names = Object.keys(gist.files);
+    var re = new RegExp('(^|[^0-9a-f])' + want + '($|[^0-9a-f])', 'i');
+    for (var i = 0; i < names.length; i++) {
+      var f = gist.files[names[i]] || {};
+      if (f.truncated) out.truncated = true;
+      if (typeof f.content === 'string' && re.test(f.content)) {
+        out.found = true; out.file = names[i]; break;
+      }
+    }
+    if (!out.found) {
+      out.reason = out.truncated
+        ? 'The hash was not found, and a gist file was too large to read in full.'
+        : 'This gist does not contain the package hash.';
+      return out;
+    }
+    if (!out.isPublic) {
+      out.reason = 'The hash is in the gist, but the gist is secret (unlisted), not public.';
+    }
+    out.publicSince = out.updatedAt;
+    out.ok = true;
+    return out;
+  }
+
+  /* Fetch a gist from the public GitHub API (no token; 60 requests/hour per
+   * IP) and check it. fetchImpl is injectable for tests. */
+  function fetchGistAnchor(input, sha256, fetchImpl) {
+    var id = parseGistUrl(input);
+    if (!id) return Promise.resolve({ ok: false, found: false, reason: 'Not a GitHub gist URL (expected https://gist.github.com/<user>/<id>).' });
+    var f = fetchImpl || (global.fetch && global.fetch.bind(global));
+    if (!f) return Promise.resolve({ ok: false, found: false, reason: 'fetch is not available.' });
+    return f(gistApiUrl(id), { headers: { 'Accept': 'application/vnd.github+json' } }).then(function (r) {
+      if (r.status === 404) return { ok: false, found: false, reason: 'Gist not found (deleted, or the URL is wrong).' };
+      if (r.status === 403 || r.status === 429) return { ok: false, found: false, reason: 'GitHub API rate limit reached (60 requests/hour per network). Try again later, or open the gist and compare the hash by eye.' };
+      if (!r.ok) return { ok: false, found: false, reason: 'GitHub API error: HTTP ' + r.status };
+      return r.json().then(function (g) { return checkGistAnchor(g, sha256); });
+    }, function (e) {
+      return { ok: false, found: false, reason: 'Could not reach the GitHub API: ' + (e && e.message ? e.message : e) };
+    });
+  }
+
   var SocVerify = {
     PKG_TYPE: PKG_TYPE,
     PKG_FORMAT: PKG_FORMAT,
@@ -125,7 +217,12 @@
     buildPackage: buildPackage,
     verifyPackage: verifyPackage,
     splitLevel: splitLevel,
-    rubricLink: rubricLink
+    rubricLink: rubricLink,
+    parseGistUrl: parseGistUrl,
+    gistApiUrl: gistApiUrl,
+    anchorText: anchorText,
+    checkGistAnchor: checkGistAnchor,
+    fetchGistAnchor: fetchGistAnchor
   };
 
   global.SocVerify = SocVerify;

@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>soc-skills — verify a profile package</title>
-<meta name="description" content="Verify a soc-skills verification package: recompute the SHA-256 hash of a grading result and check it has not been altered.">
+<meta name="description" content="Check a soc-skills verification package: recompute its SHA-256 hash to confirm the file is unchanged since the hash was made, and optionally compare it with a dated public gist.">
 <link rel="canonical" href="https://szzxli.github.io/soc-skills/web/verify.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="soc-skills">
 <meta property="og:title" content="soc-skills — verify a profile package">
-<meta property="og:description" content="Verify a soc-skills verification package: recompute the SHA-256 hash of a grading result and check it has not been altered.">
+<meta property="og:description" content="Check a soc-skills verification package: recompute its SHA-256 hash to confirm the file is unchanged since the hash was made, and optionally compare it with a dated public gist.">
 <meta property="og:url" content="https://szzxli.github.io/soc-skills/web/verify.html">
 <meta property="og:image" content="https://opengraph.githubassets.com/1/szzxli/soc-skills">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="soc-skills — verify a profile package">
-<meta name="twitter:description" content="Verify a soc-skills verification package: recompute the SHA-256 hash of a grading result and check it has not been altered.">
+<meta name="twitter:description" content="Check a soc-skills verification package: recompute its SHA-256 hash to confirm the file is unchanged since the hash was made, and optionally compare it with a dated public gist.">
 <meta name="twitter:image" content="https://opengraph.githubassets.com/1/szzxli/soc-skills">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2027">
@@ -109,12 +109,13 @@ details.honest>summary{cursor:pointer}
 <div class="vhero"><div class="wrap">
   <div class="kicker">VERIFY · FOR EMPLOYERS &amp; CANDIDATES</div>
   <h1>Verify a profile package</h1>
-  <p class="sub">Paste or upload a package. We recompute its SHA-256 in your browser.</p>
+  <p class="sub">Paste or upload a package. We recompute its SHA-256 in your browser — a file-integrity check, not a signature.</p>
   <ul class="trust"><li>Nothing uploaded</li><li>No login</li><li>MIT open source</li></ul>
 </div></div>
 <section><div class="wrap">
   <details class="panel" style="margin-bottom:14px"><summary><span class="ptxt"><span class="pk">HOW IT WORKS</span><span class="ph">What is a verification package?</span></span><span class="pchev" aria-hidden="true"></span></summary><div class="pbody">
-  <p class="lead">A soc-skills verification package bundles one grading result with a SHA-256 hash of its contents. Paste or upload a package below — this page recomputes the hash in your browser and checks the contents have not been altered since the package was generated. Nothing is uploaded anywhere.</p>
+  <p class="lead">A soc-skills verification package bundles one grading result with a SHA-256 hash of its contents. Paste or upload a package below — this page recomputes the hash in your browser and checks that the contents still match it, i.e. the file is unchanged since the hash was made. It is not a digital signature: it does not show that the content is truthful or who made it. Nothing is uploaded anywhere.</p>
+  <p class="lead">Because anyone who edits a package can also recompute its hash, the check is strongest when the candidate published the hash somewhere dated and public <em>before</em> sharing the file — see <a href="#anchor">Public timestamp</a> below.</p>
   </div></details>
 
   <div class="card">
@@ -132,11 +133,36 @@ details.honest>summary{cursor:pointer}
   <div class="verdict" id="verdict"></div>
   <div class="card" id="profile-card" style="display:none"></div>
 
+  <div class="card" id="anchor">
+    <h3 style="margin-bottom:6px">Public timestamp <span style="font-size:12px;color:var(--soft);font-weight:400">(optional · free · no account needed to check)</span></h3>
+    <p style="font-size:14px;margin-bottom:10px">If the candidate posted the package hash in a <b>public GitHub gist</b>, paste the gist link. This page fetches the gist from GitHub's public API and checks that it contains this package's hash. GitHub — not the candidate — records when the gist was created and last edited, so a match shows the hash was public <b>no later than</b> that date.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input type="url" id="anchor-url" placeholder="https://gist.github.com/<user>/<id>" style="flex:1;min-width:240px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px">
+      <button class="copybtn" id="anchor-btn" data-count="verify-anchor">Check public anchor</button>
+    </div>
+    <div id="anchor-result" style="margin-top:10px;font-size:14px" aria-live="polite"></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="copybtn" id="anchor-copy" style="background:#0f766e" disabled>Copy gist text</button>
+      <span id="anchor-copy-status" style="font-size:12.5px;color:var(--soft)">Verify a package first.</span>
+    </div>
+    <details style="margin-top:12px" id="anchor-howto">
+      <summary style="cursor:pointer;font-weight:600;color:var(--teal-d)">Candidates: how to timestamp your package for free (2 minutes)</summary>
+      <ol style="margin:8px 0 0 20px;font-size:14px">
+        <li>Verify your own package above. When it passes, click <b>Copy gist text</b> above (or copy the <span style="font-family:var(--mono)">sha256</span> value from the file).</li>
+        <li>Open <a href="https://gist.github.com/" target="_blank" rel="noopener">gist.github.com</a> (free GitHub account), paste the text, and choose <b>Create public gist</b>. Secret gists don't count.</li>
+        <li>Don't edit the gist afterwards — the page reports the date of the <em>last</em> edit, so editing moves your timestamp later.</li>
+        <li>Share the gist link next to the package (résumé, LinkedIn, email). Optionally add <span style="font-family:var(--mono)">"anchor": "&lt;gist link&gt;"</span> as a top-level field in the package file — it sits outside the hashed payload, so the hash still matches, and this page fills it in automatically.</li>
+      </ol>
+      <p style="font-size:12.5px;color:var(--soft);margin-top:8px">Prefer a git commit? A commit in a public repo also works as a record, but commit dates are set by the committer and can be backdated, so this page only checks gists. Advanced users can also stamp the package file with <a href="https://opentimestamps.org/" target="_blank" rel="noopener">OpenTimestamps</a> (free, Bitcoin-anchored); this page does not check those proofs.</p>
+    </details>
+  </div>
+
   <details class="honest" open>
     <summary><b>What this verification does and does not prove</b></summary>
     <ul style="margin-top:8px">
-      <li><b>It proves</b> the profile contents match the SHA-256 hash inside the package — the record has not been altered since the package was generated — and it shows the rubric version the result claims to be graded against.</li>
-      <li><b>It does not prove</b> the identity of the person assessed, that the underlying evidence was genuine, or that the package was created at the stated time (the timestamp is self-asserted inside the payload). Anyone can generate a package with the public algorithm; a matching hash shows internal consistency, not origin.</li>
+      <li><b>A matching hash proves</b> the file is unchanged since the hash was made — the contents still match the SHA-256 written in the package. It also shows which rubric version the result claims.</li>
+      <li><b>On its own it does not prove</b> that the content is truthful, who made the package, the identity of the person assessed, that the underlying evidence was genuine, or when the package was made (the "issued" time is self-asserted). It is not a digital signature: anyone can edit a package and recompute its hash with the public algorithm.</li>
+      <li><b>A public anchor adds one thing:</b> a GitHub-recorded date by which the hash was public. It still says nothing about whether the profile is accurate — only that this exact file existed, unchanged, by then.</li>
       <li><b>It is not</b> a proctored exam or a certification. soc-skills grading is advisory and evidence-based; verify the evidence itself in an interview or work sample.</li>
     </ul>
   </details>
@@ -190,6 +216,56 @@ document.getElementById('sample-btn').addEventListener('click', function () {
   });
 });
 var verdictEl = document.getElementById('verdict');
+var lastOk = null;
+var anchorInput = document.getElementById('anchor-url');
+var anchorOut = document.getElementById('anchor-result');
+var anchorCopyBtn = document.getElementById('anchor-copy');
+var anchorCopySt = document.getElementById('anchor-copy-status');
+
+function fmtUtc(iso) {
+  var d = new Date(iso);
+  if (isNaN(d)) return esc(iso || '?');
+  return esc(d.toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC'));
+}
+function setAnchorCopy(ok) {
+  anchorCopyBtn.disabled = !ok;
+  anchorCopySt.textContent = ok ? 'Ready: gist text for hash ' + ok.sha256.slice(0, 12) + '…' : 'Verify a package first.';
+  anchorCopySt.style.color = 'var(--soft)';
+}
+anchorCopyBtn.addEventListener('click', function () {
+  if (!lastOk) return;
+  var text = SocVerify.anchorText(lastOk.sha256, lastOk.payload);
+  var done = function () { anchorCopySt.textContent = 'Copied — paste it into a new public gist.'; anchorCopySt.style.color = 'var(--green)'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { anchorCopySt.textContent = text; });
+  } else { anchorCopySt.textContent = text; }
+});
+function runAnchorCheck() {
+  var url = anchorInput.value.trim();
+  if (!url) { anchorOut.innerHTML = '<span style="color:var(--red)">Paste a gist link first.</span>'; return; }
+  if (!lastOk) { anchorOut.innerHTML = '<span style="color:var(--red)">Verify the package first — the anchor is compared with a package hash that passed the check.</span>'; return; }
+  anchorOut.innerHTML = '<span style="color:var(--soft)">Checking the gist on GitHub…</span>';
+  var want = lastOk.sha256;
+  SocVerify.fetchGistAnchor(url, want).then(function (a) {
+    if (!lastOk || lastOk.sha256 !== want) return;
+    if (!a.found) {
+      anchorOut.innerHTML = '<div class="verdict fail" style="display:block;margin:0"><h3>✗ No public anchor for this package</h3><p style="font-size:14px">' + esc(a.reason) + '</p></div>';
+      return;
+    }
+    var who = a.owner ? 'GitHub user <b>' + esc(a.owner) + '</b>' : 'an anonymous gist';
+    var link = a.url ? ' (<a href="' + esc(a.url) + '" target="_blank" rel="noopener">open gist</a>)' : '';
+    var dates = 'Gist created ' + fmtUtc(a.createdAt) + (a.edited ? '; last edited ' + fmtUtc(a.updatedAt) + '.' : '; never edited.');
+    if (!a.isPublic) {
+      anchorOut.innerHTML = '<div class="verdict fail" style="display:block;margin:0;border-color:var(--amber);background:#fffbeb"><h3 style="color:#92400e">⚠ Hash found, but the gist is secret</h3><p style="font-size:14px">' + esc(a.reason) + ' ' + dates + link + '</p></div>';
+      return;
+    }
+    anchorOut.innerHTML = '<div class="verdict pass" style="display:block;margin:0"><h3>✓ Hash was public by ' + fmtUtc(a.publicSince) + '</h3>' +
+      '<p style="font-size:14px">The public gist by ' + who + link + ' contains this package\'s hash (file <span style="font-family:var(--mono)">' + esc(a.file) + '</span>). ' + dates +
+      ' Dates are recorded by GitHub. This shows the file existed, unchanged, by that date — not that its content is accurate, and the gist owner is not necessarily the person assessed.</p></div>';
+  });
+}
+document.getElementById('anchor-btn').addEventListener('click', runAnchorCheck);
+anchorInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') runAnchorCheck(); });
 var cardEl = document.getElementById('profile-card');
 
 document.getElementById('upload-btn').addEventListener('click', function () {
@@ -256,12 +332,20 @@ document.getElementById('verify-btn').addEventListener('click', function () {
     verdictEl.innerHTML = '<h3>✗ Not valid JSON</h3><p style="font-size:14px">The pasted text could not be parsed as JSON. Make sure you copied the complete package file.</p>';
     return;
   }
+  lastOk = null;
+  setAnchorCopy(null);
+  anchorOut.innerHTML = '';
   SocVerify.verifyPackage(pkg).then(function (res) {
     if (res.ok) {
+      lastOk = { sha256: res.computed, payload: pkg.payload };
+      setAnchorCopy(lastOk);
+      if (typeof pkg.anchor === 'string' && pkg.anchor && !anchorInput.value.trim()) anchorInput.value = pkg.anchor;
+      if (anchorInput.value.trim()) runAnchorCheck();
       verdictEl.className = 'verdict pass';
-      verdictEl.innerHTML = '<h3>✓ Hash verified — contents unaltered</h3>' +
-        '<p style="font-size:14px">The recomputed SHA-256 matches the hash in the package. This record matches what was packaged, graded against rubric ' +
-        esc((pkg.payload && pkg.payload.rubric) || '?') + '. See the honesty notes below for what this does not prove.</p>';
+      verdictEl.innerHTML = '<h3>✓ Hash matches — file unchanged since the hash was made</h3>' +
+        '<p style="font-size:14px">The recomputed SHA-256 matches the hash in the package (claimed rubric: ' +
+        esc((pkg.payload && pkg.payload.rubric) || '?') + '). This is an integrity check, not a signature: it does not show the content is truthful or who made it. ' +
+        'For a dated record, check a <a href="#anchor">public anchor</a> below.</p>';
       showProfile(pkg.payload, res);
     } else {
       verdictEl.className = 'verdict fail';

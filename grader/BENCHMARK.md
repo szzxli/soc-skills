@@ -1,4 +1,4 @@
-# Grader Benchmark · calibration anchors (rubric-prompt v1.2)
+# Grader Benchmark · calibration anchors (written for rubric v1.2; valid for current v1.3 — D1–D7 and §4a unchanged)
 
 > Purpose: fixed anchor cases so anyone can check the grader's consistency.
 > Each anchor = evidence excerpt → expected grade + the rule that fires.

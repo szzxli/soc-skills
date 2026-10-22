@@ -1,0 +1,176 @@
+name: Blind rating (help validate the rubric)
+description: Rate a public sample evidence bundle with the soc-skills rubric BEFORE looking at the AI grade.
+title: "[blind-rating] <sample> by <your handle>"
+labels: ["blind-rating"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping validate soc-skills. Your rating is published as-is (this issue is public) and will be used as inter-rater data.
+        **Protocol:** read [grader/HUMAN-RATING.md](https://github.com/szzxli/soc-skills/blob/main/grader/HUMAN-RATING.md) first. Rate the evidence bundle only, using [TAXONOMY.md](https://github.com/szzxli/soc-skills/blob/main/TAXONOMY.md) (rubric v1.3). Do **not** open the stored AI report, `grader/validation*.md`, `MAPPING.md` or the site's example tab for that sample until you have submitted.
+  - type: dropdown
+    id: sample
+    attributes:
+      label: Sample you rated
+      options:
+        - "P1 · evidence-01-mini-soc.json"
+        - "P2 · evidence-02-python-ioc-analyzer.json"
+        - "P3 · evidence-03-phishing-analysis-lab.json"
+        - "P4 · evidence-04-rea-triage.json"
+    validations:
+      required: true
+  - type: checkboxes
+    id: blind
+    attributes:
+      label: Blind rating
+      options:
+        - label: I rated this sample before seeing the AI grade or the author's rating for it.
+          required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Your SOC experience
+      options:
+        - "Working SOC analyst (Tier 1)"
+        - "Working SOC analyst (Tier 2/3) or IR"
+        - "SOC lead / manager / hiring manager"
+        - "Detection engineer / threat hunter"
+        - "Other security role"
+    validations:
+      required: true
+  - type: input
+    id: years
+    attributes:
+      label: Years in security operations
+      placeholder: "e.g. 4"
+    validations:
+      required: true
+  - type: dropdown
+    id: d1
+    attributes:
+      label: "D1 Security monitoring & alert triage"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d2
+    attributes:
+      label: "D2 Log analysis & detection engineering"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d3
+    attributes:
+      label: "D3 Incident response & reporting"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d4
+    attributes:
+      label: "D4 Phishing email analysis"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d5
+    attributes:
+      label: "D5 Binary / malware triage"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d6
+    attributes:
+      label: "D6 Cloud security (AWS) hands-on"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d7
+    attributes:
+      label: "D7 Security automation & scripting"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: dropdown
+    id: d8
+    attributes:
+      label: "D8 AI agent security & governance"
+      description: Level supported by the evidence. Use "not rated" if the sample shows nothing for this domain.
+      options:
+        - "not rated / no evidence"
+        - "—  (below L1)"
+        - "L1"
+        - "L1+"
+        - "L2"
+        - "L3"
+    validations:
+      required: true
+  - type: textarea
+    id: reasons
+    attributes:
+      label: Evidence you relied on
+      description: For each level you gave, the file or line that earned it (one line per domain is enough).
+    validations:
+      required: true
+  - type: textarea
+    id: rubric
+    attributes:
+      label: Where was the rubric vague or wrong?
+      description: Optional, but the most useful part.
+  - type: input
+    id: minutes
+    attributes:
+      label: Minutes spent
+      placeholder: "e.g. 20"

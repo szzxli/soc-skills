@@ -8,10 +8,11 @@ the 5 home-lab projects.
 
 | File | Purpose |
 |---|---|
-| `rubric-prompt.md` | Executable grading prompt: 7-domain rubric + 7 grading iron rules + output format + counter-examples. Paste the full text + evidence-bundle JSON into any LLM to grade |
+| `rubric-prompt.md` | Executable grading prompt (**rubric v1.3**, current): 8-domain rubric + 7 grading iron rules + injection resistance + output format + counter-examples. Paste the full text + evidence-bundle JSON into any LLM to grade |
 | `grade.py` | Harness: given a project directory, collects the full README + file inventory (code/test/doc/data/config) + first N lines of key files, outputs a standardized evidence-bundle JSON |
-| `validation.md` | v1.0 validation report: LLM graded the 5 projects per the prompt vs MAPPING.md human ratings — 14/15 domains matched, 1 deviation (P1-D3) within tolerance |
+| `validation.md` | v1.0 validation report: LLM graded the author's 5 projects per the prompt vs MAPPING.md ratings (made by the author, not independent raters) — 14/15 domains matched, 1 deviation (P1-D3) within tolerance |
 | `validation-v1.1.md` | v1.1 round (2026-10-16): re-graded with the behavioral dimension (§3b). Key finding: B2 (composure under injects) is "untested" across all 5 projects — the biggest evidence gap. P1-D3 downgrade to L1+ applied to MAPPING.md |
+| `HUMAN-RATING.md` | Blind human-rating protocol + issue form: how SOC practitioners can rate the public samples so inter-rater data can be published |
 | `BENCHMARK.md` | Calibration anchors: 7 fixed evidence→grade cases (5 from the real validation round, 2 synthetic edge cases incl. injection). Run the grader on these to check for drift |
 
 ## Usage
@@ -43,8 +44,17 @@ D<k> | <L1|L1+|L2>[(lab|synthetic|reconstructed)] | evidence: <file path>: <one-
 4. **L1+ is informal**: v1 prompt allows L1+ output, but TAXONOMY hasn't formally defined it (v1.1 candidate).
 5. **No LLM API integration**: v1 is a "prompt + manual paste" flow; API integration (auto-calling models, batch runs) is later Phase 2 work.
 
+## Validity limits (read before relying on a grade)
+
+- The validation set is the author's own 5 projects, rated by the author with the author's rubric. "14/15 matched" is AI-vs-author agreement, not accuracy against independent experts.
+- No human-rater comparison and no inter-rater data yet — see `HUMAN-RATING.md` to contribute.
+- Free/small models can give different levels between runs; run-to-run variance has not been measured (`evaluator-independence/results-illustrative/` is hand-constructed, not measured).
+
 ## Versions
+
+Current rubric version: **v1.3**. The site, new verification packages and the live grader all use v1.3. The stored example reports and the sample profile were graded with v1.1; D1–D7 criteria are unchanged since v1.1.
 
 - v1.3 · 2026-10-20 · §3 gains D8 · AI agent security & governance (taxonomy now 8 domains); §4a and all grader mechanics unchanged
 - v1.2 · 2026-10-17 · §4a injection resistance (evidence = untrusted data); BENCHMARK.md calibration anchors
+- v1.1 · 2026-10-16 · §3b behavioral dimension (process scoring); validation round; P1-D3 downgraded to L1+
 - v1.0 · 2026-10-15 · first prompt + harness + 5-project cross-validation passed

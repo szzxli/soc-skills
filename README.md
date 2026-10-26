@@ -15,7 +15,7 @@
 
 **"Years of experience" says little about what you can do, and a cert tests knowledge, not the work you've shown. This project adds the missing piece: an evidence-based gap list.**
 
-`soc-skills` is an open framework for turning hands-on security work into **HR-readable, evidence-backed skill profiles** — mapped to the [NIST NICE Cybersecurity Workforce Framework](https://niccs.cisa.gov/workforce-development/nice-framework), graded against public rubrics, and honest about scope. Think *LeetCode for cybersecurity hiring*.
+`soc-skills` is an open framework for turning hands-on security work into **HR-readable, evidence-backed skill profiles** — mapped to the [NIST NICE Cybersecurity Workforce Framework](https://niccs.cisa.gov/workforce-development/nice-framework), graded against public rubrics, and honest about scope. The web tool is free and runs entirely in your browser.
 
 ## The problem
 
@@ -32,7 +32,7 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 | [TAXONOMY.md](TAXONOMY.md) | 8 skill domains × 3 levels (L1 guided / L2 independent hands-on / L3 production), D1–D6 anchored to NICE work roles Cyber Defense Analyst (PR-CDA-001) and Incident Responder (PR-CIR-001) (D7 cross-role, D8 AI agent security has no NICE mapping yet), each level with observable evidence criteria |
 | [MAPPING.md](MAPPING.md) | 5 real home-lab projects graded against the taxonomy, with cert alignment (GSEC / Security+ / OSCP — honest version) and an anti-inflation checklist |
 | [PROFILE.md](PROFILE.md) | The author's first one-page, HR-readable skill profile — linkable from a resume |
-| [PROJECT.md](PROJECT.md) | The product thesis: two-sided model (free candidate profiles → paid employer verification reports), competitive landscape, phased roadmap |
+| [PROJECT.md](PROJECT.md) | Background notes: project rationale, a possible future business model, related tools, and phased roadmap |
 | [grader/](grader/) | AI grader (rubric v1.3): executable rubric prompt + evidence-bundle harness + validation report (14/15 domains matched the **author's own** ratings of the author's own 5 projects — not independent raters; see Limitations) |
 | [intel/](intel/) | Weekly threat-intel pipeline (CISA KEV + NVD) feeding future lab cards |
 | [labs/](labs/) | CVE / KEV-driven lab cards, each with a `*-detect.py` detector (synthetic sample logs live in the companion repo, `soc-home-lab/07-kev-hunting/samples/`) |
@@ -73,7 +73,8 @@ If you work in a SOC or hire for one: blind-rate a public sample evidence bundle
 - **Phase 3** — Weekly CVE-driven lab cards (threat intel → reproducible scenarios → NICE-mapped)
 - **Phase 4** — Public profile pages (a printable résumé/LinkedIn one-pager ships today)
 - **Validation** — collect blind human ratings; publish inter-rater agreement
-- **Future** — Employer-side verification reports ("you claim 5 years — take the test")
+
+*Possible future (not built, no timeline):* tools that help employers review a candidate's evidence. The learner tool stays free.
 
 ## Contributing
 

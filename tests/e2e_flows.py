@@ -38,7 +38,7 @@ with sync_playwright() as p:
     c2 = b.new_context(); p2 = c2.new_page(); p2.goto(BASE + '/index.html', wait_until='networkidle')
     p2.wait_for_function("navigator.serviceWorker && navigator.serviceWorker.ready.then(()=>true)", timeout=20000)
     keys = p2.evaluate("new Promise(r=>setTimeout(()=>caches.keys().then(r),1500))")
-    check('soc-skills-v25' in keys, f'service worker installed cache {keys}')
+    check('soc-skills-v26' in keys, f'service worker installed cache {keys}')
     c2.close()
 
     # validity panel via hash

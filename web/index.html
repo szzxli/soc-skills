@@ -617,7 +617,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v25 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v26 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -629,7 +629,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
   <p style="font-family:var(--mono);color:#fff;margin-bottom:6px">soc-skills</p>
   <p class="flinks" style="margin-bottom:6px"><a href="#example">Demo</a>·<a href="#assess">Assess</a>·<a href="#grade">Grade</a>·<a href="#labs">Labs</a>·<a href="#progress">Progress</a>·<a href="verify.html">Verify</a>·<a href="#domains">Domains</a>·<a href="#sample">Sample</a>·<a href="#validity">Limitations</a>·<a href="#faq">FAQ</a>·<a href="#support">Support</a></p>
   <p>MIT licensed · <a href="https://github.com/szzxli/soc-skills">GitHub</a> · <a href="#support">Support</a> · Evidence over pedigree.</p>
-  <p style="font-size:12px;margin-top:6px">Privacy: we count anonymous page views with <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> — no cookies, no personal data. Nothing you type or paste is ever sent to it; your evidence and API key stay in your browser (grading sends them only to the API provider you choose).</p>
+  <p style="font-size:12px;margin-top:6px">Privacy: we use <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a>, a privacy-friendly, cookie-free page-view counter (no personal data, no cookies; its small script loads from gc.zgo.at). Nothing you type or paste is ever sent to it; your evidence and API key stay in your browser (grading sends them only to the API provider you choose).</p>
 </div></footer>
 
 <script>
@@ -1615,5 +1615,8 @@ LABS.forEach(lab=>{
 });
 
 </script>
+<!-- GoatCounter: privacy-friendly, cookie-free page-view counter (no personal data). -->
+<script data-goatcounter="https://szzxli-sec.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

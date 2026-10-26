@@ -371,6 +371,8 @@ footer .flinks a{margin:0 6px}
       <h3 style="margin-bottom:4px">30-second summary</h3>
       <div class="summary-box" id="summary"></div>
       <button class="copybtn" id="copy-btn">Copy summary</button>
+      <button class="copybtn" id="badge-btn" style="background:#0f766e">Copy GitHub README badge</button>
+      <p style="font-size:12.5px;color:var(--soft);margin-top:6px">Add it to your GitHub profile README. It links back here so others can assess themselves.</p>
       <p style="font-size:13.5px;margin-top:10px">What next? → <a href="#labs">Run a CVE lab card</a> · <a href="#grade">Grade your evidence with AI</a> · <a href="#progress">Track your velocity</a></p>
       <div style="margin-top:14px;border-top:1px dashed var(--line);padding-top:12px">
         <h4 style="margin-bottom:6px">Résumé / LinkedIn one-pager</h4>
@@ -615,7 +617,7 @@ document.getElementById("buglink").addEventListener("click", function (e) {
     }
     ls = "~" + (b / 1024).toFixed(1) + " KB";
   } catch (err) {}
-  var body = "## Environment\n- App version: v24 (web)\n- User agent: " + ua
+  var body = "## Environment\n- App version: v25 (web)\n- User agent: " + ua
     + "\n- localStorage used: " + ls
     + "\n\n## What happened\n\n\n## Steps to reproduce\n\n\n## Expected\n";
   location.href = "https://github.com/szzxli/soc-skills/issues/new?title="
@@ -767,15 +769,24 @@ function nextBar(d, lv){
   if(lv==='—') return d.r[0];
   return d.r[1];
 }
-function oneLinerFor(levels){
+// Neutral level summary on the page's own scale (—/L1/L1+/L1+*/L2 per domain; L3 never self-awarded).
+function levelSummary(levels){
   const l2count = levels.filter(l=>l==='L2').length;
   const l1count = levels.filter(l=>l && l.startsWith('L1')).length;
   const n = levels.length;
-  if(l2count===0)
-    return `Developing security practitioner · ${l1count>0?`L1 foundations in ${l1count}/${n} domains`:'assessing foundations'} · evidence-pledged self-assessment`;
-  if(l2count===1)
-    return `Developing security practitioner · first L2 domain (1/${n}) · evidence-pledged self-assessment`;
-  return `${l2count>=5?'Advanced':'Independent'} security practitioner · L2 in ${l2count}/${n} domains · evidence-pledged self-assessment`;
+  if(l2count>0) return `L2 in ${l2count} of ${n} domains`;
+  if(l1count>0) return `L1 in ${l1count} of ${n} domains`;
+  return `no level yet in ${n} domains`;
+}
+function oneLinerFor(levels, pledged){
+  return `SOC skills · ${levelSummary(levels)} · ` +
+    (pledged ? 'self-assessed with evidence pledge, not verified' : 'self-assessed, not verified');
+}
+// Static shields.io badge Markdown (client-side only). Shields path rules: '-'→'--', '_'→'__', space→%20.
+function badgeMarkdownFor(levels){
+  const esc = t => encodeURIComponent(t).replace(/-/g,'--').replace(/_/g,'__');
+  const msg = 'self-assessed ' + levelSummary(levels);
+  return `[![SOC skills: ${msg}](https://img.shields.io/badge/${esc('SOC skills')}-${esc(msg)}-blue)](https://szzxli.github.io/soc-skills/web/)`;
 }
 function renderAssessGaps(levels){
   const box = document.getElementById('assess-gaps');
@@ -816,7 +827,7 @@ function buildOnePagerHtml(entry){
     '<div class="bar"><button onclick="window.print()">Print / Save as PDF</button> <small>Click your name and links to edit them before printing.</small></div>' +
     '<h1 class="edit" contenteditable="true">Your Name</h1>' +
     '<div class="edit" contenteditable="true">Target role: SOC Analyst (Tier 1) · linkedin.com/in/your-profile · github.com/your-handle</div>' +
-    '<div class="one">' + escH(oneLinerFor(levels)) + '</div>' +
+    '<div class="one">' + escH(oneLinerFor(levels, entry.pledged)) + '</div>' +
     '<h2>Skill levels by domain</h2><table>' + rows + '</table>' +
     '<p style="font-size:12.5px;color:#5b6b7b">L1 = guided · L1+ = beyond L1, short of L2 · L2 = independent hands-on (lab scope) · L3 = production, never self-awarded. L1+* = L2 claimed without the evidence pledge.</p>' +
     '<h2>Strongest areas</h2><p>' + (strong.length ? escH(strong.join(' · ')) : 'Building foundations.') + '</p>' +
@@ -895,7 +906,8 @@ document.getElementById('gen-btn').addEventListener('click', ()=>{
   const top = DOMAINS.map((d,i)=>({d,lv:levels[i]}))
     .filter(x=>x.lv==='L2').map(x=>x.d.id).join(', ') || 'foundations';
 
-  document.getElementById('one-liner').textContent = oneLinerFor(levels);
+  document.getElementById('one-liner').textContent = oneLinerFor(levels, pledged);
+  lastLevels = levels;
   renderAssessGaps(levels);
 
   // Matrix
@@ -931,6 +943,14 @@ Note: self-assessed gap analysis — complements certifications, doesn't replace
 document.getElementById('copy-btn').addEventListener('click', ()=>{
   navigator.clipboard.writeText(document.getElementById('summary').textContent)
     .then(()=>{document.getElementById('copy-btn').textContent='Copied!';setTimeout(()=>document.getElementById('copy-btn').textContent='Copy summary',1500);});
+});
+
+let lastLevels = null;
+document.getElementById('badge-btn').addEventListener('click', ()=>{
+  if(!lastLevels) return;
+  const b = document.getElementById('badge-btn');
+  navigator.clipboard.writeText(badgeMarkdownFor(lastLevels))
+    .then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy GitHub README badge',1500);});
 });
 
 // ---- History & learning velocity (localStorage, device-only) ----

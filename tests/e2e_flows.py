@@ -38,7 +38,8 @@ with sync_playwright() as p:
     c2 = b.new_context(); p2 = c2.new_page(); p2.goto(BASE + '/index.html', wait_until='networkidle')
     p2.wait_for_function("navigator.serviceWorker && navigator.serviceWorker.ready.then(()=>true)", timeout=20000)
     keys = p2.evaluate("new Promise(r=>setTimeout(()=>caches.keys().then(r),1500))")
-    check('soc-skills-v27' in keys, f'service worker installed cache {keys}')
+    sw_ver = re.search(r"soc-skills-v\d+", open(os.path.join(os.path.dirname(__file__), '..', 'web', 'sw.js')).read()).group(0)
+    check(sw_ver in keys, f'service worker installed cache {keys}')
     c2.close()
 
     # validity panel via hash
@@ -69,6 +70,17 @@ with sync_playwright() as p:
     gaps_n = page.locator('#assess-gaps [data-learn]').count()
     check(gaps_n >= 1, f'self-assessment gap analysis lists {gaps_n} domains with learning links')
     check('complements certifications' in page.inner_text('#summary'), '30-second summary carries the complement disclaimer')
+    pr = page.locator('#assess-gaps [data-practice]')
+    check(pr.count() == gaps_n, f'every gap domain has a "Practice it" line ({pr.count()})')
+    order_ok = page.evaluate("[...document.querySelectorAll('#assess-gaps [data-practice]')].every(p => p.nextElementSibling && p.nextElementSibling.matches('[data-learn]'))")
+    check(order_ok, 'lab practice links come before external platforms')
+    lab_link = page.locator('#assess-gaps [data-practice] a[href^="#lab-card-"]')
+    if lab_link.count():
+        href = lab_link.first.get_attribute('href'); lab_link.first.click()
+        check(page.evaluate(f"document.getElementById('labs').open && document.querySelector('{href}').classList.contains('open')"), f'gap link {href} opens the mapped lab card')
+    page.click('#share-btn')
+    shared = page.evaluate("navigator.clipboard.readText()")
+    check(shared.startswith('My SOC skills self-assessment (self-assessed, not verified') and 'D1 ' in shared, 'shareable result copied, labeled self-assessed')
 
     with ctx.expect_page() as pi:
         page.click('#onepager-btn')

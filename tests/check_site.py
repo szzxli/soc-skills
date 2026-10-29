@@ -167,7 +167,7 @@ if tmpl.exists():
 check((ROOT / "grader" / "HUMAN-RATING.md").exists(), "grader/HUMAN-RATING.md protocol exists")
 
 # 11. Repositioning: gap analysis that complements certs
-hero = idx_src[idx_src.find('<div class="hero"'):idx_src.find('<section class="feats"')]
+hero = idx_src[idx_src.find('<div class="hero"'):idx_src.find('<section class="how-steps"')]
 sub = re.search(r'<p class="sub">(.*?)</p>', hero).group(1)
 check("missing" in sub and "learn" in sub and ("alongside" in sub.lower() or "complement" in sub.lower()), "hero subline: what's missing + where to learn + complements certs")
 check(len(re.sub(r"<[^>]+>", "", sub).split()) <= 30, "hero subline stays short (<= 30 words)")
@@ -187,6 +187,28 @@ check(idx_src.count("learnHtml(") >= 4, "learning links rendered in live grading
 for i in ["assess-gaps", "onepager-btn", "onepager-latest"]:
     check(i in index.ids, f"homepage #{i} exists")
 check("Honest disclaimer" in idx_src and "not a certification" in idx_src, "one-pager carries an honest disclaimer")
+
+# 12. Page batch 2026-10-29: user-flow order, one hero CTA, honest privacy, gap→lab, share card
+hero_end = idx_src.find('<section class="how-steps"')
+check(hero_end > 0 and idx_src.find('<section class="panels"') > hero_end, "How-it-works steps sit directly under the hero")
+check(len(re.findall(r'class="btn primary', idx_src[:hero_end])) == 1, "hero has exactly one primary CTA")
+check('<details class="tools-more">' in idx_src[:hero_end], "secondary hero links are folded")
+check("expand-all" not in idx_src and "Open any section" not in idx_src, "no 'Open any section / Expand all' on the first screen")
+order = [idx_src.find(f'<details class="panel" id="{p}">') for p in ("assess", "labs", "grade", "progress")]
+check(all(o > 0 for o in order) and order == sorted(order), "panels follow the flow: Assess, Build evidence (labs), Grade, Progress")
+check("Employers buy future performance" not in idx_src, "no 'Employers buy future performance' line")
+check("level-legend" in index.ids and all(t in idx_src[:hero_end] for t in ("L1+*", "L1+", "L2")), "level legend near the hero screenshot")
+gl = idx_src[hero_end:idx_src.find('<section class="panels"')]
+check("<b>NICE</b>" in gl and "<b>KEV</b>" in gl, "NICE and KEV glossed before first use")
+check("soc-home-lab/web/?ref=socskills" in gl and "where you practice" in gl, "soc-home-lab relationship line with ?ref=socskills")
+check(all("ref=socskills" in h for h in index.links if "szzxli.github.io/soc-home-lab" in h), "every soc-home-lab site link carries ?ref=socskills")
+faq_priv = re.search(r"<dt>Where does my data go\?</dt>\s*<dd>(.*?)</dd>", idx_src, re.S)
+check(faq_priv is not None and faq_priv.group(1).startswith("It stays in your browser") and "may log or retain" in faq_priv.group(1),
+      "privacy answer leads with 'stays in your browser' + provider retention caveat")
+check("practiceHtml(g.d.id) + learnHtml(g.d.id)" in idx_src, "gap list shows lab cards before external platforms")
+check("share-btn" in index.ids and "self-assessed, not verified" in idx_src[idx_src.find("function shareCardFor"):][:600], "shareable result is labeled self-assessed")
+one = re.search(r"function oneLinerFor\(levels, pledged\)\{([\s\S]*?)\n\}", idx_src).group(1)
+check("pledged ?" in one and not re.search(r"Advanced|Independent", one), "one-liner: 'pledge' wording only when pledged, no inflated titles")
 
 print(f"\n{'FAILED' if fails else 'OK'}: {len(fails)} failure(s)")
 sys.exit(1 if fails else 0)

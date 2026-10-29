@@ -38,7 +38,8 @@ with sync_playwright() as p:
     c2 = b.new_context(); p2 = c2.new_page(); p2.goto(BASE + '/index.html', wait_until='networkidle')
     p2.wait_for_function("navigator.serviceWorker && navigator.serviceWorker.ready.then(()=>true)", timeout=20000)
     keys = p2.evaluate("new Promise(r=>setTimeout(()=>caches.keys().then(r),1500))")
-    check('soc-skills-v27' in keys, f'service worker installed cache {keys}')
+    sw_ver = re.search(r"soc-skills-v\d+", open(os.path.join(os.path.dirname(__file__), '..', 'web', 'sw.js')).read()).group(0)
+    check(sw_ver in keys, f'service worker installed cache {keys}')
     c2.close()
 
     # validity panel via hash
@@ -69,6 +70,20 @@ with sync_playwright() as p:
     gaps_n = page.locator('#assess-gaps [data-learn]').count()
     check(gaps_n >= 1, f'self-assessment gap analysis lists {gaps_n} domains with learning links')
     check('complements certifications' in page.inner_text('#summary'), '30-second summary carries the complement disclaimer')
+    pr = page.locator('#assess-gaps [data-practice]')
+    check(pr.count() == gaps_n, f'every gap domain has a "Practice it" line ({pr.count()})')
+    order_ok = page.evaluate("[...document.querySelectorAll('#assess-gaps [data-practice]')].every(p => p.nextElementSibling && p.nextElementSibling.matches('[data-learn]'))")
+    check(order_ok, 'lab practice links come before external platforms')
+    lab_link = page.locator('#assess-gaps [data-practice] a[href^="#lab-card-"]')
+    if lab_link.count():
+        href = lab_link.first.get_attribute('href'); lab_link.first.click()
+        check(page.evaluate(f"document.getElementById('labs').open && document.querySelector('{href}').classList.contains('open')"), f'gap link {href} opens the mapped lab card')
+    hint_oa = page.evaluate("gradeErrorHint('https://api.openai.com/v1', 'Failed to fetch')")
+    hint_ok = page.evaluate("gradeErrorHint('https://api.openai.com/v1', 'HTTP 401: bad key')")
+    check('wrong or expired key' in hint_oa and hint_ok == '', 'OpenAI "Failed to fetch" gets an inline explanation; readable HTTP errors do not')
+    page.click('#share-btn')
+    shared = page.evaluate("navigator.clipboard.readText()")
+    check(shared.startswith('My SOC skills self-assessment (self-assessed, not verified') and 'D1 ' in shared, 'shareable result copied, labeled self-assessed')
 
     with ctx.expect_page() as pi:
         page.click('#onepager-btn')
@@ -91,6 +106,22 @@ with sync_playwright() as p:
     page.wait_for_selector('#grade-prescription .learn a', timeout=15000)
     check(page.locator('#grade-prescription .learn a').count() >= 2, 'grading "next moves" show learning links')
     check('earlier rubric v1.1' in page.inner_text('#grade-status'), 'stored example labeled as earlier rubric v1.1')
+    # OpenAI provider: note stays visible while grading; "Failed to fetch" explained at the error (network mocked, nothing sent)
+    pending = []
+    page.evaluate("openPanel('grade')")
+    page.select_option('#api-provider', 'https://api.openai.com/v1')
+    page.fill('#api-key', 'sk-test-not-a-real-key'); page.fill('#evidence', 'test evidence')
+    page.route('https://api.openai.com/**', lambda r: pending.append(r))  # hold the request open
+    page.click('#grade-btn')
+    page.wait_for_function("document.getElementById('grade-status').innerText.startsWith('Grading')")
+    st = page.inner_text('#grade-status')
+    check('Grading' in st and 'OpenAI is not tested here' in st, 'OpenAI note stays visible during grading')
+    page.wait_for_timeout(300)
+    for r in pending: r.abort()
+    page.wait_for_function("document.getElementById('grade-status').innerText.startsWith('Grading failed')", timeout=15000)
+    check('wrong or expired key' in page.inner_text('#grade-status'), 'OpenAI network failure explained at the error message')
+    page.unroute('https://api.openai.com/**')
+    page.evaluate("document.getElementById('forget-key').click()")
     check(not errors, f'no console/page errors on homepage {errors[:3]}')
 
     # Verify page
@@ -133,7 +164,7 @@ with sync_playwright() as p:
         v.fill('#anchor-url', real); v.click('#anchor-btn')
         v.wait_for_selector('#anchor-result .verdict', timeout=20000)
         rt = v.inner_text('#anchor-result')
-        check('No public anchor' in rt and ('does not contain' in rt or 'rate limit' in rt), f'anchor vs a real public gist via live GitHub API -> not found: {rt[:90]!r}')
+        check('No public anchor' in rt and ('does not contain' in rt or 'was not found' in rt or 'rate limit' in rt), f'anchor vs a real public gist via live GitHub API -> not found: {rt[:90]!r}')
     v.fill('#anchor-url', 'https://gist.github.com/nobody/0000000000000000000000000000dead')
     v.click('#anchor-btn'); v.wait_for_function("/not found|rate limit/i.test(document.getElementById('anchor-result').innerText)", timeout=20000)
     check(True, 'anchor vs nonexistent gist (live API) -> "' + v.inner_text('#anchor-result').split('\n')[-1][:60] + '"')

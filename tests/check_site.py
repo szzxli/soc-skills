@@ -212,5 +212,18 @@ check("pledged ?" in one and not re.search(r"Advanced|Independent", one), "one-l
 
 check("gradeErrorHint(base, err.message)" in idx_src and "wrong or expired key, or no credit" in idx_src, "OpenAI 'Failed to fetch' is explained at the error message itself")
 
+check("+ provNote;" in idx_src and "status.textContent = 'Note: OpenAI" not in idx_src, "OpenAI note stays visible in the 'Grading…' status")
+gl_pages = [idx_src, ver_src, (ROOT / "_includes" / "head-custom.html").read_text(encoding="utf-8")]
+loaders = [re.findall(r"<script>/\* GoatCounter loader:.*?</script>", t, re.S) for t in gl_pages]
+check(all(len(l) == 1 for l in loaders) and len({l[0] for l in loaders}) == 1, "every page loads GoatCounter only via the same test-visit guard")
+check(not any(re.search(r'<script[^>]*data-goatcounter=[^>]*src="https://gc\.zgo\.at/count\.js"', t) for t in gl_pages), "no static count.js tag bypasses the guard")
+check("if (window.gcSkip) return;" in analytics, "analytics.js events respect the test-visit guard")
+check(all("ref=gh-socskills" in u for u in re.findall(r"https://szzxli\.github\.io/[^\s)\]>\"']+", readme)), "README links to the site carry ?ref=gh-socskills")
+check((ROOT / "CONTRIBUTING.md").exists() and "?nocount=1" in (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8"), "CONTRIBUTING documents testing with ?nocount=1")
+
+if node:
+    r = subprocess.run([node, str(ROOT / "tests" / "test_goatcounter_guard.js")], capture_output=True, text=True)
+    check(r.returncode == 0, "goatcounter guard logic (node): " + ((r.stdout.strip().splitlines() or [r.stderr.strip()[-200:]])[-1]))
+
 print(f"\n{'FAILED' if fails else 'OK'}: {len(fails)} failure(s)")
 sys.exit(1 if fails else 0)

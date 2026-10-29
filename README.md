@@ -2,11 +2,11 @@
 
 > **Free, open-source gap analysis for SOC job seekers.** Grade your real hands-on work against a public, NIST NICE-mapped rubric, see what you're still missing for a SOC analyst role, and where to learn it. It **complements** certs and platforms like Security+/CySA+, BTL1 and TryHackMe/Hack The Box — it doesn't replace them.
 >
-> **▶ Live demo:** https://szzxli.github.io/soc-skills/web/ — runs in your browser, no sign-up, no install.
+> **▶ Live demo:** https://szzxli.github.io/soc-skills/web/?ref=gh-socskills — runs in your browser, no sign-up, no install.
 
 **Quick start**
 
-1. Open the [live site](https://szzxli.github.io/soc-skills/web/) and take the self-assessment.
+1. Open the [live site](https://szzxli.github.io/soc-skills/web/?ref=gh-socskills) and take the self-assessment.
 2. Build evidence with the CISA KEV-driven lab cards in [`labs/`](labs/).
 3. Paste your project evidence into **Grade**, bring your own API key (it stays in your browser), and get a per-domain gap analysis with "where to learn this" links (TryHackMe, LetsDefend, CyberDefenders, BTL1, CompTIA objectives, MITRE ATT&CK).
 4. Copy the one-line summary to the top of your resume, or print the one-page summary (Résumé/LinkedIn one-pager).
@@ -36,13 +36,13 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 | [grader/](grader/) | AI grader (rubric v1.3): executable rubric prompt + evidence-bundle harness + validation report (14/15 domains matched the **author's own** ratings of the author's own 5 projects — not independent raters; see Limitations) |
 | [intel/](intel/) | Weekly threat-intel pipeline (CISA KEV + NVD) feeding future lab cards |
 | [labs/](labs/) | CVE / KEV-driven lab cards, each with a `*-detect.py` detector (synthetic sample logs live in the companion repo, `soc-home-lab/07-kev-hunting/samples/`) |
-| [web/](web/) | The static site: self-assessment, AI grading (BYOK), gap analysis with learning links, progress history with JSON export/import, résumé one-pager, verification packages — live at https://szzxli.github.io/soc-skills/web/ |
+| [web/](web/) | The static site: self-assessment, AI grading (BYOK), gap analysis with learning links, progress history with JSON export/import, résumé one-pager, verification packages — live at https://szzxli.github.io/soc-skills/web/?ref=gh-socskills |
 
 Companion repo with the actual labs: [szzxli/soc-home-lab](https://github.com/szzxli/soc-home-lab)
 
 ## Verification packages: what they prove
 
-A verification package is the profile JSON plus a SHA-256 hash of it. A matching hash on the [Verify page](https://szzxli.github.io/soc-skills/web/verify.html) proves **the file is unchanged since the hash was made** — nothing more. It is not a digital signature: it does not prove the content is truthful, who made it, or when (the "issued" time is self-asserted), and anyone who edits a package can recompute its hash.
+A verification package is the profile JSON plus a SHA-256 hash of it. A matching hash on the [Verify page](https://szzxli.github.io/soc-skills/web/verify.html?ref=gh-socskills) proves **the file is unchanged since the hash was made** — nothing more. It is not a digital signature: it does not prove the content is truthful, who made it, or when (the "issued" time is self-asserted), and anyone who edits a package can recompute its hash.
 
 **Optional free public timestamp:** post the package hash in a **public GitHub gist** (the Verify page has a "Copy gist text" button). GitHub records when the gist was created and last edited, so the Verify page can show the hash was public *no later than* that date. No server, no paid service. Commit dates can be backdated by the committer, so only gists are checked; [OpenTimestamps](https://opentimestamps.org/) is an alternative for advanced users (not checked by the site).
 

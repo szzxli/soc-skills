@@ -106,6 +106,22 @@ with sync_playwright() as p:
     page.wait_for_selector('#grade-prescription .learn a', timeout=15000)
     check(page.locator('#grade-prescription .learn a').count() >= 2, 'grading "next moves" show learning links')
     check('earlier rubric v1.1' in page.inner_text('#grade-status'), 'stored example labeled as earlier rubric v1.1')
+    # OpenAI provider: note stays visible while grading; "Failed to fetch" explained at the error (network mocked, nothing sent)
+    pending = []
+    page.evaluate("openPanel('grade')")
+    page.select_option('#api-provider', 'https://api.openai.com/v1')
+    page.fill('#api-key', 'sk-test-not-a-real-key'); page.fill('#evidence', 'test evidence')
+    page.route('https://api.openai.com/**', lambda r: pending.append(r))  # hold the request open
+    page.click('#grade-btn')
+    page.wait_for_function("document.getElementById('grade-status').innerText.startsWith('Grading')")
+    st = page.inner_text('#grade-status')
+    check('Grading' in st and 'OpenAI is not tested here' in st, 'OpenAI note stays visible during grading')
+    page.wait_for_timeout(300)
+    for r in pending: r.abort()
+    page.wait_for_function("document.getElementById('grade-status').innerText.startsWith('Grading failed')", timeout=15000)
+    check('wrong or expired key' in page.inner_text('#grade-status'), 'OpenAI network failure explained at the error message')
+    page.unroute('https://api.openai.com/**')
+    page.evaluate("document.getElementById('forget-key').click()")
     check(not errors, f'no console/page errors on homepage {errors[:3]}')
 
     # Verify page
@@ -148,7 +164,7 @@ with sync_playwright() as p:
         v.fill('#anchor-url', real); v.click('#anchor-btn')
         v.wait_for_selector('#anchor-result .verdict', timeout=20000)
         rt = v.inner_text('#anchor-result')
-        check('No public anchor' in rt and ('does not contain' in rt or 'rate limit' in rt), f'anchor vs a real public gist via live GitHub API -> not found: {rt[:90]!r}')
+        check('No public anchor' in rt and ('does not contain' in rt or 'was not found' in rt or 'rate limit' in rt), f'anchor vs a real public gist via live GitHub API -> not found: {rt[:90]!r}')
     v.fill('#anchor-url', 'https://gist.github.com/nobody/0000000000000000000000000000dead')
     v.click('#anchor-btn'); v.wait_for_function("/not found|rate limit/i.test(document.getElementById('anchor-result').innerText)", timeout=20000)
     check(True, 'anchor vs nonexistent gist (live API) -> "' + v.inner_text('#anchor-result').split('\n')[-1][:60] + '"')

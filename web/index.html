@@ -1456,11 +1456,11 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
   const base = (provSel.value==='custom' ? baseInput.value.trim() : provSel.value).replace(/\/$/,'');
   const model = modelInput.value.trim() || 'google/gemma-4-31b-it:free';
   if(!base){ status.textContent = 'Enter a custom endpoint URL.'; card.style.display=''; return; }
-  if(provSel.value==='https://api.openai.com/v1'){
-    status.textContent = 'Note: OpenAI is not tested here and needs a paid key. If this fails with "Failed to fetch", check the key, or use OpenRouter.';
-  }
+  // Provider note stays visible while grading (it used to be overwritten by the "Grading…" line).
+  const provNote = provSel.value==='https://api.openai.com/v1'
+    ? ' — Note: OpenAI is not tested here and needs a paid key. If this fails with "Failed to fetch", check the key, or use OpenRouter.' : '';
   card.style.display = '';
-  status.textContent = 'Grading… (rubric ' + RUBRIC_VERSION + ', ' + model + ')';
+  status.textContent = 'Grading… (rubric ' + RUBRIC_VERSION + ', ' + model + ')' + provNote;
   out.textContent = '';
   updateGradingPackage('', model);
   document.getElementById('grade-btn').disabled = true;
@@ -1649,7 +1649,7 @@ LABS.forEach(lab=>{
 
 </script>
 <!-- GoatCounter: privacy-friendly, cookie-free page-view counter (no personal data). -->
-<script data-goatcounter="https://szzxli.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+<script>/* GoatCounter loader: test visits are never counted. ?nocount=1 turns counting off in this browser (localStorage skipgc=t, GoatCounter's own flag; ?nocount=0 turns it back on); URLs with v=, cb=, cachebust, _= or nocount are skipped too. */
+(function(w,d,l){var q=l.search,skip=/[?&](v|cb|_|nocount)=|[?&]cachebust/i.test(q);try{var s=w.localStorage;if(/[?&]nocount=1(&|$)/.test(q))s.setItem('skipgc','t');if(/[?&]nocount=0(&|$)/.test(q))s.removeItem('skipgc');if(s.getItem('skipgc')==='t')skip=true}catch(e){}w.gcSkip=skip;if(skip)return;var g=d.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://szzxli.goatcounter.com/count');(d.head||d.documentElement).appendChild(g)})(window,document,location);</script>
 </body>
 </html>

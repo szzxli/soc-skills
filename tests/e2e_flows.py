@@ -78,6 +78,9 @@ with sync_playwright() as p:
     if lab_link.count():
         href = lab_link.first.get_attribute('href'); lab_link.first.click()
         check(page.evaluate(f"document.getElementById('labs').open && document.querySelector('{href}').classList.contains('open')"), f'gap link {href} opens the mapped lab card')
+    hint_oa = page.evaluate("gradeErrorHint('https://api.openai.com/v1', 'Failed to fetch')")
+    hint_ok = page.evaluate("gradeErrorHint('https://api.openai.com/v1', 'HTTP 401: bad key')")
+    check('wrong or expired key' in hint_oa and hint_ok == '', 'OpenAI "Failed to fetch" gets an inline explanation; readable HTTP errors do not')
     page.click('#share-btn')
     shared = page.evaluate("navigator.clipboard.readText()")
     check(shared.startswith('My SOC skills self-assessment (self-assessed, not verified') and 'D1 ' in shared, 'shareable result copied, labeled self-assessed')

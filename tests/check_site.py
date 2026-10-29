@@ -210,5 +210,7 @@ check("share-btn" in index.ids and "self-assessed, not verified" in idx_src[idx_
 one = re.search(r"function oneLinerFor\(levels, pledged\)\{([\s\S]*?)\n\}", idx_src).group(1)
 check("pledged ?" in one and not re.search(r"Advanced|Independent", one), "one-liner: 'pledge' wording only when pledged, no inflated titles")
 
+check("gradeErrorHint(base, err.message)" in idx_src and "wrong or expired key, or no credit" in idx_src, "OpenAI 'Failed to fetch' is explained at the error message itself")
+
 print(f"\n{'FAILED' if fails else 'OK'}: {len(fails)} failure(s)")
 sys.exit(1 if fails else 0)

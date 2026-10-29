@@ -1436,6 +1436,15 @@ function renderPrescription(text){
   box.style.display = '';
 }
 
+// Explain an opaque network error right at the message. OpenAI's error responses carry no CORS
+// header (checked 2026-10-29), so the browser hides the real status and reports "Failed to fetch".
+function gradeErrorHint(base, msg){
+  const network = /Failed to fetch|NetworkError|Load failed/i.test(String(msg||''));
+  if(!network) return '';
+  if(String(base||'').indexOf('api.openai.com') !== -1)
+    return ' — with OpenAI this most likely means a wrong or expired key, or no credit on the account. OpenAI\'s error replies can\'t be read by the browser, so the real reason is hidden. Check the key and billing at platform.openai.com, or use OpenRouter.';
+  return ' — the request never got a readable reply: check your connection, the endpoint URL, and that the provider allows browser (CORS) requests.';
+}
 document.getElementById('grade-btn').addEventListener('click', async ()=>{
   const key = keyInput.value.trim();
   const evidence = document.getElementById('evidence').value.trim();
@@ -1484,7 +1493,7 @@ document.getElementById('grade-btn').addEventListener('click', async ()=>{
     updateGradingPackage(text, model);
     status.textContent = 'Done. Advisory output — AI grades can vary between runs, so re-run before relying on a level. Verify against the public rubric.';
   }catch(err){
-    status.textContent = 'Grading failed: ' + err.message;
+    status.textContent = 'Grading failed: ' + err.message + gradeErrorHint(base, err.message);
     renderPrescription('');
     updateGradingPackage('', model);
     out.textContent = 'Troubleshooting: check the key, the endpoint URL, and that the model name exists on your provider. With OpenAI, "Failed to fetch" often means a wrong key — or use OpenRouter. The key never left this device except to the endpoint above.';

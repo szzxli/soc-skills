@@ -36,6 +36,7 @@ Result: employers fall back on lazy year-count filters, and skilled people get s
 | [grader/](grader/) | AI grader (rubric v1.3): executable rubric prompt + evidence-bundle harness + validation report (14/15 domains matched the **author's own** ratings of the author's own 5 projects — not independent raters; see Limitations) |
 | [intel/](intel/) | Weekly threat-intel pipeline (CISA KEV + NVD) feeding future lab cards |
 | [labs/](labs/) | CVE / KEV-driven lab cards, each with a `*-detect.py` detector (synthetic sample logs live in the companion repo, `soc-home-lab/07-kev-hunting/samples/`) |
+| [docs/cases/](docs/cases/) | Case notes: verified-fact writeups and triage checklists when there is no freely reproducible lab |
 | [web/](web/) | The static site: self-assessment, AI grading (BYOK), gap analysis with learning links, progress history with JSON export/import, résumé one-pager, verification packages — live at https://szzxli.github.io/soc-skills/web/?ref=gh-socskills |
 
 Companion repo with the actual labs: [szzxli/soc-home-lab](https://github.com/szzxli/soc-home-lab)

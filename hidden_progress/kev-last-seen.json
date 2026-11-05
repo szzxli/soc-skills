@@ -1,1 +1,7 @@
-{"baseline": "2026-10-20", "feedCount": 1767, "feedVersion": "2026.11.03", "maxDateAddedSeen": "2026-11-03", "note": "2026-11-04 lean run: catalog 2026.11.03 count 1767. NEW CVE-2026-119977 WordPress Core TOCTOU (added 2026-11-03, due 2026-11-06) — no matching lab card; proposal only (detection/forensic-triage exercise). No card/status change on live page; stamp N/A on soc-skills web."}
+{
+  "baseline": "2026-10-20",
+  "feedCount": 1768,
+  "feedVersion": "2026.11.04",
+  "maxDateAddedSeen": "2026-11-04",
+  "note": "2026-11-05 lean run: catalog 2026.11.04 count 1768. NEW CVE-2024-27834 Apple Multiple Products Improper Authentication (added 2026-11-04, due 2026-11-18) \u2014 no matching lab card; proposal only. No card/status change on live page; stamp N/A on soc-skills web."
+}

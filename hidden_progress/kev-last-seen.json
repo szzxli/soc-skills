@@ -1,7 +1,7 @@
 {
   "baseline": "2026-10-20",
-  "feedCount": 1768,
-  "feedVersion": "2026.11.04",
-  "maxDateAddedSeen": "2026-11-04",
-  "note": "2026-11-05 lean run: catalog 2026.11.04 count 1768. NEW CVE-2024-27834 Apple Multiple Products Improper Authentication (added 2026-11-04, due 2026-11-18) \u2014 no matching lab card; proposal only. No card/status change on live page; stamp N/A on soc-skills web."
+  "feedCount": 1769,
+  "feedVersion": "2026.11.06",
+  "maxDateAddedSeen": "2026-11-06",
+  "note": "2026-11-07 lean run: catalog 2026.11.06 count 1769. NEW CVE-2026-19868 SonicWall SonicOS SSLVPN Use of Single-factor Authentication (CWE-308, added 2026-11-06, due 2026-11-20) — no matching lab; proposal only. No card/status change on live page; stamp N/A on soc-skills web."
 }
